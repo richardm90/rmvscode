@@ -1,0 +1,155 @@
+**FREE
+
+//==============================================================================
+// CUSDETDL_D.rpgle
+//   Customer Details DAL Copybook
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+/if defined(CUSDETDL_D)
+/eof
+/endif
+/define CUSDETDL_D
+
+//========================================================================
+// Define global data structures
+//========================================================================
+
+// /if defined(APP_DATA_OR_SERVICE_LAYER)
+
+dcl-ds t_CUSDET qualified template inz;
+  ID                     like(t_INTEGER);
+  CODE                   like(t_CUSDET_CODE);
+  STATUS                 like(t_CUSDET_STATUS);
+  NAME                   like(t_CUSDET_NAME);
+  ADDRESS_LINE1          like(t_CUSDET_ADDRESS_LINE);
+  ADDRESS_LINE2          like(t_CUSDET_ADDRESS_LINE);
+  ADDRESS_LINE3          like(t_CUSDET_ADDRESS_LINE);
+  ADDRESS_LINE4          like(t_CUSDET_ADDRESS_LINE);
+  POSTCODE               like(t_CUSDET_POSTCODE);
+  CONTACT_NAME           like(t_CUSDET_CONTACT_NAME);
+  CONTACT_TELP           like(t_CUSDET_CONTACT_TELP);
+  CONTACT_EMAIL          like(t_CUSDET_CONTACT_EMAIL);
+  VAT_CODE               like(t_CUSDET_VAT_CODE);
+  CURRENCY               like(t_CUSDET_CURRENCY);
+  CREDIT_LIMIT           like(t_CUSDET_CREDIT_LIMIT);
+  CURRENT_BALANCE        like(t_CUSDET_CURRENT_BALANCE);
+  COMMENTS               like(t_CUSDET_COMMENTS);
+  CREATED_BY_USER        varchar(18);
+  CREATED_TIMESTAMP      timestamp;
+  // AUDIT_TYPE_CHANGE      char(1);
+  // AUDIT_USER             varchar(128);
+  // AUDIT_CLIENT_IP        varchar(128);
+  // AUDIT_JOB_NAME         varchar(28);
+  // AUDIT_TIME             timestamp;
+end-ds;
+
+dcl-ds t_CUSDET_list qualified template inz;
+  ID                     like(t_INTEGER);
+  CODE                   like(t_CUSDET_CODE);
+  STATUS                 like(t_CUSDET_STATUS);
+  STATUS_DESCRIPTION     like(t_CUSDET_STATUS_DESCRIPTION);
+  NAME                   like(t_CUSDET_NAME);
+  ADDRESS_LINE1          like(t_CUSDET_ADDRESS_LINE);
+  ADDRESS_LINE2          like(t_CUSDET_ADDRESS_LINE);
+  ADDRESS_LINE3          like(t_CUSDET_ADDRESS_LINE);
+  ADDRESS_LINE4          like(t_CUSDET_ADDRESS_LINE);
+  POSTCODE               like(t_CUSDET_POSTCODE);
+  CONTACT_NAME           like(t_CUSDET_CONTACT_NAME);
+  CONTACT_TELP           like(t_CUSDET_CONTACT_TELP);
+  CONTACT_EMAIL          like(t_CUSDET_CONTACT_EMAIL);
+  VAT_CODE               like(t_CUSDET_VAT_CODE);
+  CURRENCY               like(t_CUSDET_CURRENCY);
+  CREDIT_LIMIT           like(t_CUSDET_CREDIT_LIMIT);
+  CURRENT_BALANCE        like(t_CUSDET_CURRENT_BALANCE);
+  COMMENTS               like(t_CUSDET_COMMENTS);
+end-ds;
+
+dcl-ds t_CUSDET_list_selections qualified template inz;
+  CODE                   like(t_CUSDET_CODE);
+  STATUS                 like(t_CUSDET_STATUS);
+  NAME                   like(t_CUSDET_NAME);
+  SEARCH                 like(t_CUSDET_NAME);
+end-ds;
+
+dcl-ds t_CUSDET_fetch_selections qualified template inz;
+  ID                     like(t_INTEGER);
+  NOT_ID                 like(t_FLAG) inz('N');
+  CODE                   like(t_CUSDET_CODE);
+end-ds;
+
+// /endif
+
+//========================================================================
+// Define field templates
+//========================================================================
+
+dcl-s t_CUSDET_CODE               char(10) template;
+dcl-s t_CUSDET_STATUS             char(1) template;
+dcl-s t_CUSDET_STATUS_DESCRIPTION varchar(40) template;
+dcl-s t_CUSDET_NAME               varchar(40) template;
+dcl-s t_CUSDET_ADDRESS_LINE       varchar(40) template;
+dcl-s t_CUSDET_POSTCODE           varchar(10) template;
+dcl-s t_CUSDET_CONTACT_NAME       varchar(20) template;
+dcl-s t_CUSDET_CONTACT_TELP       varchar(20) template;
+dcl-s t_CUSDET_CONTACT_EMAIL      varchar(80) template;
+dcl-s t_CUSDET_VAT_CODE           char(2) template;
+dcl-s t_CUSDET_CURRENCY           char(3) template;
+dcl-s t_CUSDET_CREDIT_LIMIT       packed(11:2) template;
+dcl-s t_CUSDET_CURRENT_BALANCE    packed(11:2) template;
+dcl-s t_CUSDET_COMMENTS           varchar(1024) template;
+
+//========================================================================
+// Define global constants
+//========================================================================
+
+dcl-c c_CUSDET_STATUS_ACTIVE      'A';
+dcl-c c_CUSDET_STATUS_CLOSED      'C';
+dcl-c c_CUSDET_STATUS_NEW         'N';
+
+//========================================================================
+// Define global prototypes
+//========================================================================
+
+/if defined(APP_DATA_OR_SERVICE_LAYER)
+
+dcl-pr CUSDETDL_add like(t_BOOLEAN);
+  data likeds(t_CUSDET);
+end-pr;
+
+dcl-pr CUSDETDL_get like(t_BOOLEAN);
+  data likeds(t_CUSDET);
+end-pr;
+
+dcl-pr CUSDETDL_update like(t_BOOLEAN);
+  data likeds(t_CUSDET);
+end-pr;
+
+dcl-pr CUSDETDL_delete like(t_BOOLEAN);
+  data likeds(t_CUSDET);
+end-pr;
+
+dcl-pr CUSDETDL_list like(t_UNSIGNED_INTEGER);
+  calc likeds(APPDAL_paging_t);
+  sel  likeds(t_CUSDET_list_selections) const;
+  data likeds(t_CUSDET_list) dim(APPDAL_MAXIMUM_PAGE_ROWS);
+end-pr;
+
+dcl-pr CUSDETDL_error like(t_BOOLEAN) end-pr;
+
+dcl-pr CUSDETDL_found like(t_BOOLEAN) end-pr;
+
+dcl-pr CUSDETDL_fetch like(t_BOOLEAN);
+  sel  likeds(t_CUSDET_fetch_selections) const;
+  data likeds(t_CUSDET_list);
+end-pr;
+
+/endif
+
+//========================================================================
+// Copybook definitions
+//========================================================================
+
+/include APP_D
+/include RMAPPDAL_D
