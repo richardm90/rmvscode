@@ -1,8 +1,7 @@
 **free
 
 //==============================================================================
-// RMEMBSQL_P.rpgleinc
-//   Embedded SQL set options procedure copybook
+// RMEMBSQL_P - Embedded SQL set options procedure copybook
 //
 // NOTE: This copybook needs to be placed just before the first sub-procedure
 //

@@ -1,8 +1,7 @@
 **free
 
 //==============================================================================
-// APMDAL.sqlrpgle
-//   Application Messages DAL Module
+// APMDAL     - Application Messages DAL Module
 //
 // NOTE: APMDAL must not use EMBSQL. EMBSQL_error or EMBSQL_found as
 //   these procedures themselves call APMDAL (via APMSAL) and this

@@ -15,7 +15,7 @@
 // Include copybooks
 ///
 
-/include 'RMTOOLS_D.rpgleinc'
+/include 'QCPYSRC/RMTOOLS_D.rpgleinc'
 
 ///
 // Declare data structure

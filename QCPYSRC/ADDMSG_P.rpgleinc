@@ -42,7 +42,7 @@ dcl-proc addmsg_diag;
   if %parms() >= %parmnum(field_name);
     addmsg(text: field_name: APMSAL_TYPE_DIAGNOSTIC);
   else;
-    addmsg(text: c_APP_ADDMSG_FIELD_NAME_NONE: APMSAL_TYPE_DIAGNOSTIC);
+    addmsg(text: ADDMSG_FIELD_NAME_NONE: APMSAL_TYPE_DIAGNOSTIC);
   endif;
 
   return;
@@ -59,7 +59,7 @@ dcl-proc addmsg_info;
   if %parms() >= %parmnum(field_name);
     addmsg(text: field_name: APMSAL_TYPE_INFORMATION);
   else;
-    addmsg(text: c_APP_ADDMSG_FIELD_NAME_NONE: APMSAL_TYPE_INFORMATION);
+    addmsg(text: ADDMSG_FIELD_NAME_NONE: APMSAL_TYPE_INFORMATION);
   endif;
 
   return;

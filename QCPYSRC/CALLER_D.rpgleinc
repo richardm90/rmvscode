@@ -1,8 +1,7 @@
 **free
 
 //==============================================================================
-// CALLER_D.rpgleinc
-//   RMTOOLS Retrieve Caller Procedure Copybook
+// CALLER_D   - RMTOOLS Retrieve Caller Procedure Copybook
 //==============================================================================
 
 /if defined(CALLER_D)

@@ -147,5 +147,14 @@
     "postDownload": [
       ".evfevent/"
     ]
+  },
+  {
+    "name": "Deploy & Copy all source to source files",
+    "command": "./scripts/copy_to_source_files.sh &CURLIB",
+    "environment": "pase",
+    "deployFirst": true,
+    "extensions": [
+      "GLOBAL"
+    ]
   }
 ]

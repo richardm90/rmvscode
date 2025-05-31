@@ -1,8 +1,7 @@
 **free
 
 //==============================================================================
-// APP_D.rpgleinc
-//   Application system definitions
+// APP_D      - Application system definitions
 //
 // 07/04/2021 - RM - created
 //==============================================================================
@@ -12,7 +11,7 @@
 /endif
 /define APP_D
 
-/include 'RMTOOLS_D.rpgleinc'
+/include 'QCPYSRC/RMTOOLS_D.rpgleinc'
 
 //==============================================================================
 // Basic data type template fields
