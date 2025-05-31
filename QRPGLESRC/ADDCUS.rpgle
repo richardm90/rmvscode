@@ -1,4 +1,4 @@
-**FREE
+**free
 
 //==============================================================================
 // ADDCUS.rpgle
@@ -44,7 +44,7 @@ end-ds;
 
 /include APP_D
 /include APMSAL_D
-/include APPJOB_D
+// /include APPJOB_D
 // /include APTSAL_D
 /include FLASH_D
 /include INFDS_D
@@ -299,7 +299,7 @@ end-proc;
 
 dcl-proc set_field_error;
   dcl-pi *n;
-    msg likeds(t_APMSAL) const;
+    msg likeds(APMSAL_t) const;
   end-pi;
 
   select;

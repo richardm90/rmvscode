@@ -1,0 +1,7 @@
+{
+  "description": "VS Code + IBM i: Tips, Tricks, and Real Talk",
+  "buildCommand": "makei build",
+  "buildObjectCommand": "makei b -t {object}",
+  "compileCommand": "makei compile -f {filename}",
+  "curlib": "&CURLIB"
+}

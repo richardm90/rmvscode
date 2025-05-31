@@ -1,0 +1,134 @@
+**free
+
+/if defined(APMDAL_D)
+/eof
+/endif
+/define APMDAL_D
+
+//==============================================================================
+// APMDAL_D.rpgle
+//   Application Messages DAL Copybook
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+//==============================================================================
+// Copybook definitions
+//==============================================================================
+
+/include 'APP_D.rpgleinc'
+/include 'RMAPP_D.rpgleinc'
+
+//==============================================================================
+// Define global field templates
+//==============================================================================
+
+// APP_MESSAGES.TYPE field template
+dcl-s APMDAL_type_t char(1) template;
+
+// APP_MESSAGES.TEXT field template
+dcl-s APMDAL_text_t varchar(512) template;
+
+//==============================================================================
+// Define global data structures
+//==============================================================================
+
+dcl-ds APMDAL_t qualified template inz;
+  ID                 like(t_INTEGER);
+  JOB_NAME           like(t_JOB_FULL_NAME);
+  FIELD_NAME         like(t_FIELD_NAME);
+  TYPE               like(APMDAL_type_t);
+  TEXT               like(APMDAL_text_t);
+  CREATED_BY_PROCESS like(t_PGM_NAME);
+  CREATED_BY_PGM     like(t_PGM_NAME);
+  CREATED_BY_PRC     like(t_PROC_NAME);
+  CREATED_BY_USER    like(t_SQL_USER);
+  CREATED_TIMESTAMP  timestamp;
+end-ds;
+
+dcl-ds APMDAL_list_t qualified template inz;
+  ID                 like(t_INTEGER);
+  JOB_NAME           like(t_JOB_FULL_NAME);
+  FIELD_NAME         like(t_FIELD_NAME);
+  TYPE               like(APMDAL_type_t);
+  TEXT               like(APMDAL_text_t);
+  CREATED_BY_PROCESS like(t_PGM_NAME);
+  CREATED_BY_PGM     like(t_PGM_NAME);
+  CREATED_BY_PRC     like(t_PROC_NAME);
+  CREATED_BY_USER    like(t_SQL_USER);
+  CREATED_TIMESTAMP  timestamp;
+end-ds;
+
+dcl-ds APMDAL_list_selections_t qualified template inz;
+  JOB_NAME   like(t_JOB_FULL_NAME);
+  FIELD_NAME like(t_FIELD_NAME);
+  TYPE       like(APMDAL_type_t);
+end-ds;
+
+dcl-ds APMDAL_open_selections_t qualified template inz;
+  JOB_NAME   like(t_JOB_FULL_NAME);
+  FIELD_NAME like(t_FIELD_NAME);
+  TYPE       like(APMDAL_type_t) inz('');
+end-ds;
+
+//==============================================================================
+// Define global prototypes
+//==============================================================================
+
+dcl-pr APMDAL_first_message like(t_BOOLEAN);
+  first_message like(t_BOOLEAN) options(*nopass) const;
+end-pr;
+
+dcl-pr APMDAL_first_message_id like(t_INTEGER);
+  first_message_id like(t_INTEGER) options(*nopass) const;
+end-pr;
+
+dcl-pr APMDAL_add like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_get like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_update like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_delete like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_delete_by_session_id like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_list like(t_UNSIGNED_INTEGER);
+  calc likeds(APP_paging_t);
+  sel  likeds(APMDAL_list_selections_t) const;
+  data likeds(APMDAL_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
+end-pr;
+
+dcl-pr APMDAL_error like(t_BOOLEAN) end-pr;
+
+dcl-pr APMDAL_found like(t_BOOLEAN) end-pr;
+
+dcl-pr APMDAL_open like(t_BOOLEAN);
+  sel likeds(APMDAL_open_selections_t) const;
+end-pr;
+
+dcl-pr APMDAL_fetch like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_close like(t_BOOLEAN) end-pr;
+
+dcl-pr APMDAL_open_desc like(t_BOOLEAN);
+  sel likeds(APMDAL_open_selections_t) const;
+end-pr;
+
+dcl-pr APMDAL_fetch_desc like(t_BOOLEAN);
+  data likeds(APMDAL_t);
+end-pr;
+
+dcl-pr APMDAL_close_desc like(t_BOOLEAN) end-pr;

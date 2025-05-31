@@ -1,4 +1,4 @@
-**FREE
+**free
 
 //==============================================================================
 // CUSDETDL_D.rpgle
@@ -11,6 +11,13 @@
 /eof
 /endif
 /define CUSDETDL_D
+
+//========================================================================
+// Copybook definitions
+//========================================================================
+
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/RMAPP_D.rpgleinc'
 
 //========================================================================
 // Define global data structures
@@ -112,8 +119,6 @@ dcl-c c_CUSDET_STATUS_NEW         'N';
 // Define global prototypes
 //========================================================================
 
-/if defined(APP_DATA_OR_SERVICE_LAYER)
-
 dcl-pr CUSDETDL_add like(t_BOOLEAN);
   data likeds(t_CUSDET);
 end-pr;
@@ -131,9 +136,9 @@ dcl-pr CUSDETDL_delete like(t_BOOLEAN);
 end-pr;
 
 dcl-pr CUSDETDL_list like(t_UNSIGNED_INTEGER);
-  calc likeds(APPDAL_paging_t);
+  calc likeds(APP_paging_t);
   sel  likeds(t_CUSDET_list_selections) const;
-  data likeds(t_CUSDET_list) dim(APPDAL_MAXIMUM_PAGE_ROWS);
+  data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS);
 end-pr;
 
 dcl-pr CUSDETDL_error like(t_BOOLEAN) end-pr;
@@ -144,12 +149,3 @@ dcl-pr CUSDETDL_fetch like(t_BOOLEAN);
   sel  likeds(t_CUSDET_fetch_selections) const;
   data likeds(t_CUSDET_list);
 end-pr;
-
-/endif
-
-//========================================================================
-// Copybook definitions
-//========================================================================
-
-/include APP_D
-/include RMAPPDAL_D

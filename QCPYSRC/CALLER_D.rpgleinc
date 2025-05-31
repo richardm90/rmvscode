@@ -1,0 +1,21 @@
+**free
+
+//==============================================================================
+// CALLER_D.rpgleinc
+//   RMTOOLS Retrieve Caller Procedure Copybook
+//==============================================================================
+
+/if defined(CALLER_D)
+/eof
+/endif
+/define CALLER_D
+
+//==============================================================================
+// Define data structure templates
+//==============================================================================
+
+dcl-ds CALLER_t qualified inz template;
+  pgm_name  like(OBJ_NAME_t);
+  proc_name like(PROC_NAME_t);
+  statement char(10);
+end-ds;

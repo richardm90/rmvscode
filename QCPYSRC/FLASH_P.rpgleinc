@@ -1,0 +1,70 @@
+**free
+
+//==============================================================================
+// FLASH_P.rpgle
+//   flash Procedures Copybook
+//
+// 14/04/2021 - RM - created
+//==============================================================================
+
+/if defined(FLASH_P)
+/eof
+/endif
+/define FLASH_P
+
+//==============================================================================
+// flash
+//   Handle screen messages
+//==============================================================================
+
+dcl-proc flash;
+  dcl-pi *n end-pi;
+
+  dcl-ds msg likeds(APMSAL_t) inz(*likeds);
+  dcl-s show_diag_messages like(t_BOOLEAN);
+
+  show_diag_messages = false;
+
+  i_sfldsp = false;
+  i_sfldspctl = false;
+  i_sflend = false;
+  i_sflclr = true;
+  write MSGCTL;
+
+  i_error = false;
+  g_first_flash = true;
+
+  msrrn = 0;
+  APMSAL_open();
+  dow APMSAL_fetch(msg);
+    if   ( msg.TYPE =  APMSAL_TYPE_DIAGNOSTIC and show_diag_messages )
+      or ( msg.TYPE <> APMSAL_TYPE_DIAGNOSTIC );
+      if msg.TYPE = APMSAL_TYPE_ERROR;
+        set_field_error(msg);
+        i_sflerr = true;
+        i_error = true;
+      else;
+        i_sflerr = false;
+      endif;
+      g_first_flash = false;
+
+      msmsg = msg.TEXT;
+      msrrn += 1;
+      write MSGSFL;
+    endif;
+  enddo;
+  APMSAL_close();
+
+  i_sfldsp = (msrrn > 0);
+  i_sfldspctl = true;
+  i_sflend = true;
+  i_sflclr = false;
+
+  APMSAL_inz(%trimr(PSDS.program));
+end-proc;
+
+//==============================================================================
+// Copybook procedures
+//==============================================================================
+
+/include ADDMSG_P

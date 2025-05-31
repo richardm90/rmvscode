@@ -1,0 +1,153 @@
+**free
+
+/if defined(APMSAL_D)
+/eof
+/endif
+/define APMSAL_D
+
+//==============================================================================
+// APMSAL_D.rpgleinc
+//   Application Messages SAL Copybook
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+//==============================================================================
+// Copybook definitions
+//==============================================================================
+
+/include 'QCPYSRC/APP_D.rpgleinc'
+
+//==============================================================================
+// Define global constants
+//==============================================================================
+
+// APP_MESSAGES.FIELD_NAME values
+dcl-c APMSAL_FIELD_NAME_NONE  '*NONE';
+
+// APP_MESSAGES.TYPE values
+dcl-c APMSAL_TYPE_DIAGNOSTIC  'D';
+dcl-c APMSAL_TYPE_INFORMATION 'I';
+dcl-c APMSAL_TYPE_WARNING     'W';
+dcl-c APMSAL_TYPE_ERROR       'E';
+
+//==============================================================================
+// Define global field templates
+//==============================================================================
+
+// APP_MESSAGES.TYPE field template
+dcl-s APMSAL_type_t char(1) template;
+
+// APP_MESSAGES.TEXT field template
+dcl-s APMSAL_text_t varchar(512) template;
+
+//==============================================================================
+// Define global data structures
+//==============================================================================
+
+dcl-ds APMSAL_t qualified template inz;
+  ID like(t_INTEGER);
+  JOB_NAME like(t_JOB_FULL_NAME);
+  FIELD_NAME like(t_FIELD_NAME);
+  TYPE like(APMSAL_type_t) inz(APMSAL_TYPE_INFORMATION);
+  TEXT like(APMSAL_text_t);
+  CREATED_BY_PROCESS like(t_PGM_NAME);
+  CREATED_BY_PGM like(t_PGM_NAME);
+  CREATED_BY_PRC like(t_PROC_NAME);
+  CREATED_BY_USER like(t_SQL_USER);
+  CREATED_TIMESTAMP timestamp;
+end-ds;
+
+dcl-ds APMSAL_list_t qualified template inz;
+  ID like(t_INTEGER);
+  JOB_NAME like(t_JOB_FULL_NAME);
+  FIELD_NAME like(t_FIELD_NAME);
+  TYPE like(APMSAL_type_t) inz(APMSAL_TYPE_INFORMATION);
+  TEXT like(APMSAL_text_t);
+  CREATED_BY_PROCESS like(t_PGM_NAME);
+  CREATED_BY_PGM like(t_PGM_NAME);
+  CREATED_BY_PRC like(t_PROC_NAME);
+  CREATED_BY_USER like(t_SQL_USER);
+  CREATED_TIMESTAMP timestamp;
+end-ds;
+
+dcl-ds APMSAL_list_selections_t qualified template inz;
+  JOB_NAME like(t_JOB_FULL_NAME);
+  TYPE like(APMSAL_type_t) inz(APMSAL_TYPE_INFORMATION);
+end-ds;
+
+dcl-ds APMSAL_open_selections_t qualified template inz;
+  JOB_NAME like(t_JOB_FULL_NAME);
+  TYPE like(APMSAL_type_t) inz('');
+end-ds;
+
+//==============================================================================
+// Define global prototypes
+//==============================================================================
+
+dcl-pr APMSAL_inz;
+  program like(t_PGM_NAME) const options(*nopass);
+end-pr;
+
+dcl-pr APMSAL_msg like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_diagnostic like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_information like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_warning like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_error like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_add like(t_BOOLEAN);
+  TEXT like(APMSAL_text_t) const;
+  TYPE like(APMSAL_type_t) const options(*nopass);
+  FIELD_NAME like(t_FIELD_NAME) const options(*nopass);
+  CREATED_BY_PROCESS like(t_PGM_NAME) const options(*nopass);
+end-pr;
+
+dcl-pr APMSAL_get like(t_BOOLEAN);
+  service likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_update like(t_BOOLEAN);
+  service likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_delete like(t_BOOLEAN);
+  service likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_list like(t_UNSIGNED_INTEGER);
+  calc likeds(APP_paging_t);
+  sel  likeds(APMSAL_list_selections_t) const;
+  data likeds(APMSAL_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
+end-pr;
+
+dcl-pr APMSAL_open like(t_BOOLEAN);
+  sel likeds(APMSAL_open_selections_t) const options(*nopass);
+end-pr;
+
+dcl-pr APMSAL_fetch like(t_BOOLEAN);
+  data likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_close like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_open_desc like(t_BOOLEAN);
+  sel likeds(APMSAL_open_selections_t) const options(*nopass);
+end-pr;
+
+dcl-pr APMSAL_fetch_desc like(t_BOOLEAN);
+  data likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_close_desc like(t_BOOLEAN) end-pr;
+
+dcl-pr APMSAL_fetch_first like(t_BOOLEAN);
+  data likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_fetch_last like(t_BOOLEAN);
+  data likeds(APMSAL_t);
+end-pr;

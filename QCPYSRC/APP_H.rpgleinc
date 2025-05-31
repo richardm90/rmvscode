@@ -1,0 +1,38 @@
+**free
+
+//==============================================================================
+// APP_H.rpgle
+//   Application system control specifications
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+/if defined(APP_H)
+/eof
+/endif
+/define APP_H
+
+//==============================================================================
+// Service program control specifications
+//==============================================================================
+
+/IF DEFINED(APP_SERVICE_PROGRAM)
+ctl-opt nomain;
+/ELSE
+/IF DEFINED(APP_ACTGRP_RMAPP)
+ctl-opt dftactgrp(*no) actgrp('RMAPP');
+/ELSEIF DEFINED(APP_ACTGRP_NEW)
+ctl-opt dftactgrp(*no) actgrp(*new);
+/ELSE
+ctl-opt dftactgrp(*no) actgrp(*caller);
+/ENDIF
+/ENDIF
+ctl-opt bnddir('RMAPP');
+// ctl-opt bnddir('RMTOOLS');
+
+//==============================================================================
+// Standard control specifications
+//==============================================================================
+
+// *SRCSTMT = Report errors by using the source sequence number
+ctl-opt option(*nodebugio: *nounref: *srcstmt: *showcpy);

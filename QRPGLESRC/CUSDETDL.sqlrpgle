@@ -1,4 +1,4 @@
-**FREE
+**free
 
 //==============================================================================
 // CUSDETDL.sqlrpgle
@@ -8,8 +8,7 @@
 //==============================================================================
 
 /define APP_SERVICE_PROGRAM
-/include APP_H
-/undefine APP_SERVICE_PROGRAM
+/include 'QCPYSRC/APP_H.rpgleinc'
 
 //==============================================================================
 // Define global data structures
@@ -21,20 +20,16 @@ dcl-ds g_state likeds(EMBSQL_state_t) inz;
 // Copybook definitions
 //==============================================================================
 
-/define APP_DATA_OR_SERVICE_LAYER
-/include APP_D
-/include APPJOB_D
-/include CUSDETDL_D
-/include RMAPPDAL_D
-/include RMAPPENV_D
-/include RMEMBSQL_D
-/undefine APP_DATA_OR_SERVICE_LAYER
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/CUSDETDL_D.rpgleinc'
+/include 'QCPYSRC/RMAPP_D.rpgleinc'
+/include 'QCPYSRC/RMEMBSQL_D.rpgleinc'
 
 //==============================================================================
 // Copybook procedures
 //==============================================================================
 
-/include RMEMBSQL_P
+/include 'QCPYSRC/RMEMBSQL_P.rpgleinc'
 
 //==============================================================================
 // CUSDETDL_add
@@ -46,11 +41,11 @@ dcl-proc CUSDETDL_add export;
     data likeds(t_CUSDET);
   end-pi;
 
-  data.CREATED_BY_USER = %trimr(APPENV_user());
-  data.CREATED_TIMESTAMP = APPENV_timestamp();
+  data.CREATED_BY_USER = %trimr(APP_user());
+  data.CREATED_TIMESTAMP = APP_timestamp();
 
   exec sql
-    INSERT INTO CUSTOMER_DETAILS_DL
+    INSERT INTO CUSDETVP
       ( CODE,
         STATUS,
         NAME,
@@ -136,7 +131,7 @@ dcl-proc CUSDETDL_get export;
     INTO
       :data
     FROM
-      CUSTOMER_DETAILS_DL
+      CUSDETVP
     WHERE
       :data.ID = ID
     FETCH FIRST ROW ONLY;
@@ -158,7 +153,7 @@ dcl-proc CUSDETDL_update export;
 
   exec sql
     UPDATE
-      CUSTOMER_DETAILS_DL
+      CUSDETVP
     SET
       CODE            = UPPER(:data.CODE),
       STATUS          = UPPER(:data.STATUS),
@@ -196,7 +191,7 @@ dcl-proc CUSDETDL_delete export;
 
   exec sql
     DELETE FROM
-      CUSTOMER_DETAILS_DL
+      CUSDETVP
     WHERE
       ID = :data.ID;
 
@@ -212,9 +207,9 @@ end-proc;
 
 dcl-proc CUSDETDL_list export;
   dcl-pi *n like(t_UNSIGNED_INTEGER);
-    calc likeds(APPDAL_paging_t);
+    calc likeds(APP_paging_t);
     sel  likeds(t_CUSDET_list_selections) const;
-    data likeds(t_CUSDET_list) dim(APPDAL_MAXIMUM_PAGE_ROWS);
+    data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS);
   end-pi;
 
   dcl-s page_size  like(t_INTEGER);
@@ -249,7 +244,7 @@ dcl-proc CUSDETDL_list export;
         CURRENT_BALANCE,
         COMMENTS
       FROM
-        CUSTOMER_DETAILS_DL_LIST
+        CUSDETVL
       WHERE
         ( :sel.CODE = '' OR :sel.CODE = CODE )
            AND
@@ -273,7 +268,7 @@ dcl-proc CUSDETDL_list export;
   exec SQL
     get diagnostics :calc.total_rows = DB2_NUMBER_ROWS;
 
-  APPDAL_calc_page_data(calc: page_size: row_offset);
+  APP_calc_page_data(calc: page_size: row_offset);
 
   exec SQL
     fetch relative :row_offset from list_cursor
@@ -322,7 +317,7 @@ dcl-proc CUSDETDL_fetch export;
     INTO
       :data
     FROM
-      CUSTOMER_DETAILS_DL_LIST
+      CUSDETVL
     WHERE
       ( :sel.CODE = '' OR :sel.CODE = CODE )
           AND

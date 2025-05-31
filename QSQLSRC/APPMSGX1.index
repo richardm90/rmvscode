@@ -1,0 +1,11 @@
+--------------------------------------------------------------------------------
+-- APPMSGX1   - Application Messages by JOB_NAME Index
+--
+-- 07/04/2021 - RM - created
+--------------------------------------------------------------------------------
+
+DROP INDEX IF EXISTS APPMSGX1 ;
+
+CREATE INDEX APPMSGX1 ON APPMSG (JOB_NAME, ID);
+
+LABEL ON INDEX APPMSGX1 IS 'Application Messages by JOB_NAME';

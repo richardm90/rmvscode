@@ -1,0 +1,22 @@
+--------------------------------------------------------------------------------
+-- APPMSGVP   - Application Messages Primary view
+--
+-- 07/04/2021 - RM - created
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW APPMSGVP
+  AS ( SELECT
+         ID,
+         JOB_NAME ,
+         FIELD_NAME,
+         TYPE,
+         TEXT,
+         CREATED_BY_PROCESS,
+         CREATED_BY_PGM,
+         CREATED_BY_PRC,
+         CREATED_BY_USER,
+         CREATED_TIMESTAMP
+       FROM
+         APPMSG );
+
+LABEL ON TABLE APPMSGVP IS 'Application Messages Primary view';

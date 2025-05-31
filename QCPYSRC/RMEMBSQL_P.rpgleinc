@@ -1,0 +1,30 @@
+**free
+
+//==============================================================================
+// RMEMBSQL_P.rpgleinc
+//   Embedded SQL set options procedure copybook
+//
+// NOTE: This copybook needs to be placed just before the first sub-procedure
+//
+// 30/10/2021 - RM - created
+//==============================================================================
+
+//==============================================================================
+// set_sql_options
+//   Dummy sub-procedure to set SQL compilation options
+//   - Does not need to be executed
+//   - Needs to be included as the first executable code
+//==============================================================================
+
+dcl-proc set_sql_options;
+  dcl-pi set_sql_options end-pi;
+
+  exec sql
+    set option commit = *none,
+               datfmt = *iso,
+               datsep = '-',
+               closqlcsr= *endactgrp,
+               naming = *sys;
+
+  return;
+end-proc;

@@ -1,0 +1,120 @@
+**free
+
+//==============================================================================
+// APP_D.rpgleinc
+//   Application system definitions
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+/if defined(APP_D)
+/eof
+/endif
+/define APP_D
+
+/include 'RMTOOLS_D.rpgleinc'
+
+//==============================================================================
+// Basic data type template fields
+//==============================================================================
+
+// Indicator (character) format
+dcl-s t_BOOLEAN ind template;
+
+// Date, initialised to current date
+dcl-s t_DATE date inz(*sys) template;
+
+// Double-precision - 8-byte float (16 digits)
+dcl-s t_DOUBLE float(8) template;
+
+// Single-precision - 4-byte float (8 digits)
+dcl-s t_FLOAT float(4) template;
+
+// Signed integer format (range of values = -2147483648 to 2147483647)
+dcl-s t_INTEGER int(10) template;
+
+// Null indicator
+dcl-s t_NULLIND bindec(4) template;
+
+// Signed integer format (range of values = -32768 to 32767)
+dcl-s t_SMALLINT int(5) template;
+
+// SQL string
+dcl-s t_SQL_STRING varchar(32740) template;
+
+// String
+dcl-s t_STRING varchar(65535) template;
+
+// Timestamp
+dcl-s t_TIMESTAMP timestamp template;
+
+// Unsigned integer format (range of values = 0 to 4294967295)
+dcl-s t_UNSIGNED_INTEGER uns(10) inz(0) template;
+
+//==============================================================================
+// Standard template fields
+//==============================================================================
+
+// Simple character flag
+dcl-s t_FLAG char(1) template;
+
+// Stream file name
+dcl-s t_STMF varchar(1024) template;
+
+//==============================================================================
+// IBM i object template fields
+//==============================================================================
+
+// IBM i file name
+dcl-s t_FILE_NAME char(10) template;
+
+// IBM i field name
+dcl-s t_FIELD_NAME char(10) template;
+
+// IBM i object name
+dcl-s t_IBMI_PASSWORD varchar(512) template;
+
+// IBM i full job name
+dcl-s t_JOB_FULL_NAME varchar(28) template;
+
+// IBM i job name
+dcl-s t_JOB_NAME char(10) template;
+
+// IBM i job number
+dcl-s t_JOB_NUMBER char(6) template;
+
+// IBM i library name
+dcl-s t_LIB_NAME char(10) template;
+
+// IBM i object name
+dcl-s t_OBJ_NAME char(10) template;
+
+// IBM i program name
+dcl-s t_PGM_NAME char(10) template;
+
+// IBM i procedure name
+dcl-s t_PROC_NAME varchar(64) template;
+
+// IBM i SQL user name
+dcl-s t_SQL_USER varchar(18) template;
+
+// IBM i user name
+dcl-s t_USER_NAME char(10) template;
+
+//==============================================================================
+// IBM i command parameter template fields
+//==============================================================================
+
+dcl-s t_CMD_PARM_PNAME varchar(5000) template;
+
+//==============================================================================
+// Standard constant definitions
+//==============================================================================
+
+// BOOLEAN values
+// dcl-c true  const(*on);
+// dcl-c false const(*off);
+
+// NULL values
+dcl-c c_NULL_VALUE     -1;
+dcl-c c_NON_NULL_VALUE 0;
