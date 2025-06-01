@@ -177,10 +177,10 @@ dcl-proc APMDAL_update export;
     UPDATE
       APPMSGVP
     SET
-      JOB_NAME = :data.JOB_NAME,
-      FIELD_NAME = :data.FIELD_NAME,
-      TYPE = :data.TYPE,
-      TEXT = :data.TEXT
+      JOB_NAME    = :data.JOB_NAME,
+      FIELD_NAME  = :data.FIELD_NAME,
+      TYPE        = :data.TYPE,
+      TEXT        = :data.TEXT
     WHERE
       ID = :data.ID;
   set_error();
