@@ -1,8 +1,7 @@
 **free
 
 //==============================================================================
-// APMSAL.sqlrpgle
-//   Application Messages SAL Module
+// APMSAL     - Application Messages SAL Module
 //
 // 07/04/2021 - RM - created
 //==============================================================================

@@ -149,7 +149,7 @@
     ]
   },
   {
-    "name": "Deploy & Copy all source to source files",
+    "name": "Deploy, Copy To Source Files & Compile ⮞🏛",
     "command": "./scripts/copy_to_source_files.sh &CURLIB",
     "environment": "pase",
     "deployFirst": true,

@@ -1,8 +1,7 @@
 **free
 
 //==============================================================================
-// SEEDCUSDET.rpgle
-//   Seed the CUSTOMER_DETAILS table
+// SEEDCUSDET - Seed the CUSTOMER_DETAILS table
 //
 // I'm using a sample set of customer data downloaded from the following page.
 //   https://www.briandunning.com/sample-data/

@@ -1,15 +1,15 @@
 **free
 
+/if defined(ADDMSG_D)
+/eof
+/endif
+/define ADDMSG_D
+
 //==============================================================================
 // ADDMSG_D   - ADDMSG Definition Copybook
 //
 // 14/04/2021 - RM - created
 //==============================================================================
-
-/if defined(ADDMSG_D)
-/eof
-/endif
-/define ADDMSG_D
 
 //==============================================================================
 // Copybook definitions

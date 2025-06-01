@@ -1,0 +1,5 @@
+CSVR4.MODULE: csvr4.rpgle
+
+CSVR4.SRVPGM: csvr4.bnd CSVR4.MODULE
+
+CSV.BNDDIR: csv.bnddir

@@ -189,20 +189,6 @@ function crtbndcl {
 }
 
 #===============================================================================
-# crtbndrpg
-# $1 = source stream file
-# $2 = target library
-# $3 = target object
-# $4 = target object text
-# $5 = target release
-# $6 = include directory
-function crtbndrpg {
-  copy_from_stmf $1 $3
-  system -bksOEv "CRTBNDRPG PGM($2/$3) SRCFILE(QGPL/RMTOOLS) SRCMBR($3) TEXT('$4') TGTRLS($5) INCDIR($6)"
-  if_error "ERROR: Failed to compile source for $3"
-}
-
-#===============================================================================
 # crtsqlrpgi - from a source file
 # $1 = target and source file library
 # $2 = target object and member
@@ -223,6 +209,51 @@ function crtsqlrpgi {
 function crtrpgmod {
   system -bksOEv "CRTRPGMOD MODULE($1/$2) SRCFILE($1/$3) SRCMBR($2) TGTRLS($4)"
   if_error "ERROR: Failed to compile source for $3"
+}
+
+#===============================================================================
+# crtsrvpgm - from a source file
+# $1 = target and binder source file library
+# $2 = target object and binder source member
+# $3 = binder source file
+# $4 = list of modules e.g. "$1/MOD1 $1/MOD2"
+# $5 = target release
+# $6 = object text
+function crtsrvpgm {
+  system -beksvOE "CRTSRVPGM SRVPGM($1/$2) MODULE($4) EXPORT(*SRCFILE) SRCFILE($1/$3) SRCMBR($2) TGTRLS($5) TEXT('$6')"
+  if_error "ERROR: Failed to create Service Program ($2)"
+}
+
+#===============================================================================
+# runsqlstm - from a source file
+# $1 = source file library
+# $2 = source member
+# $3 = source file
+function runsqlstm {
+  system -beksvOE "RUNSQLSTM SRCFILE($1/$3) SRCMBR($2) COMMIT(*NONE) MARGINS(1024) OUTPUT(*PRINT) DBGVIEW(*SOURCE)"
+  if_error "ERROR: Failed to Run SQL Statements ($2)"
+}
+
+#===============================================================================
+# crtbndrpg - from a source file
+# $1 = target and source file library
+# $2 = target object and member
+# $3 = source file
+# $4 = target release
+function crtbndrpg {
+  system -bksOEv "CRTBNDRPG PGM($1/$2) SRCFILE($1/$3) SRCMBR($2) TGTRLS($4)"
+  if_error "ERROR: Failed to compile source for $2"
+}
+
+#===============================================================================
+# crtdspf - from a source file
+# $1 = target and source file library
+# $2 = target object and member
+# $3 = source file
+# $4 = target object text
+function crtdspf {
+  system -bksOEv "CRTDSPF FILE($1/$2) SRCFILE($1/$3) SRCMBR($2) ENHDSP(*YES) RSTDSP(*YES) DFRWRT(*YES) TEXT('$4')"
+  if_error "ERROR: Failed to compile source for $2"
 }
 
 #===============================================================================
@@ -254,18 +285,6 @@ function crtcmd {
 function crtlib {
   system -bOE "CRTLIB LIB($1) TEXT('$2')"
   # if_error "ERROR: Failed to create library $1" false
-}
-
-#===============================================================================
-# crtsrvpgm
-# $1 = target and binding directory library
-# $2 = target object
-# $3 = binding directory
-# $4 = target object text
-# $5 = target release
-function crtsrvpgm {
-  system -beksvOE "CRTSRVPGM SRVPGM($1/$2) EXPORT(*ALL) BNDDIR($1/$4) TEXT('$4') TGTRLS($5)"
-  if_error "ERROR: Failed to create Service Program ($2)"
 }
 
 #===============================================================================

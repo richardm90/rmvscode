@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
--- APPMSGVP   - Application Messages Primary view
+-- APPMSGVP   - Application Messages Primary View
 --
 -- 07/04/2021 - RM - created
 --------------------------------------------------------------------------------
@@ -19,4 +19,4 @@ CREATE OR REPLACE VIEW APPMSGVP
        FROM
          APPMSG );
 
-LABEL ON TABLE APPMSGVP IS 'Application Messages Primary view';
+LABEL ON TABLE APPMSGVP IS 'Application Messages Primary View';
