@@ -175,8 +175,10 @@ dcl-c CRLF x'0d25';
 // Boolean true/false constant values
 //==============================================================================
 
-dcl-c TRUE              const(*on);
-dcl-c FALSE             const(*off);
+// @rpglint-skip
+dcl-c true              const(*on);
+// @rpglint-skip
+dcl-c false             const(*off);
 
 //==============================================================================
 // Null constant values

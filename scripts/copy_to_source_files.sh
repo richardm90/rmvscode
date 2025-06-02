@@ -44,11 +44,13 @@ fi
 # Create source files
 #===============================================================================
 
+crtsrcpf $TGTLIB 'EXAMPLES'  112
 crtsrcpf $TGTLIB 'QBNDSRC'
 crtsrcpf $TGTLIB 'QCPYSRC'
 crtsrcpf $TGTLIB 'QDDSSRC'
 crtsrcpf $TGTLIB 'QRPGLESRC' 112
 crtsrcpf $TGTLIB 'QSQLSRC'   240
+crtsrcpf $TGTLIB 'VSCODE'    112
 
 #===============================================================================
 # Handle Scott Klement CSVUTIL
@@ -66,6 +68,12 @@ crtsrvpgm  $TGTLIB CSVR4   QBNDSRC            "$TGTLIB/CSVR4" $TGTRLS 'Copyright
 /QOpenSys/usr/bin/system "DLTOBJ OBJ($TGTLIB/CSV) OBJTYPE(*BNDDIR)"
 /QOpenSys/usr/bin/system "CRTBNDDIR BNDDIR($TGTLIB/CSV)"
 /QOpenSys/usr/bin/system "ADDBNDDIRE BNDDIR($TGTLIB/CSV) OBJ((*LIBL/CSVR4 *SRVPGM))"
+
+#===============================================================================
+# Copy EXAMPLES source
+#===============================================================================
+
+cpyfrmstmf "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle"  LINTER     EXAMPLES $TGTLIB RPGLE 'RPGLE Linter Example'
 
 #===============================================================================
 # Copy QBNDSRC source
@@ -131,6 +139,12 @@ cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVL.view"     CUSDETVL QSQLSRC   $TGTLIB SQL   
 cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVP.view"     CUSDETVP QSQLSRC   $TGTLIB SQL      'Customer Details Primary View'
 
 #===============================================================================
+# Copy VSCODE source
+#===============================================================================
+
+cpyfrmstmf "$SRCDIR/.vscode/rpglint.json"       RPGLINT VSCODE    $TGTLIB JSON     'RPGLE Linter Configuration'
+
+#===============================================================================
 # Create datebase objects
 #===============================================================================
 
@@ -182,6 +196,7 @@ crtsrvpgm  $TGTLIB RMAPP   QBNDSRC    "$TGTLIB/RMAPP01 $TGTLIB/RMAPP02 $TGTLIB/R
 # Create programs
 #===============================================================================
 
+crtbndrpg  $TGTLIB LINTER     EXAMPLES         $TGTRLS
 crtsqlrpgi $TGTLIB SEEDCUSDET QRPGLESRC "*PGM" $TGTRLS
 crtdspf    $TGTLIB WRKCUSD    QDDSSRC          'Work with Customers'
 crtbndrpg  $TGTLIB WRKCUS     QRPGLESRC        $TGTRLS

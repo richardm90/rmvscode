@@ -1,0 +1,1 @@
+LINTER.PGM: LINTER.pgm.rpgle

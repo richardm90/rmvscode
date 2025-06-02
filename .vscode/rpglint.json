@@ -1,0 +1,13 @@
+{
+  "indent": 2,
+  "UppercaseConstants": true,
+  "IncorrectVariableCase": true,
+  "NoGlobalSubroutines": true,
+  "DirectiveCase": "lower",
+  "CopybookDirective": "include",
+  "NoUnreferenced": true,
+  "SpecificCasing":[
+      {"operation": "*BIF","expected": "*lower"},
+      {"operation": "*DECLARE", "expected": "*lower"}
+   ]
+}
