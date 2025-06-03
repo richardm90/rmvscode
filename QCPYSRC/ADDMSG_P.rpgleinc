@@ -46,7 +46,15 @@ dcl-proc addmsg_diag;
   return;
 end-proc;
 
-//==============================================================================
+///
+// Add an information message.
+//
+// Creates a row on the Application Messages table.
+//
+// @param The message text.
+// @param Optional field name to associate the message, this is only relevant
+//          for display file programs that use the FLASH procedure.
+///
 
 dcl-proc addmsg_info;
   dcl-pi *n;

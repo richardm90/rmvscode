@@ -19,6 +19,9 @@
 /include 'QCPYSRC/CUSDET_D.rpgleinc'
 /include 'QCPYSRC/RMAPP_D.rpgleinc'
 
+// Global definitions
+dcl-s initialized like(BOOLEAN_t);
+
 //==============================================================================
 // CUSDET_new
 //   Service layer new procedure
