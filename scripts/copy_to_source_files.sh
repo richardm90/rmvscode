@@ -94,7 +94,7 @@ tweakcopy "$SRCDIR/QCPYSRC/APP_H.rpgleinc"      APP_H      QCPYSRC $TGTLIB RPGLE
 tweakcopy "$SRCDIR/QCPYSRC/CALLER_D.rpgleinc"   CALLER_D   QCPYSRC $TGTLIB RPGLE 'RMTOOLS Retrieve Caller Procedure Copybook'
 tweakcopy "$SRCDIR/QCPYSRC/CALLER_P.rpgleinc"   CALLER_P   QCPYSRC $TGTLIB RPGLE 'RMTOOLS Retrieve Caller Procedure Copybook'
 tweakcopy "$SRCDIR/QCPYSRC/CSV_H.rpgleinc"      CSV_H      QCPYSRC $TGTLIB RPGLE 'Copyright (c) 2008-2020 Scott C. Klement'
-tweakcopy "$SRCDIR/QCPYSRC/CUSDET_D.rpgleinc"   CUSDET_D   QCPYSRC $TGTLIB RPGLE 'Customer Details SAL Copybook'
+tweakcopy "$SRCDIR/QCPYSRC/CUSDET_D.rpgleinc"   CUSDET_D   QCPYSRC $TGTLIB RPGLE 'Customer Details SL Copybook'
 tweakcopy "$SRCDIR/QCPYSRC/CUSDETDL_D.rpgleinc" CUSDETDL_D QCPYSRC $TGTLIB RPGLE 'Customer Details DAL Copybook'
 tweakcopy "$SRCDIR/QCPYSRC/FLASH_D.rpgleinc"    FLASH_D    QCPYSRC $TGTLIB RPGLE 'FLASH Definitions Copybook'
 tweakcopy "$SRCDIR/QCPYSRC/FLASH_P.rpgleinc"    FLASH_P    QCPYSRC $TGTLIB RPGLE 'FLASH Procedures Copybook'
@@ -116,12 +116,12 @@ cpyfrmstmf "$SRCDIR/QDDSSRC/WRKCUSD.dspf" WRKCUSD QDDSSRC $TGTLIB DSPF 'Work wit
 #===============================================================================
 
 tweakcopy "$SRCDIR/QRPGLESRC/APMDAL.sqlrpgle"         APMDAL     QRPGLESRC $TGTLIB SQLRPGLE 'Application Messages DAL Module'
-tweakcopy "$SRCDIR/QRPGLESRC/APMSAL.rpgle"            APMSAL     QRPGLESRC $TGTLIB RPGLE    'Application Messages SAL Module'
-tweakcopy "$SRCDIR/QRPGLESRC/CUSDET.sqlrpgle"         CUSDET     QRPGLESRC $TGTLIB SQLRPGLE 'Customer Details SAL Module'
+tweakcopy "$SRCDIR/QRPGLESRC/APMSAL.rpgle"            APMSAL     QRPGLESRC $TGTLIB RPGLE    'Application Messages SL Module'
+tweakcopy "$SRCDIR/QRPGLESRC/CUSDET.sqlrpgle"         CUSDET     QRPGLESRC $TGTLIB SQLRPGLE 'Customer Details SL Module'
 tweakcopy "$SRCDIR/QRPGLESRC/CUSDETDL.sqlrpgle"       CUSDETDL   QRPGLESRC $TGTLIB SQLRPGLE 'Customer Details DAL Module'
-tweakcopy "$SRCDIR/QRPGLESRC/RMAPP01.rpgle"           RMAPP01    QRPGLESRC $TGTLIB RPGLE    'Application Messages DAL Module'
-tweakcopy "$SRCDIR/QRPGLESRC/RMAPP02.rpgle"           RMAPP02    QRPGLESRC $TGTLIB RPGLE    'Application Messages DAL Module'
-tweakcopy "$SRCDIR/QRPGLESRC/RMAPP03.rpgle"           RMAPP03    QRPGLESRC $TGTLIB RPGLE    'Application Messages DAL Module'
+tweakcopy "$SRCDIR/QRPGLESRC/RMAPP01.rpgle"           RMAPP01    QRPGLESRC $TGTLIB RPGLE    'Application Helper - IBM i Job Job Module'
+tweakcopy "$SRCDIR/QRPGLESRC/RMAPP02.rpgle"           RMAPP02    QRPGLESRC $TGTLIB RPGLE    'Application Helper - DAL Module'
+tweakcopy "$SRCDIR/QRPGLESRC/RMAPP03.rpgle"           RMAPP03    QRPGLESRC $TGTLIB RPGLE    'Application Helper - Logger Module'
 tweakcopy "$SRCDIR/QRPGLESRC/RMEMBSQL.sqlrpgle"       RMEMBSQL   QRPGLESRC $TGTLIB SQLRPGLE 'Embedded SQL RPG Helper Module'
 tweakcopy "$SRCDIR/QRPGLESRC/SEEDCUSDET.pgm.sqlrpgle" SEEDCUSDET QRPGLESRC $TGTLIB SQLRPGLE 'Seed CUSDET Table'
 tweakcopy "$SRCDIR/QRPGLESRC/WRKCUS.pgm.rpgle"        WRKCUS     QRPGLESRC $TGTLIB RPGLE    'Work With Customers'
@@ -142,7 +142,7 @@ cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVP.view"     CUSDETVP QSQLSRC   $TGTLIB SQL   
 # Copy VSCODE source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/.vscode/rpglint.json"       RPGLINT VSCODE    $TGTLIB JSON     'RPGLE Linter Configuration'
+cpyfrmstmf "$SRCDIR/.vscode/rpglint.json"       RMRPGLINT VSCODE  $TGTLIB JSON     'RPGLE Linter Configuration'
 
 #===============================================================================
 # Create datebase objects
