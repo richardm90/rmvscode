@@ -1,0 +1,35 @@
+--------------------------------------------------------------------------------
+-- CUSDETVL - Customer Details Primary View
+--
+-- 07/04/2021 - RM - created
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW CUSDETVL
+  AS ( SELECT
+         ID,
+         CODE,
+         STATUS,
+         CASE
+           WHEN STATUS='N' THEN 'New'
+           WHEN STATUS='A' THEN 'Active'
+           WHEN STATUS='C' THEN 'Closed'
+           ELSE 'Unknown'
+           END AS STATUS_DESCRIPTION,
+         NAME,
+         ADDRESS_LINE1,
+         ADDRESS_LINE2,
+         ADDRESS_LINE3,
+         ADDRESS_LINE4,
+         POSTCODE,
+         CONTACT_NAME,
+         CONTACT_TELP,
+         CONTACT_EMAIL,
+         VAT_CODE,
+         CURRENCY,
+         CREDIT_LIMIT,
+         CURRENT_BALANCE,
+         COMMENTS
+       FROM
+         CUSDETVP );
+
+LABEL ON TABLE CUSDETVL IS 'Customer Details List View';

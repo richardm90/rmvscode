@@ -1,0 +1,119 @@
+**free
+
+//==============================================================================
+// APP_D      - Application system definitions
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+/if defined(APP_D)
+/eof
+/endif
+/define APP_D
+
+/include 'QCPYSRC/RMTOOLS_D.rpgleinc'
+
+//==============================================================================
+// Standard constant definitions
+//==============================================================================
+
+// BOOLEAN values
+// dcl-c true  const(*on);
+// dcl-c false const(*off);
+
+// NULL values
+// dcl-c NULL_VALUE     -1;
+// dcl-c NON_NULL_VALUE 0;
+
+//==============================================================================
+// Basic data type template fields
+//==============================================================================
+
+// Indicator (character) format
+// dcl-s BOOLEAN_t ind template;
+
+// Date, initialised to current date
+// dcl-s DATE_t date inz(*sys) template;
+
+// Double-precision - 8-byte float (16 digits)
+dcl-s DOUBLE_t float(8) template;
+
+// Single-precision - 4-byte float (8 digits)
+dcl-s FLOAT_t float(4) template;
+
+// Signed integer format (range of values = -2147483648 to 2147483647)
+// dcl-s INTEGER_t int(10) template;
+
+// Null indicator
+// dcl-s NULLIND_t bindec(4) template;
+
+// Signed integer format (range of values = -32768 to 32767)
+// dcl-s SMALLINT_t int(5) template;
+
+// SQL string
+dcl-s SQL_STRING_t varchar(32740) template;
+
+// String
+// dcl-s STRING_t varchar(65535) template;
+
+// Timestamp
+// dcl-s TIMESTAMP_t timestamp template;
+
+// Unsigned integer format (range of values = 0 to 4294967295)
+// dcl-s UNSIGNED_INTEGER_t uns(10) inz(0) template;
+
+//==============================================================================
+// Standard template fields
+//==============================================================================
+
+// Simple character flag
+dcl-s FLAG_t char(1) template;
+
+// Stream file name
+// dcl-s STMF_t varchar(1024) template;
+
+//==============================================================================
+// IBM i object template fields
+//==============================================================================
+
+// IBM i file name
+dcl-s FILE_NAME_t char(10) template;
+
+// IBM i field name
+// dcl-s FIELD_NAME_t char(10) template;
+
+// IBM i object name
+dcl-s IBMI_PASSWORD_t varchar(512) template;
+
+// IBM i full job name
+// dcl-s JOB_FULL_NAME_t varchar(28) template;
+
+// IBM i job name
+// dcl-s JOB_NAME_t char(10) template;
+
+// IBM i job number
+// dcl-s JOB_NUMBER_t char(6) template;
+
+// IBM i library name
+dcl-s LIB_NAME_t char(10) template;
+
+// IBM i object name
+// dcl-s OBJ_NAME_t char(10) template;
+
+// IBM i program name
+dcl-s PGM_NAME_t char(10) template;
+
+// IBM i procedure name
+// dcl-s PROC_NAME_t varchar(64) template;
+
+// IBM i SQL user name
+dcl-s SQL_USER_t varchar(18) template;
+
+// IBM i user name
+dcl-s USER_NAME_t char(10) template;
+
+//==============================================================================
+// IBM i command parameter template fields
+//==============================================================================
+
+// dcl-s CMD_PARM_PNAME_t varchar(5000) template;

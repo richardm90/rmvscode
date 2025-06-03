@@ -1,0 +1,72 @@
+**free
+
+/if defined(ADDMSG_P)
+/eof
+/endif
+/define ADDMSG_P
+
+//==============================================================================
+// ADDMSG_P   - ADDMSG Procedures Copybook
+//
+// 14/04/2021 - RM - created
+//==============================================================================
+
+dcl-proc addmsg;
+  dcl-pi *n;
+    text like(APMSAL_text_t) const;
+    field_name like(FIELD_NAME_t) const options(*nopass);
+    type like(APMSAL_type_t) const options(*nopass);
+  end-pi;
+
+  if %parms() >= %parmnum(type);
+    APMSAL_add(text: type: field_name);
+  elseif %parms() >= %parmnum(field_name);
+    APMSAL_add(text: APMSAL_TYPE_ERROR: field_name);
+  else;
+    APMSAL_add(text: APMSAL_TYPE_ERROR);
+  endif;
+
+  return;
+end-proc;
+
+//==============================================================================
+
+dcl-proc addmsg_diag;
+  dcl-pi *n;
+    text like(APMSAL_text_t) const;
+    field_name like(FIELD_NAME_t) const options(*nopass);
+  end-pi;
+
+  if %parms() >= %parmnum(field_name);
+    addmsg(text: field_name: APMSAL_TYPE_DIAGNOSTIC);
+  else;
+    addmsg(text: ADDMSG_FIELD_NAME_NONE: APMSAL_TYPE_DIAGNOSTIC);
+  endif;
+
+  return;
+end-proc;
+
+///
+// Add an information message.
+//
+// Creates a row on the Application Messages table.
+//
+// @param The message text.
+// @param Optional field name to associate the message, this is only relevant
+//          for display file programs that use the FLASH procedure.
+///
+
+dcl-proc addmsg_info;
+  dcl-pi *n;
+    text like(APMSAL_text_t) const;
+    field_name like(FIELD_NAME_t) const options(*nopass);
+  end-pi;
+
+  if %parms() >= %parmnum(field_name);
+    addmsg(text: field_name: APMSAL_TYPE_INFORMATION);
+  else;
+    addmsg(text: ADDMSG_FIELD_NAME_NONE: APMSAL_TYPE_INFORMATION);
+  endif;
+
+  return;
+end-proc;

@@ -1,0 +1,27 @@
+**free
+
+/if defined(FLASH_D)
+/eof
+/endif
+/define FLASH_D
+
+//==============================================================================
+// FLASH_D    - FLASH Definitions Copybook
+//
+// 14/04/2021 - RM - created
+//==============================================================================
+
+//==============================================================================
+// Copybook definitions
+//==============================================================================
+
+/include 'QCPYSRC/ADDMSG_D.rpgleinc'
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/APMSAL_D.rpgleinc'
+/include 'QCPYSRC/PSDS_D.rpgleinc'
+
+//==============================================================================
+// Define global flash fields
+//==============================================================================
+
+dcl-s g_first_flash like(BOOLEAN_t);

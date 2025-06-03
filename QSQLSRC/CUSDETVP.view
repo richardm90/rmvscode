@@ -1,0 +1,36 @@
+--------------------------------------------------------------------------------
+-- CUSDETVP   - Customer Details Primary View
+--
+-- 07/04/2021 - RM - created
+--------------------------------------------------------------------------------
+
+CREATE OR REPLACE VIEW CUSDETVP
+  AS ( SELECT
+         ID,
+         CODE,
+         STATUS,
+         NAME,
+         ADDRESS_LINE1,
+         ADDRESS_LINE2,
+         ADDRESS_LINE3,
+         ADDRESS_LINE4,
+         POSTCODE,
+         CONTACT_NAME,
+         CONTACT_TELP,
+         CONTACT_EMAIL,
+         VAT_CODE,
+         CURRENCY,
+         CREDIT_LIMIT,
+         CURRENT_BALANCE,
+         COMMENTS,
+         CREATED_BY_USER,
+         CREATED_TIMESTAMP
+        --  AUDIT_TYPE_CHANGE,
+        --  AUDIT_USER,
+        --  AUDIT_CLIENT_IP,
+        --  AUDIT_JOB_NAME,
+        --  AUDIT_TIME
+       FROM
+         CUSDET );
+
+LABEL ON TABLE CUSDETVP IS 'Customer Details Primary View';

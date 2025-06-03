@@ -1,4 +1,4 @@
-**FREE
+**free
 
 //==============================================================================
 // ADDCUS.rpgle
@@ -44,7 +44,7 @@ end-ds;
 
 /include APP_D
 /include APMSAL_D
-/include APPJOB_D
+// /include APPJOB_D
 // /include APTSAL_D
 /include FLASH_D
 /include INFDS_D
@@ -59,8 +59,8 @@ end-ds;
 dcl-proc ADDCUS;
   dcl-pi *n end-pi;
 
-  dcl-ds cusdet likeds(t_CUSDET) inz(*likeds);
-  dcl-s exit like(t_BOOLEAN);
+  dcl-ds cusdet likeds(CUSDET_t) inz(*likeds);
+  dcl-s exit like(BOOLEAN_t);
 
   open ADDCUSD;
 
@@ -141,9 +141,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc add_customer;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-ds cusdet likeds(t_CUSDET) inz(*likeds);
+  dcl-ds cusdet likeds(CUSDET_t) inz(*likeds);
 
   cusdet = CUSDET_new();
   cusdet.CODE          = DACODE;
@@ -171,7 +171,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc valid;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   i_dacode = false;
   i_daname = false;
@@ -192,9 +192,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc dacode_valid;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-s l_valid like(t_BOOLEAN);
+  dcl-s l_valid like(BOOLEAN_t);
 
   select;
 
@@ -222,9 +222,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc daname_valid;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-s l_valid like(t_BOOLEAN);
+  dcl-s l_valid like(BOOLEAN_t);
 
   select;
 
@@ -247,9 +247,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc daadd1_valid;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-s l_valid like(t_BOOLEAN);
+  dcl-s l_valid like(BOOLEAN_t);
 
   select;
 
@@ -272,9 +272,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc dapcod_valid;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-s l_valid like(t_BOOLEAN);
+  dcl-s l_valid like(BOOLEAN_t);
 
   select;
 
@@ -299,7 +299,7 @@ end-proc;
 
 dcl-proc set_field_error;
   dcl-pi *n;
-    msg likeds(t_APMSAL) const;
+    msg likeds(APMSAL_t) const;
   end-pi;
 
   select;

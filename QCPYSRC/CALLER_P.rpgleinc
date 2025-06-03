@@ -1,0 +1,138 @@
+**free
+
+//==============================================================================
+// CALLER_P   - RMTOOLS Retrieve Caller Procedure Copybook
+//==============================================================================
+
+/if defined(CALLER_P)
+/eof
+/endif
+/define CALLER_P
+
+//==============================================================================
+// retrieve_caller
+//   Returns the caller of the current subprocedure
+//==============================================================================
+
+dcl-proc retrieve_caller;
+  dcl-pi *n likeds(CALLER_t) end-pi;
+
+  dcl-ds CSTK0100  len(5000) qualified inz;
+    BytesReturned  bindec(9);
+    BytesAvail     bindec(9);
+    NumOfEntries   bindec(9);
+    StackOffset    bindec(9);
+    NumReturned    bindec(9);
+  end-ds;
+
+  dcl-ds JIDF0100  qualified;
+    Name           char(10) inz('*');
+    User           char(10) inz('');
+    Number         char(6) inz('');
+    Id             char(16);
+    Reserved       char(2) inz(*loval);
+    ThreadIndic    bindec(9) inz(1);
+    ThreadId       char(8) inz(*loval);
+  end-ds;
+
+  // API Error Data structure.
+  dcl-ds APIError qualified inz;
+    ByteProv bindec(9) inz(%size(APIError.msgdata));
+    ByteAval bindec(9);
+    MsgId    char(7);
+    Filler   char(1);
+    MsgData  char(100);
+  end-ds;
+
+  // Field definitions for retrieving the call stack entry.
+  dcl-ds rtvCallStack qualified;
+    Receiver      like(CSTK0100) inz;
+    Length        bindec(9) inz(%size(rtvCallStack.Receiver));
+    Format        char(8) inz('CSTK0100');
+    JobId         like(JIDF0100) inz;
+    JobIdFormat   char(8) inz('JIDF0100');
+    Error         like(APIError) inz;
+  end-ds;
+
+  dcl-ds StackEntry len(256) qualified based(StackEntry_p);
+    Length        int(10);
+    StatementDisp int(10);
+    NumOfIds      int(10);
+    ProcedureDisp int(10);
+    LenProcedure  int(10);
+    RequestLevel  int(10);
+    ProgramName   char(10);
+    ProgramLib    char(10);
+    InstructNum   int(10);
+    ModuleName    char(10);
+    ModuleLib     char(10);
+    Boundary      char(1);
+    Reserved1     char(3);
+    ActGroupNum   uns(10);
+    ActGroupName  char(10);
+    Reserved2     char(2);
+    PgmAspName    char(10);
+    PgmLibAspName char(10);
+    PgmAspNum     int(10);
+    PgmLibAspNum  int(10);
+    ActGrpNumLong uns(20:0);
+  end-ds;
+
+  dcl-ds Statement qualified based(Statement_p);
+    identifier char(10) dim(100);
+  end-ds;
+
+  dcl-ds Procedure qualified based(Procedure_p);
+    name char(128);
+  end-ds;
+
+  // Procedure definitions for the retrieve call stack entry API.
+  dcl-pr QWVRCSTK extpgm('QWVRCSTK');
+    Parm1 like(rtvCallStack.Receiver);
+    Parm2 like(rtvCallStack.Length);
+    Parm3 like(rtvCallStack.Format);
+    Parm4 like(rtvCallStack.JobId);
+    Parm5 like(rtvCallStack.JobIdFormat);
+    Parm6 like(rtvCallStack.Error);
+  end-pr;
+
+  dcl-ds caller likeds(CALLER_t) inz(*likeds);
+  dcl-s index like(INTEGER_t);
+  dcl-s offset like(INTEGER_t);
+
+  // Get API to get the call stack
+  rtvCallStack.Receiver = CSTK0100;
+  rtvCallStack.JobId = JIDF0100;
+
+  QWVRCSTK( rtvCallStack.Receiver
+          : rtvCallStack.Length
+          : rtvCallStack.Format
+          : rtvCallStack.jobId
+          : rtvCallStack.jobIdFormat
+          : rtvCallStack.Error );
+
+  CSTK0100 = rtvCallStack.Receiver;
+
+  offset = CSTK0100.StackOffset;
+  for index = 1 to CSTK0100.StackOffset;
+    StackEntry_p = %addr(CSTK0100) + offset;
+
+    if StackEntry.ProgramName <> 'RMAPPMSG'
+      and StackEntry.ProgramName <> 'RMEMBSQL';
+      Statement_p = StackEntry_p + StackEntry.StatementDisp;
+      Procedure_p = StackEntry_p + StackEntry.ProcedureDisp;
+      caller.pgm_name = StackEntry.ProgramName;
+      if StackEntry.LenProcedure <= %size(caller.proc_name);
+        caller.proc_name = %subst(Procedure.name: 1: StackEntry.LenProcedure);
+      else;
+        caller.proc_name = Procedure.name;
+      endif;
+      caller.statement = Statement.identifier(1);
+      leave;
+    endif;
+
+    offset += StackEntry.Length;
+  endfor;
+
+  return caller;
+end-proc;

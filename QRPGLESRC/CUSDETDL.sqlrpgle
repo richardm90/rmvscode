@@ -1,15 +1,13 @@
-**FREE
+**free
 
 //==============================================================================
-// CUSDETDL.sqlrpgle
-//   Customer Details DAL Module
+// CUSDETDL   - Customer Details DAL Module
 //
 // 07/04/2021 - RM - created
 //==============================================================================
 
 /define APP_SERVICE_PROGRAM
-/include APP_H
-/undefine APP_SERVICE_PROGRAM
+/include 'QCPYSRC/APP_H.rpgleinc'
 
 //==============================================================================
 // Define global data structures
@@ -21,20 +19,16 @@ dcl-ds g_state likeds(EMBSQL_state_t) inz;
 // Copybook definitions
 //==============================================================================
 
-/define APP_DATA_OR_SERVICE_LAYER
-/include APP_D
-/include APPJOB_D
-/include CUSDETDL_D
-/include RMAPPDAL_D
-/include RMAPPENV_D
-/include RMEMBSQL_D
-/undefine APP_DATA_OR_SERVICE_LAYER
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/CUSDETDL_D.rpgleinc'
+/include 'QCPYSRC/RMAPP_D.rpgleinc'
+/include 'QCPYSRC/RMEMBSQL_D.rpgleinc'
 
 //==============================================================================
 // Copybook procedures
 //==============================================================================
 
-/include RMEMBSQL_P
+/include 'QCPYSRC/RMEMBSQL_P.rpgleinc'
 
 //==============================================================================
 // CUSDETDL_add
@@ -42,15 +36,15 @@ dcl-ds g_state likeds(EMBSQL_state_t) inz;
 //==============================================================================
 
 dcl-proc CUSDETDL_add export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
-  data.CREATED_BY_USER = %trimr(APPENV_user());
-  data.CREATED_TIMESTAMP = APPENV_timestamp();
+  data.CREATED_BY_USER = %trimr(APP_user());
+  data.CREATED_TIMESTAMP = APP_timestamp();
 
   exec sql
-    INSERT INTO CUSTOMER_DETAILS_DL
+    INSERT INTO CUSDETVP
       ( CODE,
         STATUS,
         NAME,
@@ -103,8 +97,8 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_get export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   exec sql
@@ -136,7 +130,7 @@ dcl-proc CUSDETDL_get export;
     INTO
       :data
     FROM
-      CUSTOMER_DETAILS_DL
+      CUSDETVP
     WHERE
       :data.ID = ID
     FETCH FIRST ROW ONLY;
@@ -152,13 +146,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_update export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   exec sql
     UPDATE
-      CUSTOMER_DETAILS_DL
+      CUSDETVP
     SET
       CODE            = UPPER(:data.CODE),
       STATUS          = UPPER(:data.STATUS),
@@ -190,13 +184,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_delete export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   exec sql
     DELETE FROM
-      CUSTOMER_DETAILS_DL
+      CUSDETVP
     WHERE
       ID = :data.ID;
 
@@ -211,16 +205,16 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_list export;
-  dcl-pi *n like(t_UNSIGNED_INTEGER);
-    calc likeds(APPDAL_paging_t);
-    sel  likeds(t_CUSDET_list_selections) const;
-    data likeds(t_CUSDET_list) dim(APPDAL_MAXIMUM_PAGE_ROWS);
+  dcl-pi *n like(UNSIGNED_INTEGER_t);
+    calc likeds(APP_paging_t);
+    sel  likeds(CUSDET_list_selections_t) const;
+    data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
   end-pi;
 
-  dcl-s page_size  like(t_INTEGER);
-  dcl-s row_offset like(t_INTEGER);
-  dcl-s got_rows   like(t_UNSIGNED_INTEGER);
-  dcl-s l_search   like(t_CUSDET_NAME);
+  dcl-s page_size  like(INTEGER_t);
+  dcl-s row_offset like(INTEGER_t);
+  dcl-s got_rows   like(UNSIGNED_INTEGER_t);
+  dcl-s l_search   like(CUSDET_NAME_t);
 
   l_search = %trim(sel.SEARCH);
   if l_search <> '';
@@ -249,7 +243,7 @@ dcl-proc CUSDETDL_list export;
         CURRENT_BALANCE,
         COMMENTS
       FROM
-        CUSTOMER_DETAILS_DL_LIST
+        CUSDETVL
       WHERE
         ( :sel.CODE = '' OR :sel.CODE = CODE )
            AND
@@ -273,7 +267,7 @@ dcl-proc CUSDETDL_list export;
   exec SQL
     get diagnostics :calc.total_rows = DB2_NUMBER_ROWS;
 
-  APPDAL_calc_page_data(calc: page_size: row_offset);
+  APP_calc_page_data(calc: page_size: row_offset);
 
   exec SQL
     fetch relative :row_offset from list_cursor
@@ -294,9 +288,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_fetch export;
-  dcl-pi *n like(t_BOOLEAN);
-    sel  likeds(t_CUSDET_fetch_selections) const;
-    data likeds(t_CUSDET_list);
+  dcl-pi *n like(BOOLEAN_t);
+    sel  likeds(CUSDET_fetch_selections_t) const;
+    data likeds(CUSDET_list_t);
   end-pi;
 
   exec SQL
@@ -322,7 +316,7 @@ dcl-proc CUSDETDL_fetch export;
     INTO
       :data
     FROM
-      CUSTOMER_DETAILS_DL_LIST
+      CUSDETVL
     WHERE
       ( :sel.CODE = '' OR :sel.CODE = CODE )
           AND
@@ -341,7 +335,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_error export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return g_state.error;
 end-proc;
@@ -352,7 +346,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_found export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return g_state.found;
 end-proc;

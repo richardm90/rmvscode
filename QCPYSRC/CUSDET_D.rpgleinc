@@ -1,0 +1,63 @@
+**free
+
+//==============================================================================
+// CUSDET_D   - Customer Details SAL Copybook
+//
+// 07/04/2021 - RM - created
+//==============================================================================
+
+/if defined(CUSDET_D)
+/eof
+/endif
+/define CUSDET_D
+
+//========================================================================
+// Copybook definitions
+//========================================================================
+
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/APMSAL_D.rpgleinc'
+/include 'QCPYSRC/CUSDETDL_D.rpgleinc'
+/include 'QCPYSRC/RMAPP_D.rpgleinc'
+
+//========================================================================
+// Define global prototypes
+//========================================================================
+
+dcl-pr CUSDET_new likeds(CUSDET_t) end-pr;
+
+dcl-pr CUSDET_add like(BOOLEAN_t);
+  data likeds(CUSDET_t);
+end-pr;
+
+dcl-pr CUSDET_get like(BOOLEAN_t);
+  data likeds(CUSDET_t);
+end-pr;
+
+dcl-pr CUSDET_update like(BOOLEAN_t);
+  data likeds(CUSDET_t);
+end-pr;
+
+dcl-pr CUSDET_delete like(BOOLEAN_t);
+  data likeds(CUSDET_t);
+end-pr;
+
+dcl-pr CUSDET_list like(UNSIGNED_INTEGER_t);
+  calc likeds(APP_paging_t);
+  sel  likeds(CUSDET_list_selections_t) const;
+  data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
+end-pr;
+
+dcl-pr CUSDET_fetch like(BOOLEAN_t);
+  sel  likeds(CUSDET_fetch_selections_t) const;
+  data likeds(CUSDET_list_t);
+end-pr;
+
+dcl-pr CUSDET_error like(BOOLEAN_t) end-pr;
+
+dcl-pr CUSDET_found like(BOOLEAN_t) end-pr;
+
+dcl-pr CUSDET_exists like(BOOLEAN_t);
+  CODE like(CUSDET_CODE_t) const;
+  ID   like(INTEGER_t) const options(*nopass);
+end-pr;

@@ -1,0 +1,10 @@
+strpgmexp signature('CSVR4 v1.01     ')
+   export symbol(csv_open)
+   export symbol(csv_loadrec)
+   export symbol(csv_rewindfile)
+   export symbol(csv_getfld)
+   export symbol(csv_rewindrec)
+   export symbol(csv_close)
+   export symbol(csv_openBuf)
+   export symbol(csv_getflduni)
+endpgmexp 
