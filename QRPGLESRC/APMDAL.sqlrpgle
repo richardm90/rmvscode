@@ -17,10 +17,10 @@
 // Define global data structures
 //==============================================================================
 
-dcl-s g_error like(t_BOOLEAN);
-dcl-s g_found like(t_BOOLEAN);
-dcl-s g_first_message like(t_BOOLEAN);
-dcl-s g_first_message_id like(t_INTEGER);
+dcl-s g_error like(BOOLEAN_t);
+dcl-s g_found like(BOOLEAN_t);
+dcl-s g_first_message like(BOOLEAN_t);
+dcl-s g_first_message_id like(INTEGER_t);
 
 //==============================================================================
 // Copybook definitions
@@ -45,8 +45,8 @@ dcl-s g_first_message_id like(t_INTEGER);
 //==============================================================================
 
 dcl-proc APMDAL_first_message export;
-  dcl-pi *n like(t_BOOLEAN);
-    first_message like(t_BOOLEAN) options(*nopass) const;
+  dcl-pi *n like(BOOLEAN_t);
+    first_message like(BOOLEAN_t) options(*nopass) const;
   end-pi;
 
   if %parms() >= %parmnum(first_message);
@@ -62,8 +62,8 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_first_message_id export;
-  dcl-pi *n like(t_INTEGER);
-    first_message_id like(t_INTEGER) options(*nopass) const;
+  dcl-pi *n like(INTEGER_t);
+    first_message_id like(INTEGER_t) options(*nopass) const;
   end-pi;
 
   if %parms() >= %parmnum(first_message_id);
@@ -80,7 +80,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_add export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -134,7 +134,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_get export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -169,7 +169,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_update export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -194,7 +194,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_delete export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -215,7 +215,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_delete_by_session_id export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -237,15 +237,15 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_list export;
-  dcl-pi *n like(t_UNSIGNED_INTEGER);
+  dcl-pi *n like(UNSIGNED_INTEGER_t);
     calc likeds(APP_paging_t);
     sel  likeds(APMDAL_list_selections_t) const;
     data likeds(APMDAL_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
   end-pi;
 
-  dcl-s page_size  like(t_INTEGER) inz(APP_MAXIMUM_PAGE_ROWS);
-  dcl-s row_offset like(t_INTEGER) inz(1);
-  dcl-s got_rows   like(t_UNSIGNED_INTEGER);
+  dcl-s page_size  like(INTEGER_t) inz(APP_MAXIMUM_PAGE_ROWS);
+  dcl-s row_offset like(INTEGER_t) inz(1);
+  dcl-s got_rows   like(UNSIGNED_INTEGER_t);
 
   exec SQL
     DECLARE list_cursor INSENSITIVE SCROLL CURSOR FOR
@@ -300,7 +300,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_error export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return get_error();
 end-proc;
@@ -311,7 +311,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_found export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return get_found();
 end-proc;
@@ -325,7 +325,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_open export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     sel likeds(APMDAL_open_selections_t) const;
   end-pi;
 
@@ -369,7 +369,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_fetch export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -386,7 +386,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_close export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   exec sql CLOSE fetch_cursor;
   set_error();
@@ -404,7 +404,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_open_desc export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     sel likeds(APMDAL_open_selections_t) const;
   end-pi;
 
@@ -448,7 +448,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_fetch_desc export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     data likeds(APMDAL_t);
   end-pi;
 
@@ -465,7 +465,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMDAL_close_desc export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   exec sql CLOSE fetch_desc_cursor;
   set_error();
@@ -502,7 +502,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc get_error export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return g_error;
 end-proc;
@@ -532,7 +532,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc get_found export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return g_found;
 end-proc;

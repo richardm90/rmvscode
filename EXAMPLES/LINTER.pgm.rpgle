@@ -17,7 +17,7 @@ dcl-s valid_customer like(Boolean_t) inz(false);
 dcl-proc LINTER;
   dcl-pi *n end-pi;
 
-  dcl-s cust_name like(t_CUSDET_NAME) inz('Richard Moulton');
+  dcl-s cust_name like(CUSDET_NAME_t) inz('Richard Moulton');
   dcl-s balance packed(11:2);
   Dcl-s message varchar(52);
   dcl-s status char(1);

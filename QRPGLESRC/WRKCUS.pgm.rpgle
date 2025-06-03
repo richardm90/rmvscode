@@ -55,15 +55,15 @@ dcl-pr ADDCUS extpgm('ADDCUS');
 end-pr;
 
 dcl-pr SHWCUS extpgm('SHWCUS');
-  id like(t_INTEGER) const;
+  id like(INTEGER_t) const;
 end-pr;
 
 dcl-pr UPDCUS extpgm('UPDCUS');
-  id like(t_INTEGER) const;
+  id like(INTEGER_t) const;
 end-pr;
 
 dcl-pr DELCUS extpgm('DELCUS');
-  id like(t_INTEGER) const;
+  id like(INTEGER_t) const;
 end-pr;
 
 //==============================================================================
@@ -75,10 +75,10 @@ dcl-proc WRKCUS;
   dcl-pi *n end-pi;
 
   dcl-ds calc likeds(APP_paging_t) inz(*likeds);
-  dcl-ds sel  likeds(t_CUSDET_list_selections) inz(*likeds);
-  dcl-ds data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS) inz(*likeds);
-  dcl-s exit like(t_BOOLEAN);
-  dcl-s index like(t_INTEGER);
+  dcl-ds sel  likeds(CUSDET_list_selections_t) inz(*likeds);
+  dcl-ds data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS) inz(*likeds);
+  dcl-s exit like(BOOLEAN_t);
+  dcl-s index like(INTEGER_t);
   dcl-s last_DASEARCH like(DASEARCH);
   dcl-s last_DAPAGE   like(DAPAGE);
 
@@ -357,7 +357,7 @@ end-proc;
 
 dcl-proc show_customer;
   dcl-pi *n;
-    id like(t_INTEGER) const;
+    id like(INTEGER_t) const;
   end-pi;
 
   addmsg_diag('Subfile record = ' + %char(DACRRN));
@@ -374,7 +374,7 @@ end-proc;
 
 dcl-proc update_customer;
   dcl-pi *n;
-    id like(t_INTEGER) const;
+    id like(INTEGER_t) const;
   end-pi;
 
   addmsg_diag('Subfile record = ' + %char(DACRRN));
@@ -391,7 +391,7 @@ end-proc;
 
 dcl-proc delete_customer;
   dcl-pi *n;
-    id like(t_INTEGER) const;
+    id like(INTEGER_t) const;
   end-pi;
 
   addmsg_diag('Subfile record = ' + %char(DACRRN));

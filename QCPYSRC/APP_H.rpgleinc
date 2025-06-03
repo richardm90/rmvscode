@@ -15,19 +15,18 @@
 // Service program control specifications
 //==============================================================================
 
-/IF DEFINED(APP_SERVICE_PROGRAM)
+/if DEFINED(APP_SERVICE_PROGRAM)
 ctl-opt nomain;
-/ELSE
-/IF DEFINED(APP_ACTGRP_RMAPP)
+/else
+/if DEFINED(APP_ACTGRP_RMAPP)
 ctl-opt dftactgrp(*no) actgrp('RMAPP');
-/ELSEIF DEFINED(APP_ACTGRP_NEW)
+/elseif DEFINED(APP_ACTGRP_NEW)
 ctl-opt dftactgrp(*no) actgrp(*new);
-/ELSE
+/else
 ctl-opt dftactgrp(*no) actgrp(*caller);
-/ENDIF
-/ENDIF
+/endif
+/endif
 ctl-opt bnddir('RMAPP');
-// ctl-opt bnddir('RMTOOLS');
 
 //==============================================================================
 // Standard control specifications

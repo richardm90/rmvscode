@@ -26,7 +26,7 @@ dcl-proc flash;
   dcl-pi *n end-pi;
 
   dcl-ds msg likeds(APMSAL_t) inz(*likeds);
-  dcl-s show_diag_messages like(t_BOOLEAN);
+  dcl-s show_diag_messages like(BOOLEAN_t);
 
   show_diag_messages = false;
 

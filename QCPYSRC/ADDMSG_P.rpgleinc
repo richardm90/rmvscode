@@ -14,7 +14,7 @@
 dcl-proc addmsg;
   dcl-pi *n;
     text like(APMSAL_text_t) const;
-    field_name like(t_FIELD_NAME) const options(*nopass);
+    field_name like(FIELD_NAME_t) const options(*nopass);
     type like(APMSAL_type_t) const options(*nopass);
   end-pi;
 
@@ -34,7 +34,7 @@ end-proc;
 dcl-proc addmsg_diag;
   dcl-pi *n;
     text like(APMSAL_text_t) const;
-    field_name like(t_FIELD_NAME) const options(*nopass);
+    field_name like(FIELD_NAME_t) const options(*nopass);
   end-pi;
 
   if %parms() >= %parmnum(field_name);
@@ -59,7 +59,7 @@ end-proc;
 dcl-proc addmsg_info;
   dcl-pi *n;
     text like(APMSAL_text_t) const;
-    field_name like(t_FIELD_NAME) const options(*nopass);
+    field_name like(FIELD_NAME_t) const options(*nopass);
   end-pi;
 
   if %parms() >= %parmnum(field_name);

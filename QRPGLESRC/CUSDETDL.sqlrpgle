@@ -36,8 +36,8 @@ dcl-ds g_state likeds(EMBSQL_state_t) inz;
 //==============================================================================
 
 dcl-proc CUSDETDL_add export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   data.CREATED_BY_USER = %trimr(APP_user());
@@ -97,8 +97,8 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_get export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   exec sql
@@ -146,8 +146,8 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_update export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   exec sql
@@ -184,8 +184,8 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_delete export;
-  dcl-pi *n like(t_BOOLEAN);
-    data likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    data likeds(CUSDET_t);
   end-pi;
 
   exec sql
@@ -205,16 +205,16 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_list export;
-  dcl-pi *n like(t_UNSIGNED_INTEGER);
+  dcl-pi *n like(UNSIGNED_INTEGER_t);
     calc likeds(APP_paging_t);
-    sel  likeds(t_CUSDET_list_selections) const;
-    data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS);
+    sel  likeds(CUSDET_list_selections_t) const;
+    data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
   end-pi;
 
-  dcl-s page_size  like(t_INTEGER);
-  dcl-s row_offset like(t_INTEGER);
-  dcl-s got_rows   like(t_UNSIGNED_INTEGER);
-  dcl-s l_search   like(t_CUSDET_NAME);
+  dcl-s page_size  like(INTEGER_t);
+  dcl-s row_offset like(INTEGER_t);
+  dcl-s got_rows   like(UNSIGNED_INTEGER_t);
+  dcl-s l_search   like(CUSDET_NAME_t);
 
   l_search = %trim(sel.SEARCH);
   if l_search <> '';
@@ -288,9 +288,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_fetch export;
-  dcl-pi *n like(t_BOOLEAN);
-    sel  likeds(t_CUSDET_fetch_selections) const;
-    data likeds(t_CUSDET_list);
+  dcl-pi *n like(BOOLEAN_t);
+    sel  likeds(CUSDET_fetch_selections_t) const;
+    data likeds(CUSDET_list_t);
   end-pi;
 
   exec SQL
@@ -335,7 +335,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_error export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return g_state.error;
 end-proc;
@@ -346,7 +346,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDETDL_found export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return g_state.found;
 end-proc;

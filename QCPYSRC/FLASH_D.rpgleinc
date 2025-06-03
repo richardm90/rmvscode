@@ -24,4 +24,4 @@
 // Define global flash fields
 //==============================================================================
 
-dcl-s g_first_flash like(t_BOOLEAN);
+dcl-s g_first_flash like(BOOLEAN_t);

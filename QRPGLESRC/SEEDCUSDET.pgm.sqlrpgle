@@ -18,7 +18,7 @@ ctl-opt bnddir('CSV');
 // Define global data structures
 //==============================================================================
 
-dcl-s g_index like(t_SMALLINT);
+dcl-s g_index like(SMALLINT_t);
 
 //==============================================================================
 // Copybook definitions
@@ -45,7 +45,7 @@ dcl-s g_index like(t_SMALLINT);
 dcl-proc SEEDCUSDET;
   dcl-pi *n end-pi;
 
-  dcl-ds cusdet likeds(t_CUSDET) inz(*likeds);
+  dcl-ds cusdet likeds(CUSDET_t) inz(*likeds);
   dcl-ds msg likeds(APMSAL_t) inz(*likeds);
 
   dcl-s csvfile       like(CSV_HANDLE);
@@ -118,11 +118,11 @@ end-proc;
 //==============================================================================
 
 dcl-proc gen_code;
-  dcl-pi *n like(t_CUSDET_CODE);
-    NAME like(t_CUSDET_NAME) const;
+  dcl-pi *n like(CUSDET_CODE_t);
+    NAME like(CUSDET_NAME_t) const;
   end-pi;
 
-  dcl-s code like(t_CUSDET_CODE);
+  dcl-s code like(CUSDET_CODE_t);
 
   code = %subst(%trim(name): 1: 1)
        + %editc(g_index: 'X');
@@ -136,9 +136,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc gen_vat_code;
-  dcl-pi *n like(t_CUSDET_VAT_CODE) end-pi;
+  dcl-pi *n like(CUSDET_VAT_CODE_t) end-pi;
 
-  dcl-s vat_code like(t_CUSDET_VAT_CODE);
+  dcl-s vat_code like(CUSDET_VAT_CODE_t);
 
   if %inth(random(10)) < 9;
     vat_code = 'S';
@@ -155,9 +155,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc gen_currency;
-  dcl-pi *n like(t_CUSDET_CURRENCY) end-pi;
+  dcl-pi *n like(CUSDET_CURRENCY_t) end-pi;
 
-  dcl-s currency like(t_CUSDET_CURRENCY);
+  dcl-s currency like(CUSDET_CURRENCY_t);
 
   if %inth(random(10)) < 9;
     currency = 'GBP';
@@ -174,9 +174,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc gen_credit_limit;
-  dcl-pi *n like(t_CUSDET_CREDIT_LIMIT) end-pi;
+  dcl-pi *n like(CUSDET_CREDIT_LIMIT_t) end-pi;
 
-  dcl-s credit_limit like(t_CUSDET_CREDIT_LIMIT);
+  dcl-s credit_limit like(CUSDET_CREDIT_LIMIT_t);
 
   credit_limit = %inth(random(20)) * 500;
 
@@ -189,9 +189,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc gen_current_balance;
-  dcl-pi *n like(t_CUSDET_CURRENT_BALANCE) end-pi;
+  dcl-pi *n like(CUSDET_CURRENT_BALANCE_t) end-pi;
 
-  dcl-s current_balance like(t_CUSDET_CURRENT_BALANCE);
+  dcl-s current_balance like(CUSDET_CURRENT_BALANCE_t);
 
   if %inth(random(10)) < 5;
     current_balance = %inth(random(100000)) / 2;
@@ -206,17 +206,17 @@ end-proc;
 //==============================================================================
 
 dcl-proc random;
-  dcl-pi *n like(t_INTEGER);
-    factor like(t_INTEGER) const;
+  dcl-pi *n like(INTEGER_t);
+    factor like(INTEGER_t) const;
   end-pi;
 
-  dcl-s number  like(t_INTEGER);
-  dcl-s randnum like(t_DOUBLE);
-  dcl-s seednum like(t_INTEGER);
+  dcl-s number  like(INTEGER_t);
+  dcl-s randnum like(DOUBLE_t);
+  dcl-s seednum like(INTEGER_t);
 
   dcl-pr randnum_gen extproc('CEERAN0');
-    seednum  like(t_INTEGER);
-    randnum  like(t_double);
+    seednum  like(INTEGER_t);
+    randnum  like(DOUBLE_t);
     feedback char(12) options(*omit);
   end-pr;
 

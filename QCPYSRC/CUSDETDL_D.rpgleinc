@@ -24,24 +24,24 @@
 
 // /if defined(APP_DATA_OR_SERVICE_LAYER)
 
-dcl-ds t_CUSDET qualified template inz;
-  ID                     like(t_INTEGER);
-  CODE                   like(t_CUSDET_CODE);
-  STATUS                 like(t_CUSDET_STATUS);
-  NAME                   like(t_CUSDET_NAME);
-  ADDRESS_LINE1          like(t_CUSDET_ADDRESS_LINE);
-  ADDRESS_LINE2          like(t_CUSDET_ADDRESS_LINE);
-  ADDRESS_LINE3          like(t_CUSDET_ADDRESS_LINE);
-  ADDRESS_LINE4          like(t_CUSDET_ADDRESS_LINE);
-  POSTCODE               like(t_CUSDET_POSTCODE);
-  CONTACT_NAME           like(t_CUSDET_CONTACT_NAME);
-  CONTACT_TELP           like(t_CUSDET_CONTACT_TELP);
-  CONTACT_EMAIL          like(t_CUSDET_CONTACT_EMAIL);
-  VAT_CODE               like(t_CUSDET_VAT_CODE);
-  CURRENCY               like(t_CUSDET_CURRENCY);
-  CREDIT_LIMIT           like(t_CUSDET_CREDIT_LIMIT);
-  CURRENT_BALANCE        like(t_CUSDET_CURRENT_BALANCE);
-  COMMENTS               like(t_CUSDET_COMMENTS);
+dcl-ds CUSDET_t qualified template inz;
+  ID                     like(INTEGER_t);
+  CODE                   like(CUSDET_CODE_t);
+  STATUS                 like(CUSDET_STATUS_t);
+  NAME                   like(CUSDET_NAME_t);
+  ADDRESS_LINE1          like(CUSDET_ADDRESS_LINE_t);
+  ADDRESS_LINE2          like(CUSDET_ADDRESS_LINE_t);
+  ADDRESS_LINE3          like(CUSDET_ADDRESS_LINE_t);
+  ADDRESS_LINE4          like(CUSDET_ADDRESS_LINE_t);
+  POSTCODE               like(CUSDET_POSTCODE_t);
+  CONTACT_NAME           like(CUSDET_CONTACT_NAME_t);
+  CONTACT_TELP           like(CUSDET_CONTACT_TELP_t);
+  CONTACT_EMAIL          like(CUSDET_CONTACT_EMAIL_t);
+  VAT_CODE               like(CUSDET_VAT_CODE_t);
+  CURRENCY               like(CUSDET_CURRENCY_t);
+  CREDIT_LIMIT           like(CUSDET_CREDIT_LIMIT_t);
+  CURRENT_BALANCE        like(CUSDET_CURRENT_BALANCE_t);
+  COMMENTS               like(CUSDET_COMMENTS_t);
   CREATED_BY_USER        varchar(18);
   CREATED_TIMESTAMP      timestamp;
   // AUDIT_TYPE_CHANGE      char(1);
@@ -51,38 +51,38 @@ dcl-ds t_CUSDET qualified template inz;
   // AUDIT_TIME             timestamp;
 end-ds;
 
-dcl-ds t_CUSDET_list qualified template inz;
-  ID                     like(t_INTEGER);
-  CODE                   like(t_CUSDET_CODE);
-  STATUS                 like(t_CUSDET_STATUS);
-  STATUS_DESCRIPTION     like(t_CUSDET_STATUS_DESCRIPTION);
-  NAME                   like(t_CUSDET_NAME);
-  ADDRESS_LINE1          like(t_CUSDET_ADDRESS_LINE);
-  ADDRESS_LINE2          like(t_CUSDET_ADDRESS_LINE);
-  ADDRESS_LINE3          like(t_CUSDET_ADDRESS_LINE);
-  ADDRESS_LINE4          like(t_CUSDET_ADDRESS_LINE);
-  POSTCODE               like(t_CUSDET_POSTCODE);
-  CONTACT_NAME           like(t_CUSDET_CONTACT_NAME);
-  CONTACT_TELP           like(t_CUSDET_CONTACT_TELP);
-  CONTACT_EMAIL          like(t_CUSDET_CONTACT_EMAIL);
-  VAT_CODE               like(t_CUSDET_VAT_CODE);
-  CURRENCY               like(t_CUSDET_CURRENCY);
-  CREDIT_LIMIT           like(t_CUSDET_CREDIT_LIMIT);
-  CURRENT_BALANCE        like(t_CUSDET_CURRENT_BALANCE);
-  COMMENTS               like(t_CUSDET_COMMENTS);
+dcl-ds CUSDET_list_t qualified template inz;
+  ID                     like(INTEGER_t);
+  CODE                   like(CUSDET_CODE_t);
+  STATUS                 like(CUSDET_STATUS_t);
+  STATUS_DESCRIPTION     like(CUSDET_STATUS_DESCRIPTION_t);
+  NAME                   like(CUSDET_NAME_t);
+  ADDRESS_LINE1          like(CUSDET_ADDRESS_LINE_t);
+  ADDRESS_LINE2          like(CUSDET_ADDRESS_LINE_t);
+  ADDRESS_LINE3          like(CUSDET_ADDRESS_LINE_t);
+  ADDRESS_LINE4          like(CUSDET_ADDRESS_LINE_t);
+  POSTCODE               like(CUSDET_POSTCODE_t);
+  CONTACT_NAME           like(CUSDET_CONTACT_NAME_t);
+  CONTACT_TELP           like(CUSDET_CONTACT_TELP_t);
+  CONTACT_EMAIL          like(CUSDET_CONTACT_EMAIL_t);
+  VAT_CODE               like(CUSDET_VAT_CODE_t);
+  CURRENCY               like(CUSDET_CURRENCY_t);
+  CREDIT_LIMIT           like(CUSDET_CREDIT_LIMIT_t);
+  CURRENT_BALANCE        like(CUSDET_CURRENT_BALANCE_t);
+  COMMENTS               like(CUSDET_COMMENTS_t);
 end-ds;
 
-dcl-ds t_CUSDET_list_selections qualified template inz;
-  CODE                   like(t_CUSDET_CODE);
-  STATUS                 like(t_CUSDET_STATUS);
-  NAME                   like(t_CUSDET_NAME);
-  SEARCH                 like(t_CUSDET_NAME);
+dcl-ds CUSDET_list_selections_t qualified template inz;
+  CODE                   like(CUSDET_CODE_t);
+  STATUS                 like(CUSDET_STATUS_t);
+  NAME                   like(CUSDET_NAME_t);
+  SEARCH                 like(CUSDET_NAME_t);
 end-ds;
 
-dcl-ds t_CUSDET_fetch_selections qualified template inz;
-  ID                     like(t_INTEGER);
-  NOT_ID                 like(t_FLAG) inz('N');
-  CODE                   like(t_CUSDET_CODE);
+dcl-ds CUSDET_fetch_selections_t qualified template inz;
+  ID                     like(INTEGER_t);
+  NOT_ID                 like(FLAG_t) inz('N');
+  CODE                   like(CUSDET_CODE_t);
 end-ds;
 
 // /endif
@@ -91,60 +91,60 @@ end-ds;
 // Define field templates
 //========================================================================
 
-dcl-s t_CUSDET_CODE               char(10) template;
-dcl-s t_CUSDET_STATUS             char(1) template;
-dcl-s t_CUSDET_STATUS_DESCRIPTION varchar(40) template;
-dcl-s t_CUSDET_NAME               varchar(40) template;
-dcl-s t_CUSDET_ADDRESS_LINE       varchar(40) template;
-dcl-s t_CUSDET_POSTCODE           varchar(10) template;
-dcl-s t_CUSDET_CONTACT_NAME       varchar(20) template;
-dcl-s t_CUSDET_CONTACT_TELP       varchar(20) template;
-dcl-s t_CUSDET_CONTACT_EMAIL      varchar(80) template;
-dcl-s t_CUSDET_VAT_CODE           char(2) template;
-dcl-s t_CUSDET_CURRENCY           char(3) template;
-dcl-s t_CUSDET_CREDIT_LIMIT       packed(11:2) template;
-dcl-s t_CUSDET_CURRENT_BALANCE    packed(11:2) template;
-dcl-s t_CUSDET_COMMENTS           varchar(1024) template;
+dcl-s CUSDET_CODE_t               char(10) template;
+dcl-s CUSDET_STATUS_t             char(1) template;
+dcl-s CUSDET_STATUS_DESCRIPTION_t varchar(40) template;
+dcl-s CUSDET_NAME_t               varchar(40) template;
+dcl-s CUSDET_ADDRESS_LINE_t       varchar(40) template;
+dcl-s CUSDET_POSTCODE_t           varchar(10) template;
+dcl-s CUSDET_CONTACT_NAME_t       varchar(20) template;
+dcl-s CUSDET_CONTACT_TELP_t       varchar(20) template;
+dcl-s CUSDET_CONTACT_EMAIL_t      varchar(80) template;
+dcl-s CUSDET_VAT_CODE_t           char(2) template;
+dcl-s CUSDET_CURRENCY_t           char(3) template;
+dcl-s CUSDET_CREDIT_LIMIT_t       packed(11:2) template;
+dcl-s CUSDET_CURRENT_BALANCE_t    packed(11:2) template;
+dcl-s CUSDET_COMMENTS_t           varchar(1024) template;
 
 //========================================================================
 // Define global constants
 //========================================================================
 
-dcl-c c_CUSDET_STATUS_ACTIVE      'A';
-dcl-c c_CUSDET_STATUS_CLOSED      'C';
-dcl-c c_CUSDET_STATUS_NEW         'N';
+dcl-c CUSDET_STATUS_ACTIVE      'A';
+dcl-c CUSDET_STATUS_CLOSED      'C';
+dcl-c CUSDET_STATUS_NEW         'N';
 
 //========================================================================
 // Define global prototypes
 //========================================================================
 
-dcl-pr CUSDETDL_add like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDETDL_add like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDETDL_get like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDETDL_get like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDETDL_update like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDETDL_update like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDETDL_delete like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDETDL_delete like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDETDL_list like(t_UNSIGNED_INTEGER);
+dcl-pr CUSDETDL_list like(UNSIGNED_INTEGER_t);
   calc likeds(APP_paging_t);
-  sel  likeds(t_CUSDET_list_selections) const;
-  data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS);
+  sel  likeds(CUSDET_list_selections_t) const;
+  data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
 end-pr;
 
-dcl-pr CUSDETDL_error like(t_BOOLEAN) end-pr;
+dcl-pr CUSDETDL_error like(BOOLEAN_t) end-pr;
 
-dcl-pr CUSDETDL_found like(t_BOOLEAN) end-pr;
+dcl-pr CUSDETDL_found like(BOOLEAN_t) end-pr;
 
-dcl-pr CUSDETDL_fetch like(t_BOOLEAN);
-  sel  likeds(t_CUSDET_fetch_selections) const;
-  data likeds(t_CUSDET_list);
+dcl-pr CUSDETDL_fetch like(BOOLEAN_t);
+  sel  likeds(CUSDET_fetch_selections_t) const;
+  data likeds(CUSDET_list_t);
 end-pr;

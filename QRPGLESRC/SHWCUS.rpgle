@@ -54,11 +54,11 @@ end-ds;
 
 dcl-proc SHWCUS;
   dcl-pi *n;
-    id like(t_INTEGER) const;
+    id like(INTEGER_t) const;
   end-pi;
 
-  dcl-ds cusdet likeds(t_CUSDET) inz(*likeds);
-  dcl-s exit like(t_BOOLEAN);
+  dcl-ds cusdet likeds(CUSDET_t) inz(*likeds);
+  dcl-s exit like(BOOLEAN_t);
 
   open SHWCUSD;
 

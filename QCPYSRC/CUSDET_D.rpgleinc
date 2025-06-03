@@ -21,141 +21,43 @@
 /include 'QCPYSRC/RMAPP_D.rpgleinc'
 
 //========================================================================
-// Define global data structures
-//========================================================================
-
-dcl-ds t_CUSDET_SP_add_nulls qualified template inz;
-  ID               like(t_NULLIND) inz(c_NULL_VALUE);
-  CODE             like(t_NULLIND) inz(c_NULL_VALUE);
-  STATUS           like(t_NULLIND) inz(c_NULL_VALUE);
-  NAME             like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE1    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE2    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE3    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE4    like(t_NULLIND) inz(c_NULL_VALUE);
-  POSTCODE         like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_NAME     like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_TELP     like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_EMAIL    like(t_NULLIND) inz(c_NULL_VALUE);
-  VAT_CODE         like(t_NULLIND) inz(c_NULL_VALUE);
-  CURRENCY         like(t_NULLIND) inz(c_NULL_VALUE);
-  CREDIT_LIMIT     like(t_NULLIND) inz(c_NULL_VALUE);
-  CURRENT_BALANCE  like(t_NULLIND) inz(c_NULL_VALUE);
-  COMMENTS         like(t_NULLIND) inz(c_NULL_VALUE);
-  error            like(t_NULLIND) inz(c_NULL_VALUE);
-  error_msg        like(t_NULLIND) inz(c_NULL_VALUE);
-  session_id       like(t_NULLIND) inz(c_NULL_VALUE);
-end-ds;
-
-dcl-ds t_CUSDET_SP_update_nulls qualified template inz;
-  ID               like(t_NULLIND) inz(c_NULL_VALUE);
-  CODE             like(t_NULLIND) inz(c_NULL_VALUE);
-  STATUS           like(t_NULLIND) inz(c_NULL_VALUE);
-  NAME             like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE1    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE2    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE3    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE4    like(t_NULLIND) inz(c_NULL_VALUE);
-  POSTCODE         like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_NAME     like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_TELP     like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_EMAIL    like(t_NULLIND) inz(c_NULL_VALUE);
-  VAT_CODE         like(t_NULLIND) inz(c_NULL_VALUE);
-  CURRENCY         like(t_NULLIND) inz(c_NULL_VALUE);
-  CREDIT_LIMIT     like(t_NULLIND) inz(c_NULL_VALUE);
-  CURRENT_BALANCE  like(t_NULLIND) inz(c_NULL_VALUE);
-  COMMENTS         like(t_NULLIND) inz(c_NULL_VALUE);
-  found            like(t_NULLIND) inz(c_NULL_VALUE);
-  error            like(t_NULLIND) inz(c_NULL_VALUE);
-  error_msg        like(t_NULLIND) inz(c_NULL_VALUE);
-  session_id       like(t_NULLIND) inz(c_NULL_VALUE);
-end-ds;
-
-dcl-ds t_CUSDET_SP_get_nulls qualified template inz;
-  ID               like(t_NULLIND) inz(c_NULL_VALUE);
-  CODE             like(t_NULLIND) inz(c_NULL_VALUE);
-  STATUS           like(t_NULLIND) inz(c_NULL_VALUE);
-  NAME             like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE1    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE2    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE3    like(t_NULLIND) inz(c_NULL_VALUE);
-  ADDRESS_LINE4    like(t_NULLIND) inz(c_NULL_VALUE);
-  POSTCODE         like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_NAME     like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_TELP     like(t_NULLIND) inz(c_NULL_VALUE);
-  CONTACT_EMAIL    like(t_NULLIND) inz(c_NULL_VALUE);
-  VAT_CODE         like(t_NULLIND) inz(c_NULL_VALUE);
-  CURRENCY         like(t_NULLIND) inz(c_NULL_VALUE);
-  CREDIT_LIMIT     like(t_NULLIND) inz(c_NULL_VALUE);
-  CURRENT_BALANCE  like(t_NULLIND) inz(c_NULL_VALUE);
-  COMMENTS         like(t_NULLIND) inz(c_NULL_VALUE);
-  found            like(t_NULLIND) inz(c_NULL_VALUE);
-  error            like(t_NULLIND) inz(c_NULL_VALUE);
-  error_msg        like(t_NULLIND) inz(c_NULL_VALUE);
-  session_id       like(t_NULLIND) inz(c_NULL_VALUE);
-end-ds;
-
-dcl-ds t_CUSDET_SP_delete_nulls qualified template inz;
-  ID            like(t_NULLIND) inz(c_NULL_VALUE);
-  found         like(t_NULLIND) inz(c_NULL_VALUE);
-  error         like(t_NULLIND) inz(c_NULL_VALUE);
-  error_msg        like(t_NULLIND) inz(c_NULL_VALUE);
-  session_id    like(t_NULLIND) inz(c_NULL_VALUE);
-end-ds;
-
-dcl-ds t_CUSDET_SP_list_nulls qualified template inz;
-  req_page      like(t_NULLIND) inz(c_NULL_VALUE);
-  req_page_rows like(t_NULLIND) inz(c_NULL_VALUE);
-  sel_CODE      like(t_NULLIND) inz(c_NULL_VALUE);
-  sel_STATUS    like(t_NULLIND) inz(c_NULL_VALUE);
-  sel_NAME      like(t_NULLIND) inz(c_NULL_VALUE);
-  sel_SEARCH    like(t_NULLIND) inz(c_NULL_VALUE);
-  total_pages   like(t_NULLIND) inz(c_NULL_VALUE);
-  total_rows    like(t_NULLIND) inz(c_NULL_VALUE);
-  got_rows      like(t_NULLIND) inz(c_NULL_VALUE);
-  error         like(t_NULLIND) inz(c_NULL_VALUE);
-  error_msg        like(t_NULLIND) inz(c_NULL_VALUE);
-  session_id    like(t_NULLIND) inz(c_NULL_VALUE);
-end-ds;
-
-//========================================================================
 // Define global prototypes
 //========================================================================
 
-dcl-pr CUSDET_new likeds(t_CUSDET) end-pr;
+dcl-pr CUSDET_new likeds(CUSDET_t) end-pr;
 
-dcl-pr CUSDET_add like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDET_add like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDET_get like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDET_get like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDET_update like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDET_update like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDET_delete like(t_BOOLEAN);
-  data likeds(t_CUSDET);
+dcl-pr CUSDET_delete like(BOOLEAN_t);
+  data likeds(CUSDET_t);
 end-pr;
 
-dcl-pr CUSDET_list like(t_UNSIGNED_INTEGER);
+dcl-pr CUSDET_list like(UNSIGNED_INTEGER_t);
   calc likeds(APP_paging_t);
-  sel  likeds(t_CUSDET_list_selections) const;
-  data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS);
+  sel  likeds(CUSDET_list_selections_t) const;
+  data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
 end-pr;
 
-dcl-pr CUSDET_fetch like(t_BOOLEAN);
-  sel  likeds(t_CUSDET_fetch_selections) const;
-  data likeds(t_CUSDET_list);
+dcl-pr CUSDET_fetch like(BOOLEAN_t);
+  sel  likeds(CUSDET_fetch_selections_t) const;
+  data likeds(CUSDET_list_t);
 end-pr;
 
-dcl-pr CUSDET_error like(t_BOOLEAN) end-pr;
+dcl-pr CUSDET_error like(BOOLEAN_t) end-pr;
 
-dcl-pr CUSDET_found like(t_BOOLEAN) end-pr;
+dcl-pr CUSDET_found like(BOOLEAN_t) end-pr;
 
-dcl-pr CUSDET_exists like(t_BOOLEAN);
-  CODE like(t_CUSDET_CODE) const;
-  ID   like(t_INTEGER) const options(*nopass);
+dcl-pr CUSDET_exists like(BOOLEAN_t);
+  CODE like(CUSDET_CODE_t) const;
+  ID   like(INTEGER_t) const options(*nopass);
 end-pr;

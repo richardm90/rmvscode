@@ -13,12 +13,12 @@
 // Define global fields
 //==============================================================================
 
-dcl-s g_created_by_process like(t_PGM_NAME) inz('*UNKNOWN');
-dcl-s g_msg_count like(t_INTEGER);
-dcl-s g_msg_count_diagnostic like(t_INTEGER);
-dcl-s g_msg_count_information like(t_INTEGER);
-dcl-s g_msg_count_warning like(t_INTEGER);
-dcl-s g_msg_count_error like(t_INTEGER);
+dcl-s g_created_by_process like(PGM_NAME_t) inz('*UNKNOWN');
+dcl-s g_msg_count like(INTEGER_t);
+dcl-s g_msg_count_diagnostic like(INTEGER_t);
+dcl-s g_msg_count_information like(INTEGER_t);
+dcl-s g_msg_count_warning like(INTEGER_t);
+dcl-s g_msg_count_error like(INTEGER_t);
 
 //==============================================================================
 // Copybook definitions
@@ -36,7 +36,7 @@ dcl-s g_msg_count_error like(t_INTEGER);
 
 dcl-proc APMSAL_inz export;
   dcl-pi *n;
-    process like(t_PGM_NAME) const options(*nopass);
+    process like(PGM_NAME_t) const options(*nopass);
   end-pi;
 
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
@@ -65,7 +65,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_msg export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return (g_msg_count>0);
 end-proc;
@@ -76,7 +76,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_diagnostic export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return (g_msg_count_diagnostic>0);
 end-proc;
@@ -87,7 +87,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_information export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return (g_msg_count_information>0);
 end-proc;
@@ -98,7 +98,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_warning export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return (g_msg_count_warning>0);
 end-proc;
@@ -109,7 +109,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_error export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return (g_msg_count_error>0);
 end-proc;
@@ -120,16 +120,16 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_add export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     TEXT like(APMSAL_text_t) const;
     TYPE like(APMSAL_type_t) const options(*nopass);
-    FIELD_NAME like(t_FIELD_NAME) const options(*nopass);
-    CREATED_BY_PROCESS like(t_PGM_NAME) const options(*nopass);
+    FIELD_NAME like(FIELD_NAME_t) const options(*nopass);
+    CREATED_BY_PROCESS like(PGM_NAME_t) const options(*nopass);
   end-pi;
 
   dcl-ds service likeds(APMSAL_t) inz(*likeds);
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   reset data;
   data.JOB_NAME = APP_job_full_name();
@@ -192,12 +192,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_get export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   eval-corr data = service;
   error = APMDAL_get(data);
@@ -212,12 +212,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_update export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   eval-corr data = service;
   data.JOB_NAME = APP_job_full_name();
@@ -233,12 +233,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_delete export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   eval-corr data = service;
   data.JOB_NAME = APP_job_full_name();
@@ -254,7 +254,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_list export;
-  dcl-pi *n like(t_UNSIGNED_INTEGER);
+  dcl-pi *n like(UNSIGNED_INTEGER_t);
     calc likeds(APP_paging_t);
     sel  likeds(APMSAL_list_selections_t) const;
     data likeds(APMSAL_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
@@ -262,7 +262,7 @@ dcl-proc APMSAL_list export;
 
   dcl-ds dl_sel likeds(APMDAL_list_selections_t) inz(*likeds);
   dcl-ds dl_data likeds(APMDAL_list_t) dim(APP_MAXIMUM_PAGE_ROWS) inz(*likeds);
-  dcl-s got_rows like(t_UNSIGNED_INTEGER);
+  dcl-s got_rows like(UNSIGNED_INTEGER_t);
 
   eval-corr dl_sel = sel;
   got_rows = APMDAL_list(calc: dl_sel: dl_data);
@@ -278,13 +278,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_open export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     sel likeds(APMSAL_open_selections_t) const options(*nopass);
   end-pi;
 
   dcl-ds l_sel likeds(APMSAL_open_selections_t) inz(*likeds);
   dcl-ds data_sel likeds(APMDAL_open_selections_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   if %parms >= %parmnum(sel);
     l_sel = sel;
@@ -307,12 +307,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_fetch export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
-  dcl-s found like(t_BOOLEAN);
+  dcl-s found like(BOOLEAN_t);
 
   eval-corr data = service;
   found = APMDAL_fetch(data);
@@ -328,9 +328,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_close export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   error = APMDAL_close();
 
@@ -345,13 +345,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_open_desc export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     sel likeds(APMSAL_open_selections_t) const options(*nopass);
   end-pi;
 
   dcl-ds l_sel likeds(APMSAL_open_selections_t) inz(*likeds);
   dcl-ds data_sel likeds(APMDAL_open_selections_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   if %parms >= %parmnum(sel);
     l_sel = sel;
@@ -374,12 +374,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_fetch_desc export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
-  dcl-s found like(t_BOOLEAN);
+  dcl-s found like(BOOLEAN_t);
 
   eval-corr data = service;
   found = APMDAL_fetch_desc(data);
@@ -395,9 +395,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_close_desc export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
-  dcl-s error like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
 
   error = APMDAL_close_desc();
 
@@ -411,13 +411,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_fetch_first export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds sel likeds(APMSAL_open_selections_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
-  dcl-s found like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
+  dcl-s found like(BOOLEAN_t);
 
   reset sel;
   sel.TYPE = service.TYPE;
@@ -438,13 +438,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc APMSAL_fetch_last export;
-  dcl-pi *n like(t_BOOLEAN);
+  dcl-pi *n like(BOOLEAN_t);
     service likeds(APMSAL_t);
   end-pi;
 
   dcl-ds sel likeds(APMSAL_open_selections_t) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
-  dcl-s found like(t_BOOLEAN);
+  dcl-s error like(BOOLEAN_t);
+  dcl-s found like(BOOLEAN_t);
 
   reset sel;
   sel.TYPE = service.TYPE;

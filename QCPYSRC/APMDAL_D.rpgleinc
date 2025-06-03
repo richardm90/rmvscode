@@ -33,40 +33,40 @@ dcl-s APMDAL_text_t varchar(512) template;
 //==============================================================================
 
 dcl-ds APMDAL_t qualified template inz;
-  ID                 like(t_INTEGER);
-  JOB_NAME           like(t_JOB_FULL_NAME);
-  FIELD_NAME         like(t_FIELD_NAME);
+  ID                 like(INTEGER_t);
+  JOB_NAME           like(JOB_FULL_NAME_t);
+  FIELD_NAME         like(FIELD_NAME_t);
   TYPE               like(APMDAL_type_t);
   TEXT               like(APMDAL_text_t);
-  CREATED_BY_PROCESS like(t_PGM_NAME);
-  CREATED_BY_PGM     like(t_PGM_NAME);
-  CREATED_BY_PRC     like(t_PROC_NAME);
-  CREATED_BY_USER    like(t_SQL_USER);
+  CREATED_BY_PROCESS like(PGM_NAME_t);
+  CREATED_BY_PGM     like(PGM_NAME_t);
+  CREATED_BY_PRC     like(PROC_NAME_t);
+  CREATED_BY_USER    like(SQL_USER_t);
   CREATED_TIMESTAMP  timestamp;
 end-ds;
 
 dcl-ds APMDAL_list_t qualified template inz;
-  ID                 like(t_INTEGER);
-  JOB_NAME           like(t_JOB_FULL_NAME);
-  FIELD_NAME         like(t_FIELD_NAME);
+  ID                 like(INTEGER_t);
+  JOB_NAME           like(JOB_FULL_NAME_t);
+  FIELD_NAME         like(FIELD_NAME_t);
   TYPE               like(APMDAL_type_t);
   TEXT               like(APMDAL_text_t);
-  CREATED_BY_PROCESS like(t_PGM_NAME);
-  CREATED_BY_PGM     like(t_PGM_NAME);
-  CREATED_BY_PRC     like(t_PROC_NAME);
-  CREATED_BY_USER    like(t_SQL_USER);
+  CREATED_BY_PROCESS like(PGM_NAME_t);
+  CREATED_BY_PGM     like(PGM_NAME_t);
+  CREATED_BY_PRC     like(PROC_NAME_t);
+  CREATED_BY_USER    like(SQL_USER_t);
   CREATED_TIMESTAMP  timestamp;
 end-ds;
 
 dcl-ds APMDAL_list_selections_t qualified template inz;
-  JOB_NAME   like(t_JOB_FULL_NAME);
-  FIELD_NAME like(t_FIELD_NAME);
+  JOB_NAME   like(JOB_FULL_NAME_t);
+  FIELD_NAME like(FIELD_NAME_t);
   TYPE       like(APMDAL_type_t);
 end-ds;
 
 dcl-ds APMDAL_open_selections_t qualified template inz;
-  JOB_NAME   like(t_JOB_FULL_NAME);
-  FIELD_NAME like(t_FIELD_NAME);
+  JOB_NAME   like(JOB_FULL_NAME_t);
+  FIELD_NAME like(FIELD_NAME_t);
   TYPE       like(APMDAL_type_t) inz('');
 end-ds;
 
@@ -74,60 +74,60 @@ end-ds;
 // Define global prototypes
 //==============================================================================
 
-dcl-pr APMDAL_first_message like(t_BOOLEAN);
-  first_message like(t_BOOLEAN) options(*nopass) const;
+dcl-pr APMDAL_first_message like(BOOLEAN_t);
+  first_message like(BOOLEAN_t) options(*nopass) const;
 end-pr;
 
-dcl-pr APMDAL_first_message_id like(t_INTEGER);
-  first_message_id like(t_INTEGER) options(*nopass) const;
+dcl-pr APMDAL_first_message_id like(INTEGER_t);
+  first_message_id like(INTEGER_t) options(*nopass) const;
 end-pr;
 
-dcl-pr APMDAL_add like(t_BOOLEAN);
+dcl-pr APMDAL_add like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_get like(t_BOOLEAN);
+dcl-pr APMDAL_get like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_update like(t_BOOLEAN);
+dcl-pr APMDAL_update like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_delete like(t_BOOLEAN);
+dcl-pr APMDAL_delete like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_delete_by_session_id like(t_BOOLEAN);
+dcl-pr APMDAL_delete_by_session_id like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_list like(t_UNSIGNED_INTEGER);
+dcl-pr APMDAL_list like(UNSIGNED_INTEGER_t);
   calc likeds(APP_paging_t);
   sel  likeds(APMDAL_list_selections_t) const;
   data likeds(APMDAL_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
 end-pr;
 
-dcl-pr APMDAL_error like(t_BOOLEAN) end-pr;
+dcl-pr APMDAL_error like(BOOLEAN_t) end-pr;
 
-dcl-pr APMDAL_found like(t_BOOLEAN) end-pr;
+dcl-pr APMDAL_found like(BOOLEAN_t) end-pr;
 
-dcl-pr APMDAL_open like(t_BOOLEAN);
+dcl-pr APMDAL_open like(BOOLEAN_t);
   sel likeds(APMDAL_open_selections_t) const;
 end-pr;
 
-dcl-pr APMDAL_fetch like(t_BOOLEAN);
+dcl-pr APMDAL_fetch like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_close like(t_BOOLEAN) end-pr;
+dcl-pr APMDAL_close like(BOOLEAN_t) end-pr;
 
-dcl-pr APMDAL_open_desc like(t_BOOLEAN);
+dcl-pr APMDAL_open_desc like(BOOLEAN_t);
   sel likeds(APMDAL_open_selections_t) const;
 end-pr;
 
-dcl-pr APMDAL_fetch_desc like(t_BOOLEAN);
+dcl-pr APMDAL_fetch_desc like(BOOLEAN_t);
   data likeds(APMDAL_t);
 end-pr;
 
-dcl-pr APMDAL_close_desc like(t_BOOLEAN) end-pr;
+dcl-pr APMDAL_close_desc like(BOOLEAN_t) end-pr;

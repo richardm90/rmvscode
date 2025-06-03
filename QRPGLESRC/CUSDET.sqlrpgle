@@ -28,12 +28,12 @@ dcl-s initialized like(BOOLEAN_t);
 //==============================================================================
 
 dcl-proc CUSDET_new export;
-  dcl-pi *n likeds(t_CUSDET) end-pi;
+  dcl-pi *n likeds(CUSDET_t) end-pi;
 
-  dcl-ds service likeds(t_CUSDET) inz(*likeds);
+  dcl-ds service likeds(CUSDET_t) inz(*likeds);
 
   // Apply default values
-  service.STATUS     = c_CUSDET_STATUS_NEW;
+  service.STATUS     = CUSDET_STATUS_NEW;
 
   return service;
 end-proc;
@@ -44,12 +44,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_add export;
-  dcl-pi *n like(t_BOOLEAN);
-    service likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    service likeds(CUSDET_t);
   end-pi;
 
-  dcl-ds data likeds(t_CUSDET) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-ds data likeds(CUSDET_t) inz(*likeds);
+  dcl-s error like(BOOLEAN_t);
 
   eval-corr data = service;
   error = CUSDETDL_add(data);
@@ -64,12 +64,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_get export;
-  dcl-pi *n like(t_BOOLEAN);
-    service likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    service likeds(CUSDET_t);
   end-pi;
 
-  dcl-ds data likeds(t_CUSDET) inz(*likeds);
-  dcl-s found like(t_BOOLEAN);
+  dcl-ds data likeds(CUSDET_t) inz(*likeds);
+  dcl-s found like(BOOLEAN_t);
 
   eval-corr data = service;
   found = CUSDETDL_get(data);
@@ -84,12 +84,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_update export;
-  dcl-pi *n like(t_BOOLEAN);
-    service likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    service likeds(CUSDET_t);
   end-pi;
 
-  dcl-ds data likeds(t_CUSDET) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-ds data likeds(CUSDET_t) inz(*likeds);
+  dcl-s error like(BOOLEAN_t);
 
   eval-corr data = service;
   error = CUSDETDL_update(data);
@@ -104,12 +104,12 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_delete export;
-  dcl-pi *n like(t_BOOLEAN);
-    service likeds(t_CUSDET);
+  dcl-pi *n like(BOOLEAN_t);
+    service likeds(CUSDET_t);
   end-pi;
 
-  dcl-ds data likeds(t_CUSDET) inz(*likeds);
-  dcl-s error like(t_BOOLEAN);
+  dcl-ds data likeds(CUSDET_t) inz(*likeds);
+  dcl-s error like(BOOLEAN_t);
 
   eval-corr data = service;
   error = CUSDETDL_delete(data);
@@ -124,15 +124,15 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_list export;
-  dcl-pi *n like(t_UNSIGNED_INTEGER);
+  dcl-pi *n like(UNSIGNED_INTEGER_t);
     calc likeds(APP_paging_t);
-    sel  likeds(t_CUSDET_list_selections) const;
-    data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS);
+    sel  likeds(CUSDET_list_selections_t) const;
+    data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS);
   end-pi;
 
-  dcl-ds dl_sel  likeds(t_CUSDET_list_selections) inz(*likeds);
-  dcl-ds dl_data likeds(t_CUSDET_list) dim(APP_MAXIMUM_PAGE_ROWS) inz(*likeds);
-  dcl-s got_rows like(t_UNSIGNED_INTEGER);
+  dcl-ds dl_sel  likeds(CUSDET_list_selections_t) inz(*likeds);
+  dcl-ds dl_data likeds(CUSDET_list_t) dim(APP_MAXIMUM_PAGE_ROWS) inz(*likeds);
+  dcl-s got_rows like(UNSIGNED_INTEGER_t);
 
   eval-corr dl_sel = sel;
   got_rows = CUSDETDL_list(calc: dl_sel: dl_data);
@@ -147,9 +147,9 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_fetch export;
-  dcl-pi *n like(t_BOOLEAN);
-    sel  likeds(t_CUSDET_fetch_selections) const;
-    data likeds(t_CUSDET_list);
+  dcl-pi *n like(BOOLEAN_t);
+    sel  likeds(CUSDET_fetch_selections_t) const;
+    data likeds(CUSDET_list_t);
   end-pi;
 
   return CUSDETDL_fetch(sel: data);
@@ -161,7 +161,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_error export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return CUSDETDL_error();
 end-proc;
@@ -172,7 +172,7 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_found export;
-  dcl-pi *n like(t_BOOLEAN) end-pi;
+  dcl-pi *n like(BOOLEAN_t) end-pi;
 
   return CUSDETDL_found();
 end-proc;
@@ -186,13 +186,13 @@ end-proc;
 //==============================================================================
 
 dcl-proc CUSDET_exists export;
-  dcl-pi *n like(t_BOOLEAN);
-    CODE like(t_CUSDET_CODE) const;
-    ID   like(t_INTEGER) const options(*nopass);
+  dcl-pi *n like(BOOLEAN_t);
+    CODE like(CUSDET_CODE_t) const;
+    ID   like(INTEGER_t) const options(*nopass);
   end-pi;
 
-  dcl-ds sel  likeds(t_CUSDET_fetch_selections) inz(*likeds);
-  dcl-ds data likeds(t_CUSDET_list) inz(*likeds);
+  dcl-ds sel  likeds(CUSDET_fetch_selections_t) inz(*likeds);
+  dcl-ds data likeds(CUSDET_list_t) inz(*likeds);
 
   reset sel;
   sel.CODE = CODE;
