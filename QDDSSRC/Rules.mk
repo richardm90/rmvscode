@@ -1,5 +1,5 @@
-ADDCUSD.FILE: ADDCUSD.dspf
-DELCUSD.FILE: DELCUSD.dspf
-SHWCUSD.FILE: SHWCUSD.dspf
-UPDCUSD.FILE: UPDCUSD.dspf
-WRKCUSD.FILE: WRKCUSD.dspf
+ADDCUSD.FILE: ADDCUSD-Add_Customer_Details.dspf
+DELCUSD.FILE: DELCUSD-Delete_Customer_Details.dspf
+SHWCUSD.FILE: SHWCUSD-Show_Customer_Details.dspf
+UPDCUSD.FILE: UPDCUSD-Update_Customer_Details.dspf
+WRKCUSD.FILE: WRKCUSD-Work_With_Customers.dspf

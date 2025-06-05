@@ -124,11 +124,11 @@ tweakcopy "$SRCDIR/QCPYSRC/RMTOOLS_D.rpgleinc"  RMTOOLS_D  QCPYSRC $TGTLIB RPGLE
 # Copy QDDSSRC source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/QDDSSRC/ADDCUSD.dspf" ADDCUSD QDDSSRC $TGTLIB DSPF 'Add Customer Details'
-cpyfrmstmf "$SRCDIR/QDDSSRC/DELCUSD.dspf" DELCUSD QDDSSRC $TGTLIB DSPF 'Delete Customer Details'
-cpyfrmstmf "$SRCDIR/QDDSSRC/SHWCUSD.dspf" SHWCUSD QDDSSRC $TGTLIB DSPF 'Show Customer Details'
-cpyfrmstmf "$SRCDIR/QDDSSRC/UPDCUSD.dspf" UPDCUSD QDDSSRC $TGTLIB DSPF 'Update Customer Details'
-cpyfrmstmf "$SRCDIR/QDDSSRC/WRKCUSD.dspf" WRKCUSD QDDSSRC $TGTLIB DSPF 'Work with Customers'
+cpyfrmstmf "$SRCDIR/QDDSSRC/ADDCUSD-Add_Customer_Details.dspf" ADDCUSD QDDSSRC $TGTLIB DSPF 'Add Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/DELCUSD-Delete_Customer_Details.dspf" DELCUSD QDDSSRC $TGTLIB DSPF 'Delete Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/SHWCUSD-Show_Customer_Details.dspf" SHWCUSD QDDSSRC $TGTLIB DSPF 'Show Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/UPDCUSD-Update_Customer_Details.dspf" UPDCUSD QDDSSRC $TGTLIB DSPF 'Update Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/WRKCUSD-Work_With_Customers.dspf" WRKCUSD QDDSSRC $TGTLIB DSPF 'Work with Customers'
 
 #===============================================================================
 # Copy QRPGLESRC source
