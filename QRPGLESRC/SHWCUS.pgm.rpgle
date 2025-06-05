@@ -16,6 +16,16 @@ ctl-opt main(SHWCUS);
 dcl-f SHWCUSD workstn infds(g_infds) indds(g_indds) sfile(MSGSFL:msrrn) usropn;
 
 //==============================================================================
+// Copybook definitions
+//==============================================================================
+
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/APMSAL_D.rpgleinc'
+/include 'QCPYSRC/FLASH_D.rpgleinc'
+/include 'QCPYSRC/INFDS_D.rpgleinc'
+/include 'QCPYSRC/CUSDET_D.rpgleinc'
+
+//==============================================================================
 // Define global data structures
 //==============================================================================
 
@@ -28,20 +38,6 @@ dcl-ds g_indds;
   i_sflerr            ind pos(35);
   i_error             ind pos(90);
 end-ds;
-
-//==============================================================================
-// Define global fields
-//==============================================================================
-
-//==============================================================================
-// Copybook definitions
-//==============================================================================
-
-/include 'QCPYSRC/APP_D.rpgleinc'
-/include 'QCPYSRC/APMSAL_D.rpgleinc'
-/include 'QCPYSRC/FLASH_D.rpgleinc'
-/include 'QCPYSRC/INFDS_D.rpgleinc'
-/include 'QCPYSRC/CUSDET_D.rpgleinc'
 
 //==============================================================================
 // SHWCUS
