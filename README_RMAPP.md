@@ -15,7 +15,7 @@ by the `rmrunclp` tool used to build the application.
 
 `GRTOBJAUT OBJ(QSYS/QCLSTMF) OBJTYPE(*PGM) USER(*PUBLIC) AUT(*USE)`
 
-Ensure your user has access to use the `QSYS/ADDPFTRG` program, which is 
+Ensure your user has access to use the `QSYS/ADDPFTRG` program, which is
 to create triggers during the database installation.
 
 `GRTOBJAUT OBJ(QSYS/ADDPFTRG) OBJTYPE(*CMD) USER(*PUBLIC) AUT(*USE)`
@@ -63,7 +63,7 @@ The `install.sh` performs the following steps.
 
 1. Builds the database library `RMAPPDB`
 1. Builds the application library `RMAPP`
-1. Seeds `CUSTOMER_DETAILS`
+1. Seeds `CUSDET`
 1. Sets up the Web App
 1. Sets up the Dummy Web API Apps
 1. Installs `acme.sh`
@@ -80,7 +80,7 @@ Connect as a user with *ALLOBJ authority e.g. HAL.
 ```shell
 /prj/rmapp/setup_rmwebapp.sh
 
-# If needed you can delete the subsystem and associated 
+# If needed you can delete the subsystem and associated
 # objects with the following command
 /prj/rmapp/trash_rmwebapp.sh
 ```
@@ -176,9 +176,9 @@ system "CHGAUT OBJ('/prj/acme.sh/certs/rmwebsrv.rmsoftwareservices.co.uk_ecc/rmw
 
 ### NGINX
 
-The default `NGINX` server configuration, included within the `rmapp` repo, 
-uses the Mozilla Modern configuration, which means the `dhparam.pem` file is 
-not required. 
+The default `NGINX` server configuration, included within the `rmapp` repo,
+uses the Mozilla Modern configuration, which means the `dhparam.pem` file is
+not required.
 
 If this is changed to use the Mozilla Intermediate configuration then you may
 need to install the `dhparam.pem` file. Refer to the `README_NGINX.md` document

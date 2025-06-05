@@ -6,6 +6,7 @@
 // 14/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Show Customer Details');
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(SHWCUS);
 

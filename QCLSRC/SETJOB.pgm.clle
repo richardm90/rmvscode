@@ -1,7 +1,0 @@
-/* SETJOB - Set Environment On PUB400.COM */
-
-PGM
-
-  CHGJOB DECFMT(*BLANK)
-
-ENDPGM

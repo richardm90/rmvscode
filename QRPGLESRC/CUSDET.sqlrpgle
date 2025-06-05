@@ -1,11 +1,12 @@
 **free
 
 //==============================================================================
-// CUSDET     - Customer Details SAL Module
+// CUSDET     - Customer Details SL Module
 //
 // 07/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Customer Details SL');
 /define APP_SERVICE_PROGRAM
 /include 'QCPYSRC/APP_H.rpgleinc'
 

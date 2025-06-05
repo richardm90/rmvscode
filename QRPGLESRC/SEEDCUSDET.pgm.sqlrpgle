@@ -1,7 +1,7 @@
 **free
 
 //==============================================================================
-// SEEDCUSDET - Seed the CUSTOMER_DETAILS table
+// SEEDCUSDET - Seed the CUSDET table
 //
 // I'm using a sample set of customer data downloaded from the following page.
 //   https://www.briandunning.com/sample-data/
@@ -9,6 +9,7 @@
 // 08/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Seed the CUSDET table');
 /define APP_ACTGRP_NEW
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(SEEDCUSDET);
@@ -93,7 +94,7 @@ dcl-proc SEEDCUSDET;
       CSV_getfld(csvfile: email:        %size(email));
       CSV_getfld(csvfile: web:          %size(web));
 
-      // Create CUSTOMER_DETAILS row
+      // Create CUSDET row
       cusdet = CUSDET_new();
       cusdet.CODE            = gen_code(company_name);
       cusdet.NAME            = company_name;
@@ -248,7 +249,7 @@ end-proc;
 
 //==============================================================================
 // truncate_customers
-//   Truncate the CUSTOMER_DETAILS table
+//   Truncate the CUSDET table
 //==============================================================================
 
 dcl-proc truncate_customers;

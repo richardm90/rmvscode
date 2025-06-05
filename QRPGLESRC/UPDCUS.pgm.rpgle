@@ -6,6 +6,7 @@
 // 16/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Update Customer Details');
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(UPDCUS);
 
@@ -146,7 +147,7 @@ end-proc;
 
 //==============================================================================
 // update_customer
-//   Update a CUSTOMER_DETAILS row
+//   Update a CUSDET row
 //==============================================================================
 
 dcl-proc update_customer;

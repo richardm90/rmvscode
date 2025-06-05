@@ -6,9 +6,9 @@
 // 11/11/2024 - RM - created
 //==============================================================================
 
+ctl-opt text('RMTOOLS: Application Helper - DAL Module');
 ctl-opt option(*nodebugio:*noexpdds:*noext:*nounref:*noshowcpy:*noshowskp:*srcstmt);
 ctl-opt nomain;
-ctl-opt text('RMTOOLS: Application Helper - DAL Module');
 
 ///
 // Copybook definitions

@@ -1,11 +1,12 @@
 **free
 
 //==============================================================================
-// APMSAL     - Application Messages SAL Module
+// APMSAL     - Application Messages SL Module
 //
 // 07/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Application Messages SL');
 /define APP_SERVICE_PROGRAM
 /include 'QCPYSRC/APP_H.rpgleinc'
 

@@ -6,6 +6,7 @@
 // 16/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Delete Customer Details');
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(DELCUS);
 
@@ -142,7 +143,7 @@ end-proc;
 
 //==============================================================================
 // delete_customer
-//   Delete a CUSTOMER_DETAILS row
+//   Delete a CUSDET row
 //==============================================================================
 
 dcl-proc delete_customer;

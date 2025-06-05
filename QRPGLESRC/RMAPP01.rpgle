@@ -1,14 +1,14 @@
 **free
 
 //==============================================================================
-// RMAPP01    - Application Helper - IBM i Job Job Module
+// RMAPP01    - Application Helper - IBM i Job Module
 //
 // 31/05/2025 - RM - created
 //==============================================================================
 
+ctl-opt text('RMTOOLS: Application Helper - IBM i Job Module');
 ctl-opt option(*nodebugio:*noexpdds:*noext:*nounref:*noshowcpy:*noshowskp:*srcstmt);
 ctl-opt nomain;
-ctl-opt text('RMTOOLS: Application Helper - IBM i Job Module');
 
 ///
 // Copybook definitions

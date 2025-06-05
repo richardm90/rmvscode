@@ -82,19 +82,19 @@ cpyfrmstmf "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle" LINTER EXAMPLES $TGTLIB RPGLE 'RP
 # Copy QBNDSRC source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/QBNDSRC/RMAPP.bnd"          RMAPP      QBNDSRC $TGTLIB BND   'Application Binder Source'
+cpyfrmstmf "$SRCDIR/QBNDSRC/RMAPP-Application_Service_Program.bnd"          RMAPP      QBNDSRC $TGTLIB BND   'Application Binder Source'
 
 #===============================================================================
 # Copy QCLSRC source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/QCLSRC/SETJOB.pgm.clle" SETJOB QCLSRC $TGTLIB CLLE 'Set Environment On PUB400.COM'
+cpyfrmstmf "$SRCDIR/QCLSRC/SETJOB-Set_Environment_On_PUB400.pgm.clle" SETJOB QCLSRC $TGTLIB CLLE 'Set Environment On PUB400.COM'
 
 #===============================================================================
 # Copy QCMDSRC source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/QCMDSRC/SEEDCUSDET.cmd" SEEDCUSDET QCMDSRC $TGTLIB CMD 'Seed CUSDET Table'
+cpyfrmstmf "$SRCDIR/QCMDSRC/SEEDCUSDET-Seed_CUSDET_Table.cmd" SEEDCUSDET QCMDSRC $TGTLIB CMD 'Seed CUSDET Table'
 
 #===============================================================================
 # Copy QCPYSRC source
@@ -153,13 +153,13 @@ tweakcopy "$SRCDIR/QRPGLESRC/WRKCUS.pgm.rpgle"        WRKCUS     QRPGLESRC $TGTL
 # Copy QSQLSRC source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSG.table"      APPMSG   QSQLSRC   $TGTLIB SQL      'Application Messages'
-cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSGVL.view"     APPMSGVL QSQLSRC   $TGTLIB SQL      'Application Messages List View'
-cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSGVP.view"     APPMSGVP QSQLSRC   $TGTLIB SQL      'Application Messages Primary View'
-cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSGX1.index"    APPMSGX1 QSQLSRC   $TGTLIB SQL      'Application Messages by JOB_NAME'
-cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDET.table"      CUSDET   QSQLSRC   $TGTLIB SQL      'Customer Details'
-cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVL.view"     CUSDETVL QSQLSRC   $TGTLIB SQL      'Customer Details List View'
-cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVP.view"     CUSDETVP QSQLSRC   $TGTLIB SQL      'Customer Details Primary View'
+cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSG-Application_Messages.table"      APPMSG   QSQLSRC   $TGTLIB SQL      'Application Messages'
+cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSGVL-Application_Messages_List_View.view"     APPMSGVL QSQLSRC   $TGTLIB SQL      'Application Messages List View'
+cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSGVP-Application_Messages_Primary_View.view"     APPMSGVP QSQLSRC   $TGTLIB SQL      'Application Messages Primary View'
+cpyfrmstmf "$SRCDIR/QSQLSRC/APPMSGX1-Application_Messages_by_JOB_NAME_Index.index"    APPMSGX1 QSQLSRC   $TGTLIB SQL      'Application Messages by JOB_NAME'
+cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDET-Customer_Details.table"      CUSDET   QSQLSRC   $TGTLIB SQL      'Customer Details'
+cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVL-Customer_Details_Primary_View.view"     CUSDETVL QSQLSRC   $TGTLIB SQL      'Customer Details List View'
+cpyfrmstmf "$SRCDIR/QSQLSRC/CUSDETVP-Customer_Details_Primary_View.view"     CUSDETVP QSQLSRC   $TGTLIB SQL      'Customer Details Primary View'
 
 #===============================================================================
 # Copy VSCODE source

@@ -6,6 +6,7 @@
 // 14/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Work With Customers');
 /DEFINE APP_ACTGRP_NEW
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(WRKCUS);
