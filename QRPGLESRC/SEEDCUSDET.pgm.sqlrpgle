@@ -31,6 +31,8 @@ dcl-s g_index like(SMALLINT_t);
 /include 'QCPYSRC/RMEMBSQL_D.rpgleinc'
 /include 'QCPYSRC/RMAPP_D.rpgleinc'
 
+dcl-c CMD_YES const('*YES');
+
 //==============================================================================
 // Copybook procedures
 //==============================================================================
@@ -38,12 +40,14 @@ dcl-s g_index like(SMALLINT_t);
 /include 'QCPYSRC/RMEMBSQL_P.rpgleinc'
 
 //==============================================================================
-// SEEDCUSDET
-//   Program entry point
+// Program entry point
 //==============================================================================
 
 dcl-proc SEEDCUSDET;
-  dcl-pi *n end-pi;
+  dcl-pi *n;
+    truncate_in char(4) const;
+    csv_stmf_in like(CMD_PARM_PNAME_t) const;
+  end-pi;
 
   dcl-ds cusdet likeds(CUSDET_t) inz(*likeds);
   dcl-ds msg likeds(APMSAL_t) inz(*likeds);
@@ -61,11 +65,19 @@ dcl-proc SEEDCUSDET;
   dcl-s phone2        varchar(20);
   dcl-s email         varchar(80);
   dcl-s web           varchar(80);
+  dcl-s csv_stmf      varchar(5000);
+  dcl-s row_count     like(INTEGER_t);
 
   g_index = 0;
-  csvfile = CSV_open('/home/RICHM90/builds/rmvscode/uk-500.csv');
+  csv_stmf = %trim(csv_stmf_in);
+  csvfile = CSV_open(csv_stmf);
 
-  truncate_customers();
+  snd-msg 'CSV Data Stream File: ' + csv_stmf;
+
+  if truncate_in = CMD_YES;
+    truncate_customers();
+    snd-msg 'Table CUSDET truncated';
+  endif;
 
   dow CSV_loadrec(csvfile);
     if g_index > 0; // Skips the header row
@@ -103,11 +115,14 @@ dcl-proc SEEDCUSDET;
         APMSAL_fetch_last(msg);
         APP_escape(msg.TEXT);
       endif;
+      row_count += 1;
     endif;
     g_index += 1;
   enddo;
 
-  csv_close(csvfile);
+  CSV_close(csvfile);
+
+  snd-msg 'CUSDET seeded with ' + %char(row_count) + ' rows';
 
   return;
 end-proc;
@@ -119,7 +134,7 @@ end-proc;
 
 dcl-proc gen_code;
   dcl-pi *n like(CUSDET_CODE_t);
-    NAME like(CUSDET_NAME_t) const;
+    name like(CUSDET_NAME_t) const;
   end-pi;
 
   dcl-s code like(CUSDET_CODE_t);

@@ -47,6 +47,7 @@ fi
 crtsrcpf $TGTLIB 'EXAMPLES'  112
 crtsrcpf $TGTLIB 'QBNDSRC'
 crtsrcpf $TGTLIB 'QCLSRC'
+crtsrcpf $TGTLIB 'QCMDSRC'
 crtsrcpf $TGTLIB 'QCPYSRC'
 crtsrcpf $TGTLIB 'QDDSSRC'
 crtsrcpf $TGTLIB 'QRPGLESRC' 112
@@ -74,7 +75,8 @@ crtsrvpgm  $TGTLIB CSVR4   QBNDSRC            "$TGTLIB/CSVR4" $TGTRLS 'Copyright
 # Copy EXAMPLES source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle"  LINTER     EXAMPLES $TGTLIB RPGLE 'RPGLE Linter Example'
+cpyfrmstmf "$SRCDIR/EXAMPLES/CALLME.pgm.rpgle" CALLME EXAMPLES $TGTLIB RPGLE 'Call From VS Code Example'
+cpyfrmstmf "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle" LINTER EXAMPLES $TGTLIB RPGLE 'RPGLE Linter Example'
 
 #===============================================================================
 # Copy QBNDSRC source
@@ -87,6 +89,12 @@ cpyfrmstmf "$SRCDIR/QBNDSRC/RMAPP.bnd"          RMAPP      QBNDSRC $TGTLIB BND  
 #===============================================================================
 
 cpyfrmstmf "$SRCDIR/QCLSRC/SETJOB.pgm.clle" SETJOB QCLSRC $TGTLIB CLLE 'Set Environment On PUB400.COM'
+
+#===============================================================================
+# Copy QCMDSRC source
+#===============================================================================
+
+cpyfrmstmf "$SRCDIR/QCMDSRC/SEEDCUSDET.cmd" SEEDCUSDET QCMDSRC $TGTLIB CMD 'Seed CUSDET Table'
 
 #===============================================================================
 # Copy QCPYSRC source
@@ -210,16 +218,23 @@ crtsrvpgm  $TGTLIB RMAPP   QBNDSRC    "$TGTLIB/RMAPP01 $TGTLIB/RMAPP02 $TGTLIB/R
 # Create programs
 #===============================================================================
 
-crtbndcl   $TGTLIB SETJOB     QCLSRC           $TGTRLS
 crtdspf    $TGTLIB ADDCUSD    QDDSSRC          'Add Customer Details'
 crtbndrpg  $TGTLIB ADDCUS     QRPGLESRC        $TGTRLS
 crtdspf    $TGTLIB DELCUSD    QDDSSRC          'Delete Customer Details'
 crtbndrpg  $TGTLIB DELCUS     QRPGLESRC        $TGTRLS
-crtbndrpg  $TGTLIB LINTER     EXAMPLES         $TGTRLS
+crtcmd     $TGTLIB SEEDCUSDET QCMDSRC          'Seed CUSDET Table'
 crtsqlrpgi $TGTLIB SEEDCUSDET QRPGLESRC "*PGM" $TGTRLS
+crtbndcl   $TGTLIB SETJOB     QCLSRC           $TGTRLS
 crtdspf    $TGTLIB SHWCUSD    QDDSSRC          'Show Customer Details'
 crtbndrpg  $TGTLIB SHWCUS     QRPGLESRC        $TGTRLS
 crtdspf    $TGTLIB UPDCUSD    QDDSSRC          'Update Customer Details'
 crtbndrpg  $TGTLIB UPDCUS     QRPGLESRC        $TGTRLS
 crtdspf    $TGTLIB WRKCUSD    QDDSSRC          'Work with Customers'
 crtbndrpg  $TGTLIB WRKCUS     QRPGLESRC        $TGTRLS
+
+#===============================================================================
+# Create examples
+#===============================================================================
+
+crtbndrpg  $TGTLIB CALLME     EXAMPLES         $TGTRLS
+crtbndrpg  $TGTLIB LINTER     EXAMPLES         $TGTRLS

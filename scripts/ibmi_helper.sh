@@ -187,6 +187,17 @@ function crtbndcl {
 }
 
 #===============================================================================
+# crtcmd - from a source file
+# $1 = target and source file library
+# $2 = target object and member
+# $3 = source file
+# $4 = target object text
+function crtcmd {
+  system -bksOE "CRTCMD CMD($1/$2) PGM($1/$2) SRCFILE($1/$3) SRCMBR($2) TEXT('$4') REPLACE(*YES)"
+  if_error "ERROR: Failed to create command $2"
+}
+
+#===============================================================================
 # crtsqlrpgi - from a source file
 # $1 = target and source file library
 # $2 = target object and member
@@ -262,18 +273,6 @@ function crtdspf {
 function crtbnddir {
   system -bOE "CRTBNDDIR BNDDIR($1/$2) TEXT('$3')"
   # if_error "ERROR: Failed to create binding directory $2"
-}
-
-#===============================================================================
-# crtcmd
-# $1 = source stream file
-# $2 = target library
-# $3 = target object
-# $4 = target object text
-function crtcmd {
-  copy_from_stmf $1 $3
-  system -bksOE "CRTCMD CMD($2/$3) PGM($2/$3) SRCFILE(QGPL/RMTOOLS) SRCMBR($3) TEXT('$4') REPLACE(*YES)"
-  if_error "ERROR: Failed to create command $3"
 }
 
 #===============================================================================
