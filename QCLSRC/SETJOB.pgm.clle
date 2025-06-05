@@ -1,0 +1,7 @@
+/* Set environment on pub400.com */
+
+PGM
+
+  CHGJOB DECFMT(*BLANK)
+
+ENDPGM
