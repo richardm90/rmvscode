@@ -46,6 +46,7 @@ fi
 
 crtsrcpf $TGTLIB 'EXAMPLES'  112
 crtsrcpf $TGTLIB 'QBNDSRC'
+crtsrcpf $TGTLIB 'QCLSRC'
 crtsrcpf $TGTLIB 'QCPYSRC'
 crtsrcpf $TGTLIB 'QDDSSRC'
 crtsrcpf $TGTLIB 'QRPGLESRC' 112
@@ -82,6 +83,12 @@ cpyfrmstmf "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle"  LINTER     EXAMPLES $TGTLIB RPGL
 cpyfrmstmf "$SRCDIR/QBNDSRC/RMAPP.bnd"          RMAPP      QBNDSRC $TGTLIB BND   'Application Binder Source'
 
 #===============================================================================
+# Copy QCLSRC source
+#===============================================================================
+
+cpyfrmstmf "$SRCDIR/QCLSRC/SETJOB.pgm.clle" SETJOB QCLSRC $TGTLIB CLLE 'Set Environment On PUB400.COM'
+
+#===============================================================================
 # Copy QCPYSRC source
 #===============================================================================
 
@@ -109,21 +116,29 @@ tweakcopy "$SRCDIR/QCPYSRC/RMTOOLS_D.rpgleinc"  RMTOOLS_D  QCPYSRC $TGTLIB RPGLE
 # Copy QDDSSRC source
 #===============================================================================
 
+cpyfrmstmf "$SRCDIR/QDDSSRC/ADDCUSD.dspf" ADDCUSD QDDSSRC $TGTLIB DSPF 'Add Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/DELCUSD.dspf" DELCUSD QDDSSRC $TGTLIB DSPF 'Delete Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/SHWCUSD.dspf" SHWCUSD QDDSSRC $TGTLIB DSPF 'Show Customer Details'
+cpyfrmstmf "$SRCDIR/QDDSSRC/UPDCUSD.dspf" UPDCUSD QDDSSRC $TGTLIB DSPF 'Update Customer Details'
 cpyfrmstmf "$SRCDIR/QDDSSRC/WRKCUSD.dspf" WRKCUSD QDDSSRC $TGTLIB DSPF 'Work with Customers'
 
 #===============================================================================
 # Copy QRPGLESRC source
 #===============================================================================
 
+tweakcopy "$SRCDIR/QRPGLESRC/ADDCUS.pgm.rpgle"        ADDCUS     QRPGLESRC $TGTLIB RPGLE    'Add Customer Details'
 tweakcopy "$SRCDIR/QRPGLESRC/APMDAL.sqlrpgle"         APMDAL     QRPGLESRC $TGTLIB SQLRPGLE 'Application Messages DAL Module'
 tweakcopy "$SRCDIR/QRPGLESRC/APMSAL.rpgle"            APMSAL     QRPGLESRC $TGTLIB RPGLE    'Application Messages SL Module'
 tweakcopy "$SRCDIR/QRPGLESRC/CUSDET.sqlrpgle"         CUSDET     QRPGLESRC $TGTLIB SQLRPGLE 'Customer Details SL Module'
 tweakcopy "$SRCDIR/QRPGLESRC/CUSDETDL.sqlrpgle"       CUSDETDL   QRPGLESRC $TGTLIB SQLRPGLE 'Customer Details DAL Module'
+tweakcopy "$SRCDIR/QRPGLESRC/DELCUS.pgm.rpgle"        DELCUS     QRPGLESRC $TGTLIB RPGLE    'Delete Customer Details'
 tweakcopy "$SRCDIR/QRPGLESRC/RMAPP01.rpgle"           RMAPP01    QRPGLESRC $TGTLIB RPGLE    'Application Helper - IBM i Job Job Module'
 tweakcopy "$SRCDIR/QRPGLESRC/RMAPP02.rpgle"           RMAPP02    QRPGLESRC $TGTLIB RPGLE    'Application Helper - DAL Module'
 tweakcopy "$SRCDIR/QRPGLESRC/RMAPP03.rpgle"           RMAPP03    QRPGLESRC $TGTLIB RPGLE    'Application Helper - Logger Module'
 tweakcopy "$SRCDIR/QRPGLESRC/RMEMBSQL.sqlrpgle"       RMEMBSQL   QRPGLESRC $TGTLIB SQLRPGLE 'Embedded SQL RPG Helper Module'
 tweakcopy "$SRCDIR/QRPGLESRC/SEEDCUSDET.pgm.sqlrpgle" SEEDCUSDET QRPGLESRC $TGTLIB SQLRPGLE 'Seed CUSDET Table'
+tweakcopy "$SRCDIR/QRPGLESRC/SHWCUS.pgm.rpgle"        SHWCUS     QRPGLESRC $TGTLIB RPGLE    'Show Customer Details'
+tweakcopy "$SRCDIR/QRPGLESRC/UPDCUS.pgm.rpgle"        UPDCUS     QRPGLESRC $TGTLIB RPGLE    'Update Customer Details'
 tweakcopy "$SRCDIR/QRPGLESRC/WRKCUS.pgm.rpgle"        WRKCUS     QRPGLESRC $TGTLIB RPGLE    'Work With Customers'
 
 #===============================================================================
@@ -190,13 +205,21 @@ crtsqlrpgi $TGTLIB RMEMBSQL QRPGLESRC "*MODULE" $TGTRLS
 #===============================================================================
 
 crtsrvpgm  $TGTLIB RMAPP   QBNDSRC    "$TGTLIB/RMAPP01 $TGTLIB/RMAPP02 $TGTLIB/RMAPP03 $TGTLIB/RMEMBSQL $TGTLIB/APMDAL $TGTLIB/APMSAL $TGTLIB/CUSDETDL $TGTLIB/CUSDET" $TGTRLS 'RMAPP Service Program'
-# RMAPP.SRVPGM: private OPTION = *DUPPROC
 
 #===============================================================================
 # Create programs
 #===============================================================================
 
+crtbndcl   $TGTLIB SETJOB     QCLSRC           $TGTRLS
+crtdspf    $TGTLIB ADDCUSD    QDDSSRC          'Add Customer Details'
+crtbndrpg  $TGTLIB ADDCUS     QRPGLESRC        $TGTRLS
+crtdspf    $TGTLIB DELCUSD    QDDSSRC          'Delete Customer Details'
+crtbndrpg  $TGTLIB DELCUS     QRPGLESRC        $TGTRLS
 crtbndrpg  $TGTLIB LINTER     EXAMPLES         $TGTRLS
 crtsqlrpgi $TGTLIB SEEDCUSDET QRPGLESRC "*PGM" $TGTRLS
+crtdspf    $TGTLIB SHWCUSD    QDDSSRC          'Show Customer Details'
+crtbndrpg  $TGTLIB SHWCUS     QRPGLESRC        $TGTRLS
+crtdspf    $TGTLIB UPDCUSD    QDDSSRC          'Update Customer Details'
+crtbndrpg  $TGTLIB UPDCUS     QRPGLESRC        $TGTRLS
 crtdspf    $TGTLIB WRKCUSD    QDDSSRC          'Work with Customers'
 crtbndrpg  $TGTLIB WRKCUS     QRPGLESRC        $TGTRLS

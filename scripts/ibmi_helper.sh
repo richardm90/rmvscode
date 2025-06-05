@@ -176,16 +176,14 @@ function addenvvar {
 }
 
 #===============================================================================
-# crtbndcl
-# $1 = source stream file
-# $2 = target library
-# $3 = target object
-# $4 = target object text
-# $5 = target release
+# crtbndcl - from a source file
+# $1 = target and source file library
+# $2 = target object and member
+# $3 = source file
+# $4 = target release
 function crtbndcl {
-  copy_from_stmf $1 $3
-  system -bksOE "CRTBNDCL PGM($2/$3) SRCFILE(QGPL/RMTOOLS) SRCMBR($3) TEXT('$4') TGTRLS($5)"
-  if_error "ERROR: Failed to compile source for $3"
+  system -bksOE "CRTBNDCL PGM($1/$2) SRCFILE($1/$3) SRCMBR($2) TGTRLS($4)"
+  if_error "ERROR: Failed to compile source for $2"
 }
 
 #===============================================================================
