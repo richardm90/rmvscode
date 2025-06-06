@@ -351,10 +351,13 @@ dcl-proc add_customer;
   return;
 end-proc;
 
-//==============================================================================
-// show_customer
-//   Show customer details
-//==============================================================================
+///
+// Show customer details.
+//
+// Accesses global DACRRN field.
+//
+// @param The customer details id.
+///
 
 dcl-proc show_customer;
   dcl-pi *n;
