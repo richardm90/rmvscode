@@ -19,10 +19,8 @@ __REAL_SCRIPTDIR=$( cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P )
 # Handle input parameters
 #===============================================================================
 
-printenv
-
 if [[ $# < 1 ]]; then
-  print "Usage: install.sh <target_library> <source_folder> <target_release>"
+  echo "Usage: install.sh <target_library> <source_folder> <target_release>"
   exit
 fi
 
@@ -42,10 +40,16 @@ fi
 
 #===============================================================================
 # Set library list
+# - use the VS Code environment variables, if set
+# - otherwise used the passed target library
 #===============================================================================
 
-cl -v "CHGCURLIB CURLIB($CURLIB)"
-cl -v "CHGLIBL LIBL($LIBLS)"
+if [[ $CURLIB ]]; then
+  cl -v "CHGCURLIB CURLIB($CURLIB)"
+  cl -v "CHGLIBL LIBL($LIBLS)"
+else
+  cl -v "CHGCURLIB CURLIB($TGTLIB)"
+fi
 
 #===============================================================================
 # Create source files
@@ -245,3 +249,5 @@ crtbndrpg  $TGTLIB WRKCUS     QRPGLESRC        $TGTRLS
 
 crtbndrpg  $TGTLIB CALLME     EXAMPLES         $TGTRLS
 crtbndrpg  $TGTLIB LINTER     EXAMPLES         $TGTRLS
+
+echo "✓ Deploy, Copy To Source Files & Compile ⮞🏛 was successful"
