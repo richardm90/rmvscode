@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/QOpenSys/pkgs/bin/bash
 
 ## __SCRIPTNAME - name of the script without the path
 ##
@@ -41,6 +41,13 @@ else
 fi
 
 #===============================================================================
+# Set library list
+#===============================================================================
+
+cl -v "CHGCURLIB CURLIB($CURLIB)"
+cl -v "CHGLIBL LIBL($LIBLS)"
+
+#===============================================================================
 # Create source files
 #===============================================================================
 
@@ -67,9 +74,9 @@ cpyfrmstmf "$SRCDIR/csvutil/ifsio_h.rpgle"      IFSIO_H    QRPGLESRC $TGTLIB RPG
 crtrpgmod  $TGTLIB CSVR4   QRPGLESRC          $TGTRLS
 crtsrvpgm  $TGTLIB CSVR4   QBNDSRC            "$TGTLIB/CSVR4" $TGTRLS 'Copyright (c) 2008-2020 Scott C. Klement'
 
-/QOpenSys/usr/bin/system "DLTOBJ OBJ($TGTLIB/CSV) OBJTYPE(*BNDDIR)"
-/QOpenSys/usr/bin/system "CRTBNDDIR BNDDIR($TGTLIB/CSV)"
-/QOpenSys/usr/bin/system "ADDBNDDIRE BNDDIR($TGTLIB/CSV) OBJ((*LIBL/CSVR4 *SRVPGM))"
+cl "DLTOBJ OBJ($TGTLIB/CSV) OBJTYPE(*BNDDIR)"
+cl "CRTBNDDIR BNDDIR($TGTLIB/CSV)"
+cl "ADDBNDDIRE BNDDIR($TGTLIB/CSV) OBJ((*LIBL/CSVR4 *SRVPGM))"
 
 #===============================================================================
 # Copy EXAMPLES source
@@ -196,17 +203,17 @@ crtsqlrpgi $TGTLIB RMEMBSQL QRPGLESRC "*MODULE" $TGTRLS
 # Create message file
 #===============================================================================
 
-/QOpenSys/usr/bin/system "DLTOBJ OBJ($TGTLIB/RMMSGF) OBJTYPE(*MSGF)"
-/QOpenSys/usr/bin/system "CRTMSGF MSGF($TGTLIB/RMMSGF) TEXT('RMTOOLS Message File')"
-/QOpenSys/usr/bin/system "ADDMSGD MSGID(APP2901) MSGF($TGTLIB/RMMSGF) MSG('&1') FMT((*CHAR 512))"
+cl "DLTOBJ OBJ($TGTLIB/RMMSGF) OBJTYPE(*MSGF)"
+cl "CRTMSGF MSGF($TGTLIB/RMMSGF) TEXT('RMTOOLS Message File')"
+cl "ADDMSGD MSGID(APP2901) MSGF($TGTLIB/RMMSGF) MSG('&1') FMT((*CHAR 512))"
 
 #===============================================================================
 # Create binding directory
 #===============================================================================
 
-/QOpenSys/usr/bin/system "DLTOBJ OBJ($TGTLIB/RMAPP) OBJTYPE(*BNDDIR)"
-/QOpenSys/usr/bin/system "CRTBNDDIR BNDDIR($TGTLIB/RMAPP)"
-/QOpenSys/usr/bin/system "ADDBNDDIRE BNDDIR($TGTLIB/RMAPP) OBJ((*LIBL/RMAPP *SRVPGM))"
+cl "DLTOBJ OBJ($TGTLIB/RMAPP) OBJTYPE(*BNDDIR)"
+cl "CRTBNDDIR BNDDIR($TGTLIB/RMAPP)"
+cl "ADDBNDDIRE BNDDIR($TGTLIB/RMAPP) OBJ((*LIBL/RMAPP *SRVPGM))"
 
 #===============================================================================
 # Create service programs
