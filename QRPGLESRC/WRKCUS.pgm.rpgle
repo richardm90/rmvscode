@@ -6,6 +6,7 @@
 // 14/04/2021 - RM - created
 //==============================================================================
 
+ctl-opt text('Work With Customers');
 /DEFINE APP_ACTGRP_NEW
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(WRKCUS);
@@ -350,10 +351,13 @@ dcl-proc add_customer;
   return;
 end-proc;
 
-//==============================================================================
-// show_customer
-//   Show customer details
-//==============================================================================
+///
+// Show customer details.
+//
+// Accesses global DACRRN field.
+//
+// @param The customer details id.
+///
 
 dcl-proc show_customer;
   dcl-pi *n;

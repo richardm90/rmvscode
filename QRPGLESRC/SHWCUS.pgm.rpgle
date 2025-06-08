@@ -1,13 +1,13 @@
 **free
 
 //==============================================================================
-// SHWCUS.rpgle
-//   Show Customer Details
+// SHWCUS     - Show Customer Details
 //
 // 14/04/2021 - RM - created
 //==============================================================================
 
-/include APP_H
+ctl-opt text('Show Customer Details');
+/include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(SHWCUS);
 
 //==============================================================================
@@ -15,6 +15,16 @@ ctl-opt main(SHWCUS);
 //==============================================================================
 
 dcl-f SHWCUSD workstn infds(g_infds) indds(g_indds) sfile(MSGSFL:msrrn) usropn;
+
+//==============================================================================
+// Copybook definitions
+//==============================================================================
+
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/APMSAL_D.rpgleinc'
+/include 'QCPYSRC/FLASH_D.rpgleinc'
+/include 'QCPYSRC/INFDS_D.rpgleinc'
+/include 'QCPYSRC/CUSDET_D.rpgleinc'
 
 //==============================================================================
 // Define global data structures
@@ -29,23 +39,6 @@ dcl-ds g_indds;
   i_sflerr            ind pos(35);
   i_error             ind pos(90);
 end-ds;
-
-//==============================================================================
-// Define global fields
-//==============================================================================
-
-//==============================================================================
-// Copybook definitions
-//==============================================================================
-
-/include APP_D
-/include APMSAL_D
-// /include APPJOB_D
-// /include APTSAL_D
-/include FLASH_D
-/include INFDS_D
-/include CUSDET_D
-/include RMAPPENV_D
 
 //==============================================================================
 // SHWCUS
@@ -166,9 +159,9 @@ dcl-proc set_footer;
   dcl-pi *n end-pi;
 
   ftpanel = 'SHWCUSA';
-  ftuser = APPENV_user();
-  ftdate = %char(APPENV_date());
-  fttime = %char(APPENV_time());
+  ftuser = APP_user();
+  ftdate = %char(APP_date());
+  fttime = %char(APP_time());
 
   return;
 end-proc;
@@ -177,5 +170,4 @@ end-proc;
 // Copybook procedures
 //==============================================================================
 
-/include FLASH_P
-// /include STACK_P
+/include 'QCPYSRC/FLASH_P.rpgleinc'

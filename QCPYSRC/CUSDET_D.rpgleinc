@@ -42,6 +42,21 @@ dcl-pr CUSDET_delete like(BOOLEAN_t);
   data likeds(CUSDET_t);
 end-pr;
 
+///
+// Return a page of customer details, from the list view.
+//
+// The requested page details should be populated with the page
+// number required and the number of rows per page.
+//
+// The customer selection details should be populated with
+// selections such as the search name.
+//
+// @param The requested page details.
+// @param The customer selection details.
+// @param The returned array of customer details.
+// @return The number of rows returned.
+///
+
 dcl-pr CUSDET_list like(UNSIGNED_INTEGER_t);
   calc likeds(APP_paging_t);
   sel  likeds(CUSDET_list_selections_t) const;

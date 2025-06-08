@@ -1,0 +1,106 @@
+      **************************************************************************
+      * UPDCUS     - Update Customer Details
+      *
+      * 16/04/2021 - RM - created
+      **************************************************************************
+      *
+     A                                      DSPSIZ(24 80 *DS3)
+     A                                      CF03
+     A                                      CF06
+     A                                      CF07
+     A                                      CF08
+     A                                      CF13
+     A                                      CF14
+     A                                      CF15
+     A                                      PRINT
+     A                                      INDARA
+     A          R UPDCUSA
+     A                                      OVERLAY
+     A                                      KEEP
+     A            DATITLE       28A  O  1  2DSPATR(HI)
+      *
+     A                                  3  2'Code'
+     A            DACODE        10A  B  3 11
+     A N51                                  DSPATR(HI)
+     A  51                                  COLOR(RED)
+     A  51                                  DSPATR(PC RI)
+     A            DAID          20A  O    +2DSPATR(HI)
+      *
+     A                                  5  2'Name'
+     A            DANAME        40A  B  5 11
+     A N52                                  DSPATR(HI)
+     A  52                                  COLOR(RED)
+     A  52                                  DSPATR(PC RI)
+     A                                      LOWER
+     A                                  6  2'Address'
+     A            DAADD1        40A  B  6 11
+     A N53                                  DSPATR(HI)
+     A  53                                  COLOR(RED)
+     A  53                                  DSPATR(PC RI)
+     A                                      LOWER
+     A            DAADD2        40A  B  7 11DSPATR(HI)
+     A                                      LOWER
+     A            DAADD3        40A  B  8 11DSPATR(HI)
+     A                                      LOWER
+     A            DAADD4        40A  B  9 11DSPATR(HI)
+     A                                      LOWER
+     A            DAPCOD        10A  B 10 11
+     A N54                                  DSPATR(HI)
+     A  54                                  COLOR(RED)
+     A  54                                  DSPATR(PC RI)
+      *
+     A                                 12  2'Contact'
+     A            DACNAM        20A  B 12 11DSPATR(HI)
+     A                                      LOWER
+     A                                 12 42'Telephone'
+     A            DACTEL        20A  B    +2DSPATR(HI)
+     A                                 13  2'Email'
+     A            DACEML        80A  B 13 11DSPATR(HI)
+     A                                      LOWER
+      *
+     A                                 16  2'Credit Limit'
+     A            DACRED        11Y 2B    +2DSPATR(HI)
+     A                                      EDTCDE(4)
+     A                                    +2'VAT'
+     A            DAVATC         2A  B    +2DSPATR(HI)
+     A                                    +2'Currency'
+     A            DACURC         3A  B    +2DSPATR(HI)
+      *
+     A                                 18  2'Comments'
+     A            DACOMM       120A  B 18 11DSPATR(HI)
+     A                                      LOWER
+      *
+     A            DAFKY1        65A  O 21  2COLOR(BLU)
+      *
+      *=========================================================================
+      * Common message subfile
+      *=========================================================================
+      *
+      * Subfile record
+     A          R MSGSFL                    SFL
+     A            MSRRN          5S 0H
+     A            MSMSG         77A  O 22  2
+     A  35                                  DSPATR(RI)
+     A  35                                  COLOR(RED)
+      *
+      * Subfile control
+     A          R MSGCTL                    SFLCTL(MSGSFL)
+     A                                      SFLSIZ(2)
+     A                                      SFLPAG(1)
+     A                                      OVERLAY
+     A  31                                  SFLDSP
+     A  32                                  SFLDSPCTL
+     A  33                                  SFLEND
+     A  34                                  SFLCLR
+     A*            DBFKY1        30A  O 12  2COLOR(BLU)
+     A*            DBFKY2        30A  O 13  2COLOR(BLU)
+      *
+      *=========================================================================
+      * Common footer
+      *=========================================================================
+      *
+     A          R FOOTER
+     A            FTPANEL       10A    23  2
+     A            FTUSER        10A       +2
+     A            FTDATE        10A       +2
+     A            FTTIME        10A       +2

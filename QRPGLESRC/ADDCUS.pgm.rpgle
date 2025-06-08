@@ -1,13 +1,13 @@
 **free
 
 //==============================================================================
-// ADDCUS.rpgle
-//   Show Customer Details
+// ADDCUS     - Add Customer Details
 //
 // 15/04/2021 - RM - created
 //==============================================================================
 
-/include APP_H
+ctl-opt text('Add Customer Details');
+/include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(ADDCUS);
 
 //==============================================================================
@@ -15,6 +15,17 @@ ctl-opt main(ADDCUS);
 //==============================================================================
 
 dcl-f ADDCUSD workstn infds(g_infds) indds(g_indds) sfile(MSGSFL:msrrn) usropn;
+
+//==============================================================================
+// Copybook definitions
+//==============================================================================
+
+/include 'QCPYSRC/APP_D.rpgleinc'
+/include 'QCPYSRC/APMSAL_D.rpgleinc'
+/include 'QCPYSRC/FLASH_D.rpgleinc'
+/include 'QCPYSRC/INFDS_D.rpgleinc'
+/include 'QCPYSRC/CUSDET_D.rpgleinc'
+/include 'QCPYSRC/RMAPP_D.rpgleinc'
 
 //==============================================================================
 // Define global data structures
@@ -33,23 +44,6 @@ dcl-ds g_indds;
   i_dapcod            ind pos(54);
   i_error             ind pos(90);
 end-ds;
-
-//==============================================================================
-// Define global fields
-//==============================================================================
-
-//==============================================================================
-// Copybook definitions
-//==============================================================================
-
-/include APP_D
-/include APMSAL_D
-// /include APPJOB_D
-// /include APTSAL_D
-/include FLASH_D
-/include INFDS_D
-/include CUSDET_D
-/include RMAPPENV_D
 
 //==============================================================================
 // ADDCUS
@@ -137,7 +131,7 @@ end-proc;
 
 //==============================================================================
 // add_customer
-//   Create a CUSTOMER_DETAILS row
+//   Create a CUSDET row
 //==============================================================================
 
 dcl-proc add_customer;
@@ -325,9 +319,9 @@ dcl-proc set_footer;
   dcl-pi *n end-pi;
 
   ftpanel = 'ADDCUSA';
-  ftuser = APPENV_user();
-  ftdate = %char(APPENV_date());
-  fttime = %char(APPENV_time());
+  ftuser = APP_user();
+  ftdate = %char(APP_date());
+  fttime = %char(APP_time());
 
   return;
 end-proc;
@@ -336,5 +330,4 @@ end-proc;
 // Copybook procedures
 //==============================================================================
 
-/include FLASH_P
-// /include STACK_P
+/include 'QCPYSRC/FLASH_P.rpgleinc'

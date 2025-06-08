@@ -1,1 +1,2 @@
+CALLME.PGM: CALLME.pgm.rpgle
 LINTER.PGM: LINTER.pgm.rpgle

@@ -1,0 +1,7 @@
+/* SETJOB - Set Environment On PUB400 */
+
+PGM
+
+  CHGJOB DECFMT(*BLANK)
+
+ENDPGM
