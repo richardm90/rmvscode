@@ -250,4 +250,4 @@ crtbndrpg  $TGTLIB WRKCUS     QRPGLESRC        $TGTRLS
 crtbndrpg  $TGTLIB CALLME     EXAMPLES         $TGTRLS
 crtbndrpg  $TGTLIB LINTER     EXAMPLES         $TGTRLS
 
-echo "✓ Deploy, Copy To Source Files & Compile ⮞🏛 was successful"
+echo "✓ Deploy, Copy To Source Files & Compile ⮞🏛  was successful"
