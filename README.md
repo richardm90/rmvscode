@@ -59,3 +59,8 @@ Install the following.
   *  The terminal process terminated with exit code: 1.
   *  Terminal will be reused by tasks, press any key to close it.
   ```
+
+
+* Run the `Deploy, Copy To Source Files & Compile ⮞🏛` action
+
+Fails - the library list does not include RMVSCODE
