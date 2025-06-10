@@ -2,7 +2,7 @@
 
 Sample code and application to demonstrate some of the many wonderful features
 of VS Code and the IBM i extensions.
-This repository was created as an accompanying example code for the i-UG
+This repository was created as accompanying example code for the i-UG
 i-Power Conference 2025 session and presentation titled
 **VS Code + IBM i: Tips, Tricks and Real Talk**.
 
