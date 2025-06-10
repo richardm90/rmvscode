@@ -10,7 +10,7 @@ i-Power Conference 2025 session and presentation titled
 # Credits
 
 1. The code inside the `csvutil` directory is copyright of Scott Klement from his excellent [CSV Utility](https://www.scottklement.com/csv/).
-1. I utilise the excellent A Modern RPG Application methodology within the example application. This methodology was developed by Paul Tuohy.
+1. I utilise the excellent *A Modern RPG Application* methodology within the example application. This methodology was developed by Paul Tuohy.
 
 
 
