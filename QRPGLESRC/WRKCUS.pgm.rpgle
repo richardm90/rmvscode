@@ -7,7 +7,7 @@
 //==============================================================================
 
 ctl-opt text('Work With Customers');
-/DEFINE APP_ACTGRP_NEW
+/define APP_ACTGRP_NEW
 /include 'QCPYSRC/APP_H.rpgleinc'
 ctl-opt main(WRKCUS);
 
@@ -133,64 +133,64 @@ dcl-proc WRKCUS;
 
     select;
 
-    // Accept (Enter)
-    when g_fkey = Enter;
-      // Enter pressed on subfile row, show_customer customer
-      if DACRRN > 0;
-        chain DACRRN WRKCUSAS;
-        show_customer(DASID);
-      endif;
-      // Process search and page selections
-      exsr search;
+      // Accept (Enter)
+      when g_fkey = Enter;
+        // Enter pressed on subfile row, show_customer customer
+        if DACRRN > 0;
+          chain DACRRN WRKCUSAS;
+          show_customer(DASID);
+        endif;
+        // Process search and page selections
+        exsr search;
 
-    // Return (F3)
-    when g_fkey = F3;
-      exit = true;
+      // Return (F3)
+      when g_fkey = F3;
+        exit = true;
 
-    // Add (F6)
-    when g_fkey = F6;
-      add_customer();
-      exsr refresh_subfile;
-
-    // Roll Down (F7)
-    when g_fkey = F7 or g_fkey = Rollup;
-      exsr roll_down;
-
-    // Show (F13)
-    when g_fkey = F13;
-      if DACRRN = 0;
-        addmsg('POSITION THE CURSOR ON THE CUSTOMER ROW');
-      else;
-        chain DACRRN WRKCUSAS;
-        show_customer(DASID);
-      endif;
-
-    // Update (F14)
-    when g_fkey = F14;
-      if DACRRN = 0;
-        addmsg('POSITION THE CURSOR ON THE CUSTOMER ROW');
-      else;
-        chain DACRRN WRKCUSAS;
-        update_customer(DASID);
+      // Add (F6)
+      when g_fkey = F6;
+        add_customer();
         exsr refresh_subfile;
-      endif;
 
-    // Delete (F15)
-    when g_fkey = F15;
-      if DACRRN = 0;
-        addmsg('POSITION THE CURSOR ON THE CUSTOMER ROW');
-      else;
-        chain DACRRN WRKCUSAS;
-        delete_customer(DASID);
-        exsr refresh_subfile;
-      endif;
+      // Roll Down (F7)
+      when g_fkey = F7 or g_fkey = Rollup;
+        exsr roll_down;
 
-    // Roll Up (F8)
-    when g_fkey = F8 or g_fkey = Rolldown;
-      exsr roll_up;
+      // Show (F13)
+      when g_fkey = F13;
+        if DACRRN = 0;
+          addmsg('POSITION THE CURSOR ON THE CUSTOMER ROW');
+        else;
+          chain DACRRN WRKCUSAS;
+          show_customer(DASID);
+        endif;
 
-    other;
-      addmsg('INVALID OPTION');
+      // Update (F14)
+      when g_fkey = F14;
+        if DACRRN = 0;
+          addmsg('POSITION THE CURSOR ON THE CUSTOMER ROW');
+        else;
+          chain DACRRN WRKCUSAS;
+          update_customer(DASID);
+          exsr refresh_subfile;
+        endif;
+
+      // Delete (F15)
+      when g_fkey = F15;
+        if DACRRN = 0;
+          addmsg('POSITION THE CURSOR ON THE CUSTOMER ROW');
+        else;
+          chain DACRRN WRKCUSAS;
+          delete_customer(DASID);
+          exsr refresh_subfile;
+        endif;
+
+      // Roll Up (F8)
+      when g_fkey = F8 or g_fkey = Rolldown;
+        exsr roll_up;
+
+      other;
+        addmsg('INVALID OPTION');
 
     endsl;
 
@@ -314,10 +314,10 @@ dcl-proc set_field_error;
     msg likeds(APMSAL_t) const;
   end-pi;
 
-//  select;
-//  when msg.FIELD_NAME = c_HPNSELR_DAPICK;
-//    i_dapick = true;
-//  endsl;
+  // select;
+  //   when msg.FIELD_NAME = c_HPNSELR_DAPICK;
+  //     i_dapick = true;
+  // endsl;
 
   return;
 end-proc;
