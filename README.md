@@ -20,6 +20,10 @@ i-Power Conference 2025 session and presentation titled
   * Bash
   * Better Object Builder (BOB)
     * [Better Object Builder for IBM i: Installation](https://ibm.github.io/ibmi-bob/#/getting-started/installation)
+    * Note that the BOB environment setup guide suggests setting the `PATH` to
+        include the OSS packages directory in the `.bash_profile` file, this
+        didn't work for me, what worked for me was setting it in the `.bashrc`
+        file.
 
 * On you local machine (your PC)
   * VS Code
@@ -100,7 +104,7 @@ source.
 
 If you're interested then the local action is running a Bash script to perform
 the copy source and compile, have a look in the `scripts/` directory at the
-custom `copy_to_soruce_files.sh` script.
+custom `copy_to_source_files.sh` script.
 
 
 To run the local action:
