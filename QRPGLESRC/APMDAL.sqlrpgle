@@ -20,7 +20,7 @@ ctl-opt text('Application Messages DAL');
 
 dcl-s g_error like(BOOLEAN_t);
 dcl-s g_found like(BOOLEAN_t);
-dcl-s g_first_message like(BOOLEAN_t);
+dcl-s g_first_message like(BOOLEAN_t) inz(true);
 dcl-s g_first_message_id like(INTEGER_t);
 
 //==============================================================================
