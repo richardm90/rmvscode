@@ -86,8 +86,8 @@ cl "ADDBNDDIRE BNDDIR($TGTLIB/CSV) OBJ((*LIBL/CSVR4 *SRVPGM))"
 # Copy EXAMPLES source
 #===============================================================================
 
-cpyfrmstmf "$SRCDIR/EXAMPLES/CALLME.pgm.rpgle" CALLME EXAMPLES $TGTLIB RPGLE 'Call From VS Code Example'
-cpyfrmstmf "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle" LINTER EXAMPLES $TGTLIB RPGLE 'RPGLE Linter Example'
+tweakcopy "$SRCDIR/EXAMPLES/CALLME.pgm.rpgle" CALLME EXAMPLES $TGTLIB RPGLE 'Call From VS Code Example'
+tweakcopy "$SRCDIR/EXAMPLES/LINTER.pgm.rpgle" LINTER EXAMPLES $TGTLIB RPGLE 'RPGLE Linter Example'
 
 #===============================================================================
 # Copy QBNDSRC source
