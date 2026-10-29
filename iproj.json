@@ -3,5 +3,8 @@
   "buildCommand": "makei build",
   "buildObjectCommand": "makei b -t {object}",
   "compileCommand": "makei compile -f {filename}",
-  "curlib": "&CURLIB"
+  "curlib": "&CURLIB",
+  "postUsrlibl": [
+    "RPGUNIT"
+  ]
 }

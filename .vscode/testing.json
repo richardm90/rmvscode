@@ -1,0 +1,24 @@
+{
+  "rpgunit": {
+    "rucrtrpg": {
+      "tstPgm": "&CURLIB/&SHORTNAME",
+      "tgtCcsid": "*JOB",
+      "dbgView": "*SOURCE",
+      "cOption": ["*EVENTF"],
+      "incDir": ["."]
+    },
+    "rucalltst": {
+      "tstPgm": "&CURLIB/&SHORTNAME",
+      "order": "*API",
+      "libl": "*CURRENT",
+      "jobD": "*DFT",
+      "detail": "*BASIC",
+      "output": "*ALLWAYS",
+      "rclRsc": "*NO",
+      "onFailure": "*CONTINUE"
+    }
+  },
+  "codecov": {
+    "module": []
+  }
+}
