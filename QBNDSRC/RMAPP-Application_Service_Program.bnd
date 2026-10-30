@@ -4,7 +4,7 @@
 /* 07/04/2021 - RM - created                                                  */
 /*============================================================================*/
 
-STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('SIGNATUREv000001')
+STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('SIGNATUREv000002')
   /* RMAPP01 */
   EXPORT SYMBOL(APP_job_full_name)
   EXPORT SYMBOL(APP_user)
@@ -57,6 +57,7 @@ STRPGMEXP PGMLVL(*CURRENT) SIGNATURE('SIGNATUREv000001')
   EXPORT SYMBOL(APMSAL_warning)
   EXPORT SYMBOL(APMSAL_error)
   EXPORT SYMBOL(APMSAL_add)
+  EXPORT SYMBOL(APMSAL_log)
   EXPORT SYMBOL(APMSAL_get)
   EXPORT SYMBOL(APMSAL_update)
   EXPORT SYMBOL(APMSAL_delete)

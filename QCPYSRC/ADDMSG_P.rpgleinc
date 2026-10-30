@@ -19,11 +19,11 @@ dcl-proc addmsg;
   end-pi;
 
   if %parms() >= %parmnum(type);
-    APMSAL_add(text: type: field_name);
+    APMSAL_log(text: type: field_name);
   elseif %parms() >= %parmnum(field_name);
-    APMSAL_add(text: APMSAL_TYPE_ERROR: field_name);
+    APMSAL_log(text: APMSAL_TYPE_ERROR: field_name);
   else;
-    APMSAL_add(text: APMSAL_TYPE_ERROR);
+    APMSAL_log(text: APMSAL_TYPE_ERROR);
   endif;
 
   return;

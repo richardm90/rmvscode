@@ -100,10 +100,15 @@ dcl-pr APMSAL_warning like(BOOLEAN_t) end-pr;
 dcl-pr APMSAL_error like(BOOLEAN_t) end-pr;
 
 dcl-pr APMSAL_add like(BOOLEAN_t);
+  service likeds(APMSAL_t);
+end-pr;
+
+dcl-pr APMSAL_log like(BOOLEAN_t);
   TEXT like(APMSAL_text_t) const;
   TYPE like(APMSAL_type_t) const options(*nopass);
   FIELD_NAME like(FIELD_NAME_t) const options(*nopass);
   CREATED_BY_PROCESS like(PGM_NAME_t) const options(*nopass);
+  ID like(INTEGER_t) options(*nopass: *omit);
 end-pr;
 
 dcl-pr APMSAL_get like(BOOLEAN_t);

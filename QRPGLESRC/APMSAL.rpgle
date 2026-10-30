@@ -118,44 +118,75 @@ end-proc;
 //==============================================================================
 // APMSAL_add
 //   Service layer add procedure for view APP_MESSAGES_DL
+//   - The return boolean indicates whether an error occurred during the add
+//   - The job name is always the current job
+//   - A blank field name defaults to APMSAL_FIELD_NAME_NONE and a blank created
+//     by process defaults to the process passed to APMSAL_inz
+//   - On return the structure holds the ID and the audit fields of the message
 //==============================================================================
 
 dcl-proc APMSAL_add export;
   dcl-pi *n like(BOOLEAN_t);
-    TEXT like(APMSAL_text_t) const;
-    TYPE like(APMSAL_type_t) const options(*nopass);
-    FIELD_NAME like(FIELD_NAME_t) const options(*nopass);
-    CREATED_BY_PROCESS like(PGM_NAME_t) const options(*nopass);
+    service likeds(APMSAL_t);
   end-pi;
 
-  dcl-ds service likeds(APMSAL_t) inz(*likeds);
   dcl-ds data likeds(APMDAL_t) inz(*likeds);
   dcl-s error like(BOOLEAN_t);
 
-  reset data;
+  eval-corr data = service;
   data.JOB_NAME = APP_job_full_name();
-  data.TEXT = TEXT;
-  if %parms() >= %parmnum(TYPE);
-    data.TYPE = TYPE;
-  endif;
-  if %parms() >= %parmnum(FIELD_NAME);
-    data.FIELD_NAME = FIELD_NAME;
-  endif;
   if data.FIELD_NAME = '';
     data.FIELD_NAME = APMSAL_FIELD_NAME_NONE;
-  endif;
-  if %parms() >= %parmnum(CREATED_BY_PROCESS);
-    data.CREATED_BY_PROCESS = CREATED_BY_PROCESS;
   endif;
   if data.CREATED_BY_PROCESS = '';
     data.CREATED_BY_PROCESS = g_created_by_process;
   endif;
 
   error = APMDAL_add(data);
+  eval-corr service = data;
 
   if not error;
-    eval-corr service = data;
     update_msg_count(service);
+  endif;
+
+  return error;
+end-proc;
+
+//==============================================================================
+// APMSAL_log
+//   Log a message from its parts, without building the data structure
+//   - The return boolean indicates whether an error occurred during the add
+//   - The type defaults to information
+//   - The optional id parameter returns the ID of the message that was added
+//==============================================================================
+
+dcl-proc APMSAL_log export;
+  dcl-pi *n like(BOOLEAN_t);
+    TEXT like(APMSAL_text_t) const;
+    TYPE like(APMSAL_type_t) const options(*nopass);
+    FIELD_NAME like(FIELD_NAME_t) const options(*nopass);
+    CREATED_BY_PROCESS like(PGM_NAME_t) const options(*nopass);
+    ID like(INTEGER_t) options(*nopass: *omit);
+  end-pi;
+
+  dcl-ds service likeds(APMSAL_t) inz(*likeds);
+  dcl-s error like(BOOLEAN_t);
+
+  service.TEXT = TEXT;
+  if %parms() >= %parmnum(TYPE);
+    service.TYPE = TYPE;
+  endif;
+  if %parms() >= %parmnum(FIELD_NAME);
+    service.FIELD_NAME = FIELD_NAME;
+  endif;
+  if %parms() >= %parmnum(CREATED_BY_PROCESS);
+    service.CREATED_BY_PROCESS = CREATED_BY_PROCESS;
+  endif;
+
+  error = APMSAL_add(service);
+
+  if %passed(ID);
+    ID = service.ID;
   endif;
 
   return error;
