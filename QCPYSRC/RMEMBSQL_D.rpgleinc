@@ -21,6 +21,13 @@
 // Declare data structure
 ///
 
+// - set      the state has been populated from the last SQL statement
+// - error    the statement failed (any SQLSTATE class other than 00, 01, 02)
+// - diag     the statement completed with a warning (class 01) or a no data
+//            condition other than 02000/100 (class 02); never set together
+//            with error
+// - found    the statement completed without error and, if it was a select,
+//            returned a row (not SQLSTATE 02000 with SQLCODE 100)
 dcl-ds EMBSQL_state_t qualified template inz;
   set like(BOOLEAN_t) inz(false);
   sqlstate like(EMBSQL_sqlstate_t) inz('00000');

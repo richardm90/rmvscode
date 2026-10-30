@@ -43,7 +43,7 @@ end-proc;
 // If previously set, since the last EMBSQL_inz() procedure call, then the
 // previously set global SQL state is simply returned
 //
-// Diagnostic and error messages are recorded in APP_MESSAGES
+// Diagnostic and error messages are written to the job log, see log_message
 //
 // @return the global SQL state
 ///
@@ -275,10 +275,17 @@ end-proc;
 
 //==============================================================================
 // log_message
-//   Logs diagnostic and error messages to the APP_MESSAGES table
+//   Writes diagnostic and error messages to the job log
+//   - a diagnostic (warning or no data) is always logged as an information
+//     message
+//   - an error is logged as an information message, or when throw_error is
+//     passed as true, thrown as an escape message (this procedure ends and
+//     the escape propagates to the caller of the procedure that called it)
+//   - the state is expected to have either diag or error set, not both
+//   Not exported, it is only used within this module
 //==============================================================================
 
-dcl-proc log_message export;
+dcl-proc log_message;
   dcl-pi *n;
     state likeds(EMBSQL_state_t) const;
     throw_error like(BOOLEAN_t) const options(*nopass);
@@ -302,9 +309,9 @@ dcl-proc log_message export;
 
     if state.error;
       if throw_error_l;
-        APP_log(msg);
-      else;
         APP_escape(msg);
+      else;
+        APP_log(msg);
       endif;
     endif;
   endif;
