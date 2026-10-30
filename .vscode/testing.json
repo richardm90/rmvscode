@@ -4,8 +4,8 @@
       "tstPgm": "&CURLIB/&SHORTNAME",
       "tgtCcsid": "*JOB",
       "dbgView": "*SOURCE",
-      "cOption": ["*EVENTF"],
-      "incDir": ["."]
+      "rpgPpOpt": "*LVL2",
+      "cOption": ["*EVENTF"]
     },
     "rucalltst": {
       "tstPgm": "&CURLIB/&SHORTNAME",
