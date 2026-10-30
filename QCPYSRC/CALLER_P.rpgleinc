@@ -113,12 +113,14 @@ dcl-proc retrieve_caller;
 
   CSTK0100 = rtvCallStack.Receiver;
 
+  // Walk the call stack, skipping the entries of the RMAPP service program
+  // (this procedure and the message layers that called it) to find the
+  // application code that raised the message
   offset = CSTK0100.StackOffset;
-  for index = 1 to CSTK0100.StackOffset;
+  for index = 1 to CSTK0100.NumReturned;
     StackEntry_p = %addr(CSTK0100) + offset;
 
-    if StackEntry.ProgramName <> 'RMAPPMSG'
-      and StackEntry.ProgramName <> 'RMEMBSQL';
+    if StackEntry.ProgramName <> 'RMAPP';
       Statement_p = StackEntry_p + StackEntry.StatementDisp;
       Procedure_p = StackEntry_p + StackEntry.ProcedureDisp;
       caller.pgm_name = StackEntry.ProgramName;
