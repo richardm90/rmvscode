@@ -9,9 +9,6 @@
 // procedures are pure functions with no database, IFS or job dependencies, so
 // no setUp/tearDown is needed.
 //
-// Tests marked RED document a defect in RMAPP02 and are expected to fail until
-// the module is fixed.
-//
 // 29/10/2026 - RM - created
 //==============================================================================
 
@@ -225,12 +222,10 @@ dcl-proc test_APP_calc_page_data_page_beyond_end export;
   iEqual(0: page_size: 'page_size');
 end-proc;
 
-// RED: with a single page of results, asking for page 2 yields row_offset 0
-// but page_size 6 (total_rows + 1) instead of 0. The (total_rows - row_offset)
-// + 1 branch runs with the reset row_offset. It is only guarded by
-// "page_size > req_page_rows", which a short result does not trip.
-// CUSDETDL_list would then fetch 6 rows relative 0.
-// Fix: treat "row_offset reset to 0" as out of range and set page_size = 0.
+// Regression: with a single page of results, asking for page 2 used to yield
+// row_offset 0 but page_size 6 (total_rows + 1) instead of 0, because the
+// last-page calculation ran with the reset row_offset and a short result did
+// not trip the "page_size > req_page_rows" guard.
 dcl-proc test_APP_calc_page_data_page_beyond_end_single_page export;
   dcl-pi *n extproc(*dclcase) end-pi;
 
@@ -314,11 +309,9 @@ dcl-proc test_APP_where_add_string_wrap_in_quotes_true export;
   assert_text('WHERE NAME = ''ABC''': clause: 'clause');
 end-proc;
 
-// RED: a single quote in the value is not doubled, so the clause is broken
-// SQL (and an injection vector). RMAPP02.rpgle:APP_where_add_string,
-// APP_where_add_starts_with and APP_where_add_contains all concatenate the
-// value unescaped. Fix: %scanrpl('''': '''''': field_value) before building
-// the selection text.
+// Regression: a single quote in the value used to be left undoubled, giving
+// broken SQL (and an injection vector). APP_where_add_string,
+// APP_where_add_starts_with and APP_where_add_contains now escape it.
 dcl-proc test_APP_where_add_string_escapes_quote export;
   dcl-pi *n extproc(*dclcase) end-pi;
 

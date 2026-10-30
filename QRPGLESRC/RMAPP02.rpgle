@@ -64,17 +64,19 @@ dcl-proc APP_calc_page_data export;
     // Calculate row offset
     row_offset = ((calc.req_page - 1) * calc.req_page_rows) + 1;
     if row_offset > calc.total_rows or row_offset < 0;
+      // Requested page is beyond the last page, there is nothing to return
       row_offset = 0;
-    endif;
-
-    // Calculate page size
-    if calc.req_page < calc.total_pages;
-      page_size = calc.req_page_rows;
-    else;
-      page_size = (calc.total_rows - row_offset) + 1;
-    endif;
-    if page_size < 0 or page_size > calc.req_page_rows;
       page_size = 0;
+    else;
+      // Calculate page size
+      if calc.req_page < calc.total_pages;
+        page_size = calc.req_page_rows;
+      else;
+        page_size = (calc.total_rows - row_offset) + 1;
+      endif;
+      if page_size < 0 or page_size > calc.req_page_rows;
+        page_size = 0;
+      endif;
     endif;
   endif;
 
@@ -114,7 +116,7 @@ dcl-proc APP_where_add_string export;
 
   if field_value <> '';
     if l_wrap_in_quotes;
-      selection_text += field + ' = ''' + field_value + '''';
+      selection_text += field + ' = ''' + escape_quotes(field_value) + '''';
     else;
       selection_text += field + ' = ' + field_value;
     endif;
@@ -180,7 +182,7 @@ dcl-proc APP_where_add_starts_with export;
   dcl-s selection_text like(STRING_SQL_t);
 
   if field_value <> '';
-    selection_text = field + ' LIKE ''' + field_value + '%''';
+    selection_text = field + ' LIKE ''' + escape_quotes(field_value) + '%''';
 
     statement += add_where_selection_text(selection_text: selections_added);
   endif;
@@ -215,7 +217,8 @@ dcl-proc APP_where_add_contains export;
   dcl-s selection_text like(STRING_SQL_t);
 
   if field_value <> '';
-    selection_text = 'LOWER('+field+') LIKE ''%'+%lower(field_value)+'%''';
+    selection_text = 'LOWER('+field+') LIKE ''%'
+                   + escape_quotes(%lower(field_value)) + '%''';
 
     statement += add_where_selection_text(selection_text: selections_added);
   endif;
@@ -335,6 +338,22 @@ dcl-proc APP_where_add_integer_range export;
   endif;
 
   return statement;
+end-proc;
+
+///
+// Escape single quotes in a value that is to be placed inside an SQL string
+// literal, by doubling them.
+//
+// @param the value e.g. O'BRIEN
+// @return the escaped value e.g. O''BRIEN
+///
+
+dcl-proc escape_quotes;
+  dcl-pi *n like(STRING_SQL_t);
+    value like(STRING_SQL_t) const;
+  end-pi;
+
+  return %scanrpl('''': '''''': value);
 end-proc;
 
 dcl-proc add_where_selection_text;
