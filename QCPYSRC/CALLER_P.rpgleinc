@@ -99,6 +99,10 @@ dcl-proc retrieve_caller;
   dcl-ds caller likeds(CALLER_t) inz(*likeds);
   dcl-s index like(INTEGER_t);
   dcl-s offset like(INTEGER_t);
+  dcl-s proc_name like(caller.proc_name);
+
+  // Procedures of the ADDMSG copybook, which wrap the message layer
+  dcl-c SKIP_PROC_PREFIX 'ADDMSG';
 
   // Get API to get the call stack
   rtvCallStack.Receiver = CSTK0100;
@@ -114,8 +118,9 @@ dcl-proc retrieve_caller;
   CSTK0100 = rtvCallStack.Receiver;
 
   // Walk the call stack, skipping the entries of the RMAPP service program
-  // (this procedure and the message layers that called it) to find the
-  // application code that raised the message
+  // (this procedure and the message layers that called it) and the ADDMSG
+  // procedures (compiled into the calling program, so not part of RMAPP) to
+  // find the application code that raised the message
   offset = CSTK0100.StackOffset;
   for index = 1 to CSTK0100.NumReturned;
     StackEntry_p = %addr(CSTK0100) + offset;
@@ -123,14 +128,18 @@ dcl-proc retrieve_caller;
     if StackEntry.ProgramName <> 'RMAPP';
       Statement_p = StackEntry_p + StackEntry.StatementDisp;
       Procedure_p = StackEntry_p + StackEntry.ProcedureDisp;
-      caller.pgm_name = StackEntry.ProgramName;
       if StackEntry.LenProcedure <= %size(caller.proc_name);
-        caller.proc_name = %subst(Procedure.name: 1: StackEntry.LenProcedure);
+        proc_name = %subst(Procedure.name: 1: StackEntry.LenProcedure);
       else;
-        caller.proc_name = Procedure.name;
+        proc_name = Procedure.name;
       endif;
-      caller.statement = Statement.identifier(1);
-      leave;
+
+      if %scan(SKIP_PROC_PREFIX: %upper(proc_name)) <> 1;
+        caller.pgm_name = StackEntry.ProgramName;
+        caller.proc_name = proc_name;
+        caller.statement = Statement.identifier(1);
+        leave;
+      endif;
     endif;
 
     offset += StackEntry.Length;
