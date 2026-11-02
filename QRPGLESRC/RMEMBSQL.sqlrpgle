@@ -224,16 +224,11 @@ end-proc;
 // Throw an escape message when an error occurs
 //
 // This procedure is the same as EMBSQL_state other than the fact that an
-// an error is thrown
+// error is thrown, instead of logged, and the escape propagates to the caller
+// of the procedure that called EMBSQL_check
 //
 // @return the SQL state
 ///
-
-//==============================================================================
-// EMBSQL_check
-//   Throw an escape message when an error occurs
-//   -
-//==============================================================================
 
 dcl-proc EMBSQL_check export;
   dcl-pi *n likeds(EMBSQL_state_t) end-pi;
