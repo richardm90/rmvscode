@@ -59,12 +59,15 @@ dcl-proc set_state;
 end-proc;
 
 ///
-// Returns the current SQL state, as a data structure
+// Builds the SQL state from the last SQL statement
 //
-// @return the global SQL state
+// Must be called straight after the SQL statement, as GET DIAGNOSTICS reflects
+// the last SQL statement in the job. No messages are written, see log_message.
+//
+// @return the SQL state
 ///
 
-dcl-proc EMBSQL_state export;
+dcl-proc build_state;
   dcl-pi *n likeds(EMBSQL_state_t) end-pi;
 
   dcl-ds state likeds(EMBSQL_state_t) inz(*likeds);
@@ -96,6 +99,22 @@ dcl-proc EMBSQL_state export;
     and ( state.sqlstate <> '02000' or state.sqlcode <> 100);
     state.found = true;
   endif;
+
+  return state;
+end-proc;
+
+///
+// Returns the current SQL state, as a data structure
+//
+// @return the global SQL state
+///
+
+dcl-proc EMBSQL_state export;
+  dcl-pi *n likeds(EMBSQL_state_t) end-pi;
+
+  dcl-ds state likeds(EMBSQL_state_t) inz(*likeds);
+
+  state = build_state();
 
   log_message(state);
 
@@ -235,33 +254,7 @@ dcl-proc EMBSQL_check export;
 
   dcl-ds state likeds(EMBSQL_state_t) inz(*likeds);
 
-  reset state;
-  state.set = true;
-
-  // Set state.sqlstate, state.sqlcode and state.msg
-  exec sql GET DIAGNOSTICS CONDITION 1
-    :state.sqlstate = RETURNED_SQLSTATE,
-    :state.sqlcode = DB2_RETURNED_SQLCODE,
-    :state.msg = MESSAGE_TEXT;
-
-  // Set state.diag and state.error
-  select;
-    when %subst(state.sqlstate:1:2) = '00'  // Class Code 00: Unqualified Successful Completion
-      or (state.sqlstate = '02000' and state.sqlcode = 100);
-      // Nothing to do!
-    when %subst(state.sqlstate:1:2) = '01'; // Class Code 01: Warning
-      state.diag = true;
-    when %subst(state.sqlstate:1:2) = '02'; // Class Code 02: No Data
-      state.diag = true;
-    other;
-      state.error = true;
-  endsl;
-
-  // Set state.found
-  if not state.error
-    and ( state.sqlstate <> '02000' or state.sqlcode <> 100);
-    state.found = true;
-  endif;
+  state = build_state();
 
   log_message(state: true);
 
