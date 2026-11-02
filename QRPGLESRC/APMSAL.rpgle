@@ -28,7 +28,6 @@ dcl-s g_msg_count_error like(INTEGER_t);
 /include 'QCPYSRC/APP_D.rpgleinc'
 /include 'QCPYSRC/APMDAL_D.rpgleinc'
 /include 'QCPYSRC/APMSAL_D.rpgleinc'
-/include 'QCPYSRC/PSDS_D.rpgleinc'
 
 //==============================================================================
 // APMSAL_inz
@@ -373,7 +372,7 @@ end-proc;
 // APMSAL_open_desc
 //   Service layer open_desc cursor procedure for view APP_MESSAGES_DL
 //   - The return boolean indicates whether an error occurred during the open
-//   - Valid selections; JOB_NAME, FIELD_NAME and TYPE
+//   - Valid selections; JOB_NAME and TYPE
 //==============================================================================
 
 dcl-proc APMSAL_open_desc export;
@@ -488,18 +487,4 @@ dcl-proc APMSAL_fetch_last export;
   endif;
 
   return found;
-end-proc;
-
-//==============================================================================
-
-dcl-proc APP_job_full_name;
-  dcl-pi *n like(JOB_FULL_NAME_t) end-pi;
-
-  dcl-s job like(JOB_FULL_NAME_t);
-
-  job = %editc(psds.job_number:'X') + '/'
-      + %trimr(psds.job_user) + '/'
-      + %trimr(psds.job_name);
-
-  return job;
 end-proc;
