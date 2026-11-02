@@ -39,15 +39,11 @@ dcl-proc APMSAL_inz export;
     process like(PGM_NAME_t) const options(*nopass);
   end-pi;
 
-  dcl-ds data likeds(APMDAL_t) inz(*likeds);
-
   reset g_created_by_process;
   if %parms() >= %parmnum(process) and process <> '';
     g_created_by_process = process;
   endif;
 
-  reset data;
-  data.JOB_NAME = APP_job_full_name();
   APMDAL_first_message(true);
 
   reset g_msg_count;
